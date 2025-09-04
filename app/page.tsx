@@ -10,20 +10,21 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const projects = [
   {
-    title: "AI Content Generator",
-    type: "Web Application",
-    description: "Smart content creation with GPT-4o integration",
+    title: "Insightix AI",
+    type: "AI Analytics Platform",
+    description: "AI-driven insights that transform your business",
     index: "01",
     hoverColor: "bg-[#EEF2FF]", // Soft indigo
     accentColor: "#6366F1",
     details: {
       overview:
-        "A sophisticated content generation platform that leverages GPT-4o to create high-quality, contextually relevant content for various use cases.",
-      technologies: ["React", "Next.js", "GPT-4o API", "Tailwind CSS", "TypeScript"],
-      features: ["Real-time content generation", "Multiple content formats", "Custom prompts", "Export functionality"],
+        "A sophisticated AI analytics platform that unlocks the power of your data with AI-driven insights. Features a clean, modern interface with powerful analytics and visualization tools tailored for modern enterprises.",
+      technologies: ["React", "Next.js", "AI/ML", "Tailwind CSS", "TypeScript", "Data Visualization"],
+      features: ["AI-driven analytics", "Real-time data visualization", "Business intelligence", "Custom dashboards", "Enterprise scalability"],
       liveUrl: "#",
       codeUrl: "#",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/landings/hero insightx AI.png",
+      fullWebsiteImage: "/landings/full_insightx.png",
     },
   },
   {
@@ -152,7 +153,7 @@ export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isAnimating, setIsAnimating] = useState(false)
   const [isFullscreenView, setIsFullscreenView] = useState(false)
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list')
+  const [viewMode, setViewMode] = useState<'grid'>('grid')
   
   // Refs for GSAP animations
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -231,9 +232,8 @@ export default function Portfolio() {
     }
   }
 
-  // Add a function to handle view mode change and close fullscreen view
-  const handleViewModeChange = (mode: 'list' | 'grid') => {
-    setViewMode(mode)
+  // Add a function to close fullscreen view
+  const handleCloseFullscreen = () => {
     setSelectedProject(null)
     setIsFullscreenView(false)
     // Reset main content style to ensure visibility
@@ -327,78 +327,63 @@ export default function Portfolio() {
           "-=0.3"
         )
         .call(() => {
-          // Simplified animations to fix compilation issues
-          // Engineer word - simple animation
-          gsap.to(engineerWord, {
-            y: -4,
-            duration: 2,
-            ease: "power1.inOut",
-            repeat: 1,
-            yoyo: true,
-            delay: 0
+          // Dynamic rotating gradient animation
+          const words = [engineerWord, designerWord, frontendWord, aiWord, speedWord, uxWord]
+                     const colors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#A855F7", "#EC4899", "#10B981", "#F59E0B"]
+          
+          // Create a continuous color cycling effect - all words together
+          const colorCycle = gsap.timeline({ repeat: -1 })
+          
+          // Cycle through different colors - all words change together
+          colors.forEach((color, colorIndex) => {
+            colorCycle.to(words, {
+              color: color,
+              duration: 0.8,
+              ease: "power2.inOut",
+              delay: colorIndex * 0.1
+            })
           })
           
-          // Designer word - simple animation
-          gsap.to(designerWord, {
-            y: -4,
-            duration: 2,
-            ease: "power1.inOut",
-            repeat: 1,
+          // Continuous scale pulsing
+          gsap.to(words, {
+            scale: 1.05,
+            duration: 1.2,
+            ease: "sine.inOut",
+            repeat: -1,
             yoyo: true,
-            delay: 0.3
+            stagger: {
+              each: 0.15,
+              repeat: -1
+            },
+            immediateRender: true
           })
           
-          // Frontend word - simple animation
-          gsap.to(frontendWord, {
-            y: -4,
-            duration: 2,
-            ease: "power1.inOut",
-            repeat: 1,
-            yoyo: true,
-            delay: 0.6
-          })
-          
-          // AI word - simple animation
-          gsap.to(aiWord, {
-            y: -4,
-            duration: 2,
-            ease: "power1.inOut",
-            repeat: 1,
-            yoyo: true,
-            delay: 0.9
-          })
-          
-          // Speed word - simple animation
-          gsap.to(speedWord, {
-            y: -4,
-            duration: 2,
-            ease: "power1.inOut",
-            repeat: 1,
-            yoyo: true,
-            delay: 1.2
-          })
-          
-          // UX word - simple animation
-          gsap.to(uxWord, {
-            y: -4,
-            duration: 2,
-            ease: "power1.inOut",
-            repeat: 1,
-            yoyo: true,
-            delay: 1.5
-          })
-          
-          // Simple color animation
-          gsap.to([engineerWord, designerWord, frontendWord, aiWord, speedWord, uxWord], {
-            color: "#6366F1",
+          // Rotating glow effect
+          gsap.to(words, {
+            filter: "drop-shadow(0 0 8px rgba(255, 107, 107, 0.6))",
             duration: 1.5,
-            ease: "power1.inOut",
+            ease: "power2.inOut",
+            repeat: -1,
+            yoyo: true,
             stagger: {
               each: 0.2,
-              repeat: 1,
-              repeatDelay: 1
+              repeat: -1
             },
-            yoyo: true
+            immediateRender: true
+          })
+          
+          // Add rotation for more dynamic feel
+          gsap.to(words, {
+            rotation: 2,
+            duration: 3,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+            stagger: {
+              each: 0.1,
+              repeat: -1
+            },
+            immediateRender: true
           })
         })
     }
@@ -541,51 +526,6 @@ export default function Portfolio() {
                 >
                   Selected Work
                 </motion.h2>
-                
-                {/* View Mode Toggle */}
-                <div className="relative flex items-center bg-[var(--card)] border border-[var(--border)] rounded-full p-1 shadow-sm">
-                  {/* Sliding background pill */}
-                  <motion.div
-                    className="absolute top-1 h-8 rounded-full bg-[var(--background)] shadow-sm"
-                    initial={false}
-                    animate={{
-                      width: "4.5rem",
-                      x: viewMode === 'list' ? 2 : 66
-                    }}
-                    transition={{ 
-                      type: "spring", 
-                      stiffness: 300, 
-                      damping: 25,
-                      duration: 0.4
-                    }}
-                  />
-                  
-                  {/* List button */}
-                  <button
-                    className={`relative z-10 w-[4.5rem] h-8 rounded-full text-sm font-medium transition-colors duration-200 flex items-center justify-center ${
-                      viewMode === 'list' 
-                        ? 'text-[var(--text-primary)]' 
-                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                    }`}
-                    onClick={() => handleViewModeChange('list')}
-                    aria-pressed={viewMode === 'list'}
-                  >
-                    <span>List</span>
-                  </button>
-                  
-                  {/* Grid button */}
-                  <button
-                    className={`relative z-10 w-[4.5rem] h-8 rounded-full text-sm font-medium transition-colors duration-200 flex items-center justify-center ${
-                      viewMode === 'grid' 
-                        ? 'text-[var(--text-primary)]' 
-                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                    }`}
-                    onClick={() => handleViewModeChange('grid')}
-                    aria-pressed={viewMode === 'grid'}
-                  >
-                    <span>Grid</span>
-                  </button>
-                </div>
               </div>
               <motion.div 
                 className="w-full h-px bg-[var(--border)]"
@@ -601,170 +541,91 @@ export default function Portfolio() {
               />
             </div>
             
-            {/* Projects List or Grid */}
-            <AnimatePresence mode="wait" initial={false}>
-              {viewMode === 'list' ? (
-                <motion.div
-                  key="list"
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -24 }}
-                  transition={{ duration: 0.4, ease: 'easeInOut' }}
-                  className="space-y-0"
-                >
-                  {projects.map((project, index) => (
-                    <motion.div
-                      key={index}
-                      className="project-item border-b border-[var(--border)] last:border-b-0 group"
-                      initial={{ opacity: 0, x: -20, scale: 0.95 }}
-                      animate={{ opacity: 1, x: 0, scale: 1 }}
-                      transition={{ 
-                        duration: 0.5, 
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                        delay: index * 0.08,
-                        type: "spring",
-                        stiffness: 100,
-                        damping: 15
-                      }}
-                      whileHover={{ 
-                        scale: 1.01, 
-                        x: 8,
-                        boxShadow: '0 2px 16px 0 rgba(0,0,0,0.04)',
-                        transition: { duration: 0.3, ease: "easeOut" }
-                      }}
-                      onMouseEnter={() => setHoveredProject(index)}
-                      onMouseLeave={() => setHoveredProject(null)}
-                      onMouseMove={handleMouseMove}
-                      onClick={() => handleProjectClick(index)}
-                    >
-                      <div className="py-10 md:py-12 transition-all duration-500 cursor-pointer hover:bg-gray-50/80 dark:hover:bg-white/5">
-                        <div className="grid grid-cols-12 gap-4 md:gap-8 items-center">
-                          <div className="col-span-1">
-                            <motion.span
-                              className="font-mono text-sm transition-colors duration-300"
-                              style={{ color: hoveredProject === index ? project.accentColor : 'var(--text-tertiary)' }}
-                              whileHover={{ scale: 1.1, rotate: 5 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              {project.index}
-                            </motion.span>
-                          </div>
-                          <div className="col-span-8 md:col-span-7">
-                            <motion.h3
-                              className="text-2xl md:text-3xl lg:text-4xl font-light leading-tight transition-all duration-300"
-                              style={{ color: hoveredProject === index ? project.accentColor : 'var(--text-primary)' }}
-                              whileHover={{ x: 8 }}
-                              transition={{ duration: 0.3, ease: "easeOut" }}
-                            >
-                              {project.title}
-                            </motion.h3>
-                          </div>
-                          <div className="col-span-3 md:col-span-4 text-right">
-                            <motion.div 
-                              className="space-y-1 opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-                              whileHover={{ y: -2 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <p className="text-[var(--text-tertiary)] font-mono text-xs uppercase tracking-wider">{project.type}</p>
-                              <p className="text-[var(--text-secondary)] text-sm leading-relaxed hidden md:block">
-                                {project.description}
-                              </p>
-                            </motion.div>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="grid"
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -24 }}
-                  transition={{ duration: 0.4, ease: 'easeInOut' }}
-                  className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6"
-                >
-                  {projects.map((project, index) => (
-                    <motion.div
-                      key={index}
-                      className="break-inside-avoid mb-6"
-                      initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{ 
-                        duration: 0.6, 
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                        delay: index * 0.1,
-                        type: "spring",
-                        stiffness: 80,
-                        damping: 20
-                      }}
-                      whileHover={{ 
-                        scale: 1.02, 
-                        y: -4,
-                        boxShadow: '0 20px 40px 0 rgba(0,0,0,0.12)',
-                        transition: { duration: 0.4, ease: "easeOut" }
-                      }}
-                      onClick={() => handleProjectClick(index)}
-                    >
+                         {/* Projects Grid */}
+             <motion.div
+               key="grid"
+               initial={{ opacity: 0, y: 24 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.4, ease: 'easeInOut' }}
+               className="columns-1 md:columns-2 gap-8 space-y-8"
+             >
+              {projects.map((project, index) => (
+                                 <motion.div
+                   key={index}
+                   className="break-inside-avoid mb-8"
+                   initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                   animate={{ opacity: 1, y: 0, scale: 1 }}
+                   transition={{ 
+                     duration: 0.6, 
+                     ease: [0.25, 0.46, 0.45, 0.94],
+                     delay: index * 0.1,
+                     type: "spring",
+                     stiffness: 80,
+                     damping: 20
+                   }}
+                   whileHover={{ 
+                     transition: { duration: 0.4, ease: "easeOut" }
+                   }}
+                   onClick={() => handleProjectClick(index)}
+                 >
+                   <div 
+                     className="relative overflow-hidden rounded-xl cursor-pointer group"
+                     style={{ 
+                       backgroundColor: project.accentColor + '10',
+                       border: `1px solid ${project.accentColor}20`
+                     }}
+                     onMouseEnter={() => setHoveredProject(index)}
+                     onMouseLeave={() => setHoveredProject(null)}
+                     onMouseMove={handleMouseMove}
+                   >
+                     {/* Image placeholder with project accent - larger aspect ratio */}
+                     <div 
+                       className="aspect-[3/2] bg-gradient-to-br from-[var(--card)] to-[var(--background)] flex items-center justify-center relative overflow-hidden"
+                       style={{
+                         background: project.index === "01" 
+                           ? `url('/landings/hero insightx AI.png') center/cover`
+                           : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
+                       }}
+                     >
+                      {/* Subtle accent overlay */}
                       <div 
-                        className="relative overflow-hidden rounded-2xl cursor-pointer group"
-                        style={{ 
-                          backgroundColor: project.accentColor + '10',
-                          border: `1px solid ${project.accentColor}20`
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{
+                          background: `radial-gradient(circle at 50% 50%, ${project.accentColor}20 0%, transparent 70%)`
                         }}
-                        onMouseEnter={() => setHoveredProject(index)}
-                        onMouseLeave={() => setHoveredProject(null)}
-                        onMouseMove={handleMouseMove}
+                      />
+                      
+                      {/* Project index in corner */}
+                      <div 
+                        className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-sm font-mono font-medium opacity-60 group-hover:opacity-100 transition-all duration-300"
+                        style={{
+                          backgroundColor: project.accentColor + '20',
+                          color: project.accentColor
+                        }}
                       >
-                        {/* Image placeholder with project accent */}
-                        <div 
-                          className="aspect-[4/3] bg-gradient-to-br from-[var(--card)] to-[var(--background)] flex items-center justify-center relative overflow-hidden"
-                          style={{
-                            background: `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
-                          }}
-                        >
-                          {/* Subtle accent overlay */}
-                          <div 
-                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                            style={{
-                              background: `radial-gradient(circle at 50% 50%, ${project.accentColor}20 0%, transparent 70%)`
-                            }}
-                          />
-                          
-                          {/* Project index in corner */}
-                          <div 
-                            className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-sm font-mono font-medium opacity-60 group-hover:opacity-100 transition-all duration-300"
-                            style={{
-                              backgroundColor: project.accentColor + '20',
-                              color: project.accentColor
-                            }}
-                          >
-                            {project.index}
-                          </div>
-                          
-                          {/* Hover accent dots */}
-                          <motion.div
-                            className="absolute top-4 right-4 w-2 h-2 rounded-full opacity-0 group-hover:opacity-100"
-                            style={{ backgroundColor: project.accentColor }}
-                            initial={{ scale: 0, rotate: 0 }}
-                            whileHover={{ scale: 1, rotate: 180 }}
-                            transition={{ duration: 0.4, delay: 0.1 }}
-                          />
-                          <motion.div
-                            className="absolute bottom-4 right-4 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100"
-                            style={{ backgroundColor: project.accentColor }}
-                            initial={{ scale: 0, rotate: 0 }}
-                            whileHover={{ scale: 1, rotate: -180 }}
-                            transition={{ duration: 0.4, delay: 0.2 }}
-                          />
-                        </div>
+                        {project.index}
                       </div>
-                    </motion.div>
-                  ))}
+                      
+                      {/* Hover accent dots */}
+                      <motion.div
+                        className="absolute top-4 right-4 w-2 h-2 rounded-full opacity-0 group-hover:opacity-100"
+                        style={{ backgroundColor: project.accentColor }}
+                        initial={{ scale: 0, rotate: 0 }}
+                        whileHover={{ scale: 1, rotate: 180 }}
+                        transition={{ duration: 0.4, delay: 0.1 }}
+                      />
+                      <motion.div
+                        className="absolute bottom-4 right-4 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100"
+                        style={{ backgroundColor: project.accentColor }}
+                        initial={{ scale: 0, rotate: 0 }}
+                        whileHover={{ scale: 1, rotate: -180 }}
+                        transition={{ duration: 0.4, delay: 0.2 }}
+                      />
+                    </div>
+                  </div>
                 </motion.div>
-              )}
-            </AnimatePresence>
+              ))}
+            </motion.div>
           </div>
         </section>
 
@@ -818,54 +679,91 @@ export default function Portfolio() {
           opacity: selectedProject !== null ? 1 : 0
         }}
       >
-        {selectedProject !== null && (
-          <div className="min-h-screen w-full flex flex-col">
-            {/* Project Navigation Header */}
-            <div className="sticky top-0 z-50 bg-[var(--background)]/90 backdrop-blur-xl border-b border-[var(--border)] transition-colors duration-300">
-              <div className="max-w-7xl mx-auto px-8 py-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-6">
-                    <button
-                      onClick={closeFullscreenView}
-                      className="w-10 h-10 rounded-full bg-[var(--card)] hover:bg-[var(--border)] flex items-center justify-center transition-all duration-300 hover:scale-105"
-                    >
-                      <ArrowLeft size={18} className="text-[var(--text-primary)]" />
-                    </button>
-                    <div className="flex items-center gap-4">
-                      <div
-                        className="px-3 py-1.5 rounded-full text-sm font-mono"
-                        style={{
-                          backgroundColor: `${projects[selectedProject].accentColor}15`,
-                          color: projects[selectedProject].accentColor
-                        }}
-                      >
-                        {projects[selectedProject].index}
-                      </div>
-                      <span className="text-[var(--text-primary)] font-medium text-lg">
-                        {projects[selectedProject].title}
-                      </span>
-                    </div>
-                  </div>
-                  <a
-                    href={projects[selectedProject].details.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--card)] hover:bg-[var(--border)] text-sm text-[var(--text-primary)] transition-all duration-300 hover:scale-105 group"
-                  >
-                    <span>View Live</span>
-                    <ExternalLink 
-                      size={14} 
-                      className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
+                 {selectedProject !== null && (
+           <div className="h-screen w-full flex flex-col">
+             {/* Project Navigation Header */}
+             <div className="flex-shrink-0 bg-[var(--background)]/90 backdrop-blur-xl border-b border-[var(--border)] transition-colors duration-300">
+               <div className="max-w-7xl mx-auto px-8 py-6">
+                 <div className="flex items-center justify-between">
+                   <div className="flex items-center gap-6">
+                     <button
+                       onClick={closeFullscreenView}
+                       className="w-10 h-10 rounded-full bg-[var(--card)] hover:bg-[var(--border)] flex items-center justify-center transition-all duration-300 hover:scale-105"
+                     >
+                       <ArrowLeft size={18} className="text-[var(--text-primary)]" />
+                     </button>
+                     <div className="flex items-center gap-4">
+                       <div
+                         className="px-3 py-1.5 rounded-full text-sm font-mono"
+                         style={{
+                           backgroundColor: `${projects[selectedProject].accentColor}15`,
+                           color: projects[selectedProject].accentColor
+                         }}
+                       >
+                         {projects[selectedProject].index}
+                       </div>
+                       <span className="text-[var(--text-primary)] font-medium text-lg">
+                         {projects[selectedProject].title}
+                       </span>
+                     </div>
+                   </div>
+                   {projects[selectedProject].details.fullWebsiteImage ? (
+                     <div className="w-1/2 flex justify-center">
+                       <div 
+                         className="flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-medium text-white shadow-lg backdrop-blur-sm border"
+                         style={{
+                           backgroundColor: `${projects[selectedProject].accentColor}20`,
+                           borderColor: `${projects[selectedProject].accentColor}40`,
+                           boxShadow: `0 8px 32px ${projects[selectedProject].accentColor}20`
+                         }}
+                       >
+                         <div 
+                           className="w-2 h-2 rounded-full animate-pulse"
+                           style={{ backgroundColor: projects[selectedProject].accentColor }}
+                         ></div>
+                         <span>Scroll to explore</span>
+                         <motion.div
+                           animate={{ y: [0, 4, 0] }}
+                           transition={{ duration: 1.5, repeat: -1, ease: "easeInOut" }}
+                           className="w-4 h-4 flex items-center justify-center"
+                         >
+                           <svg 
+                             width="12" 
+                             height="12" 
+                             viewBox="0 0 24 24" 
+                             fill="none" 
+                             stroke="currentColor" 
+                             strokeWidth="2" 
+                             strokeLinecap="round" 
+                             strokeLinejoin="round"
+                           >
+                             <path d="M7 13l3 3 3-3M7 6l3 3 3-3"/>
+                           </svg>
+                         </motion.div>
+                       </div>
+                     </div>
+                   ) : (
+                     <a
+                       href={projects[selectedProject].details.liveUrl}
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       className="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--card)] hover:bg-[var(--border)] text-sm text-[var(--text-primary)] transition-all duration-300 hover:scale-105 group"
+                     >
+                       <span>View Live</span>
+                       <ExternalLink 
+                         size={14} 
+                         className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
+                       />
+                     </a>
+                   )}
+                 </div>
+               </div>
+             </div>
 
-            {/* Split Screen Content */}
-            <div className="flex-1 flex">
-              {/* Left Side - Project Details */}
-              <div className="w-1/2 p-20 flex flex-col justify-center">
+             {/* Split Screen Content */}
+             <div className="flex-1 flex overflow-hidden">
+               {/* Left Side - Project Details */}
+               <div className="w-1/2 p-20 flex flex-col justify-center overflow-y-auto">
                 <div className="max-w-2xl space-y-20">
                   {/* Project Header */}
                   <div className="space-y-12">
@@ -876,14 +774,11 @@ export default function Portfolio() {
                     <h1 className="text-7xl md:text-8xl font-light text-[var(--text-primary)] leading-none">
                       {projects[selectedProject].title}
                     </h1>
-                    <p className="text-2xl text-[var(--text-secondary)] leading-relaxed max-w-xl">
-                      {projects[selectedProject].details.overview}
-                    </p>
                   </div>
 
-                  {/* Technologies */}
+                  {/* Tech Stack */}
                   <div className="space-y-8">
-                    <h3 className="text-2xl font-light text-[var(--text-primary)]">Technologies</h3>
+                    <h3 className="text-2xl font-light text-[var(--text-primary)]">Tech Stack</h3>
                     <div className="flex flex-wrap gap-4">
                       {projects[selectedProject].details.technologies.map((tech, index) => (
                         <span
@@ -895,82 +790,70 @@ export default function Portfolio() {
                       ))}
                     </div>
                   </div>
-
-                  {/* Key Features */}
-                  <div className="space-y-12">
-                    <h3 className="text-2xl font-light text-[var(--text-primary)]">Key Features</h3>
-                    <ul className="space-y-8">
-                      {projects[selectedProject].details.features.map((feature, index) => (
-                        <li 
-                          key={index} 
-                          className="flex items-start gap-6 group"
-                        >
-                          <div
-                            className="w-3 h-3 rounded-full mt-3 flex-shrink-0 transition-all duration-300 group-hover:scale-150"
-                            style={{ 
-                              backgroundColor: projects[selectedProject].accentColor,
-                              opacity: 0.8
-                            }}
-                          />
-                          <span className="text-xl text-[var(--text-secondary)] leading-relaxed transition-colors duration-300 group-hover:text-[var(--text-primary)]">
-                            {feature}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                 </div>
               </div>
 
-              {/* Right Side - Visual Showcase */}
-              <div className="w-1/2 bg-[var(--card)] overflow-y-auto">
-                <div className="p-16 w-full max-w-2xl mx-auto space-y-8">
-                  {/* Main Project Image */}
-                  <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-[var(--background)] shadow-2xl group">
-                    <img
-                      src={projects[selectedProject].details.image}
-                      alt={projects[selectedProject].title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div 
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{
-                        background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
-                      }}
-                    />
-                  </div>
-                  
-                  {/* Additional Images Grid */}
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
-                      <img
-                        src={projects[selectedProject].details.image}
-                        alt={`${projects[selectedProject].title} detail 1`}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div 
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{
-                          background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
-                        }}
-                      />
-                    </div>
-                    <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
-                      <img
-                        src={projects[selectedProject].details.image}
-                        alt={`${projects[selectedProject].title} detail 2`}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div 
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{
-                          background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+                             {/* Right Side - Visual Showcase */}
+               <div className="w-1/2 bg-[var(--card)] overflow-y-auto">
+                 <div className="w-full">
+                   {/* Full Website Screenshot for Insightix AI - Single scrollable image */}
+                   {projects[selectedProject].details.fullWebsiteImage ? (
+                     <div className="w-full">
+                       <img
+                         src={projects[selectedProject].details.fullWebsiteImage}
+                         alt={`${projects[selectedProject].title} - Complete Website`}
+                         className="w-full h-auto object-contain"
+                       />
+                     </div>
+                   ) : (
+                     /* Regular project images for other projects */
+                     <div className="p-16 w-full max-w-2xl mx-auto space-y-8">
+                       <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-[var(--background)] shadow-2xl group">
+                         <img
+                           src={projects[selectedProject].details.image}
+                           alt={projects[selectedProject].title}
+                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                         />
+                         <div 
+                           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                           style={{
+                             background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                           }}
+                         />
+                       </div>
+                       
+                       <div className="grid grid-cols-2 gap-6">
+                         <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
+                           <img
+                             src={projects[selectedProject].details.image}
+                             alt={`${projects[selectedProject].title} detail 1`}
+                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                           />
+                           <div 
+                             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                             style={{
+                               background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                             }}
+                           />
+                         </div>
+                         <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
+                           <img
+                             src={projects[selectedProject].details.image}
+                             alt={`${projects[selectedProject].title} detail 2`}
+                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                           />
+                           <div 
+                             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                             style={{
+                               background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                             }}
+                           />
+                         </div>
+                       </div>
+                     </div>
+                   )}
+                 </div>
+               </div>
             </div>
           </div>
         )}
