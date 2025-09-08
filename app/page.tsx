@@ -14,8 +14,8 @@ const projects = [
     type: "AI Analytics Platform",
     description: "AI-driven insights that transform your business",
     index: "01",
-    hoverColor: "bg-[#EEF2FF]", // Soft indigo
-    accentColor: "#6366F1",
+    hoverColor: "bg-[#E8F4FF]", // Soft blue
+    accentColor: "#3B82F6",
     details: {
       overview:
         "A sophisticated AI analytics platform that unlocks the power of your data with AI-driven insights. Features a clean, modern interface with powerful analytics and visualization tools tailored for modern enterprises.",
@@ -28,37 +28,39 @@ const projects = [
     },
   },
   {
-    title: "Design System Builder",
-    type: "Developer Tool",
-    description: "Component library with automated documentation",
+    title: "Eevolution",
+    type: "E-commerce Platform",
+    description: "Modern e-commerce with AI-powered recommendations",
     index: "02",
-    hoverColor: "bg-[#F0E8FF]", // Light lavender
-    accentColor: "#8B5CF6",
-    details: {
-      overview:
-        "A comprehensive tool for building and maintaining design systems with automated documentation generation and component testing.",
-      technologies: ["TypeScript", "Storybook", "Figma API", "CSS-in-JS", "Jest"],
-      features: ["Component generation", "Auto documentation", "Design token sync", "Visual regression testing"],
-      liveUrl: "#",
-      codeUrl: "#",
-      image: "/placeholder.svg?height=400&width=600",
-    },
-  },
-  {
-    title: "Performance Dashboard",
-    type: "Data Visualization",
-    description: "Real-time analytics with custom visualizations",
-    index: "03",
-    hoverColor: "bg-[#FFF0E8]", // Pale peach
+    hoverColor: "bg-[#FFF0E8]", // Light orange
     accentColor: "#F97316",
     details: {
       overview:
-        "A real-time performance monitoring dashboard with custom data visualizations and advanced analytics capabilities.",
-      technologies: ["React", "D3.js", "Node.js", "PostgreSQL", "WebSocket"],
-      features: ["Real-time data streaming", "Custom charts", "Performance metrics", "Alert system"],
+        "A cutting-edge e-commerce platform that revolutionizes online shopping with AI-powered product recommendations, seamless user experience, and advanced analytics. Built with modern web technologies for optimal performance and scalability.",
+      technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "AI/ML", "Stripe"],
+      features: ["AI recommendations", "Smart search", "Real-time analytics", "Mobile-first design", "Payment integration"],
       liveUrl: "#",
       codeUrl: "#",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/landings/hero_eevolution.png",
+      fullWebsiteImage: "/landings/full_eevolution.png",
+    },
+  },
+  {
+    title: "Aimee",
+    type: "AI Meeting Assistant",
+    description: "AI-powered meeting notes and summaries",
+    index: "03",
+    hoverColor: "bg-[#E8F5F0]", // Light green
+    accentColor: "#10B981",
+    details: {
+      overview:
+        "An intelligent AI meeting assistant that automatically captures notes, generates summaries, and extracts action items from your conversations. Focus on the discussion while Aimee handles the documentation.",
+      technologies: ["React", "Next.js", "AI/ML", "WebRTC", "TypeScript", "Tailwind CSS"],
+      features: ["AI transcription", "Auto-generated summaries", "Action item extraction", "Multi-platform integration", "Real-time processing"],
+      liveUrl: "#",
+      codeUrl: "#",
+      image: "/landings/hero_aimee.png",
+      fullWebsiteImage: "/landings/full_aimee.png",
     },
   },
   {
@@ -547,12 +549,12 @@ export default function Portfolio() {
                initial={{ opacity: 0, y: 24 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.4, ease: 'easeInOut' }}
-               className="columns-1 md:columns-2 gap-8 space-y-8"
+               className="grid grid-cols-1 md:grid-cols-2 gap-4"
              >
               {projects.map((project, index) => (
                                  <motion.div
                    key={index}
-                   className="break-inside-avoid mb-8"
+                   className="w-full"
                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
                    animate={{ opacity: 1, y: 0, scale: 1 }}
                    transition={{ 
@@ -569,7 +571,7 @@ export default function Portfolio() {
                    onClick={() => handleProjectClick(index)}
                  >
                    <div 
-                     className="relative overflow-hidden rounded-xl cursor-pointer group"
+                     className="relative overflow-hidden rounded-lg cursor-pointer group"
                      style={{ 
                        backgroundColor: project.accentColor + '10',
                        border: `1px solid ${project.accentColor}20`
@@ -580,10 +582,15 @@ export default function Portfolio() {
                    >
                      {/* Image placeholder with project accent - larger aspect ratio */}
                      <div 
-                       className="aspect-[3/2] bg-gradient-to-br from-[var(--card)] to-[var(--background)] flex items-center justify-center relative overflow-hidden"
+                       className="aspect-[3/2] bg-gradient-to-br from-[var(--card)] to-[var(--background)] flex items-center justify-center relative overflow-hidden rounded-lg border"
                        style={{
+                         borderColor: project.accentColor + '30',
                          background: project.index === "01" 
-                           ? `url('/landings/hero insightx AI.png') center/cover`
+                           ? `url('/landings/hero insightx AI.png') center/cover no-repeat`
+                           : project.index === "02"
+                           ? `url('/landings/hero_eevolution.png') center/cover no-repeat`
+                           : project.index === "03"
+                           ? `url('/landings/hero_aimee.png') center/cover no-repeat`
                            : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
                        }}
                      >
@@ -794,15 +801,16 @@ export default function Portfolio() {
               </div>
 
                              {/* Right Side - Visual Showcase */}
-               <div className="w-1/2 bg-[var(--card)] overflow-y-auto">
-                 <div className="w-full">
-                   {/* Full Website Screenshot for Insightix AI - Single scrollable image */}
+               <div className="w-1/2 bg-[var(--card)] overflow-y-auto flex items-start justify-center">
+                 <div className="w-full max-w-none">
+                   {/* Full Website Screenshot - Single scrollable image */}
                    {projects[selectedProject].details.fullWebsiteImage ? (
-                     <div className="w-full">
+                     <div className="w-full h-full">
                        <img
                          src={projects[selectedProject].details.fullWebsiteImage}
                          alt={`${projects[selectedProject].title} - Complete Website`}
-                         className="w-full h-auto object-contain"
+                         className="w-full h-auto object-contain min-h-full"
+                         style={{ objectFit: 'contain' }}
                        />
                      </div>
                    ) : (
