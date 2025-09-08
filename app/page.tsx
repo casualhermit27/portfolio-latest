@@ -64,20 +64,21 @@ const projects = [
     },
   },
   {
-    title: "Mobile Banking App",
-    type: "Mobile Application",
-    description: "Secure fintech with biometric authentication",
+    title: "Spotly",
+    type: "AI SEO Analysis Tool",
+    description: "AI-powered SEO insights for landing pages",
     index: "04",
-    hoverColor: "bg-[#E8F4FF]", // Soft sky blue
-    accentColor: "#3B82F6",
+    hoverColor: "bg-[#F0FDF4]", // Light green
+    accentColor: "#22C55E",
     details: {
       overview:
-        "A secure mobile banking application featuring biometric authentication and comprehensive financial management tools.",
-      technologies: ["React Native", "TypeScript", "Firebase", "Stripe API", "Biometric SDK"],
-      features: ["Biometric login", "Transaction history", "Bill payments", "Budget tracking"],
+        "An AI-powered SEO analysis tool that combines visual design evaluation with technical SEO checks to maximize landing page performance. Upload screenshots or URLs to get comprehensive insights and actionable recommendations.",
+      technologies: ["React", "Next.js", "AI/ML", "TypeScript", "Tailwind CSS", "SEO APIs"],
+      features: ["AI-powered analysis", "Visual design evaluation", "Technical SEO checks", "Performance metrics", "Actionable insights"],
       liveUrl: "#",
       codeUrl: "#",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/landings/hero_spotly.png",
+      fullWebsiteImage: "/landings/full_spotly.png",
     },
   },
   {
@@ -591,6 +592,8 @@ export default function Portfolio() {
                            ? `url('/landings/hero_eevolution.png') center/cover no-repeat`
                            : project.index === "03"
                            ? `url('/landings/hero_aimee.png') center/cover no-repeat`
+                           : project.index === "04"
+                           ? `url('/landings/hero_spotly.png') center/cover no-repeat`
                            : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
                        }}
                      >
