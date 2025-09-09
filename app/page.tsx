@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from "react"
 import { Github, Linkedin, Mail, ArrowUpRight, ExternalLink, Code, X, ArrowLeft, ArrowRight } from "lucide-react"
 import { gsap } from "gsap"
 import { ThemeSwitcher } from "@/components/theme-switcher"
+import SimpleStyleGuide from "@/components/simple-style-guide"
 import { motion, AnimatePresence } from 'framer-motion'
 
 const projects = [
@@ -19,7 +20,8 @@ const projects = [
     details: {
       overview:
         "A sophisticated AI analytics platform that unlocks the power of your data with AI-driven insights. Features a clean, modern interface with powerful analytics and visualization tools tailored for modern enterprises.",
-      technologies: ["React", "Next.js", "AI/ML", "Tailwind CSS", "TypeScript", "Data Visualization"],
+      technologies: ["React", "Next.js", "Tailwind CSS", "TypeScript", "Data Visualization"],
+      aiTools: ["Cursor", "v0", "Claude 3.5 Sonnet", "GPT-4"],
       features: ["AI-driven analytics", "Real-time data visualization", "Business intelligence", "Custom dashboards", "Enterprise scalability"],
       liveUrl: "#",
       codeUrl: "#",
@@ -37,7 +39,8 @@ const projects = [
     details: {
       overview:
         "A cutting-edge e-commerce platform that revolutionizes online shopping with AI-powered product recommendations, seamless user experience, and advanced analytics. Built with modern web technologies for optimal performance and scalability.",
-      technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "AI/ML", "Stripe"],
+      technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma"],
+      aiTools: ["Cursor", "Lovable", "Gemini", "GPT-4 Turbo"],
       features: ["AI recommendations", "Smart search", "Real-time analytics", "Mobile-first design", "Payment integration"],
       liveUrl: "#",
       codeUrl: "#",
@@ -55,7 +58,8 @@ const projects = [
     details: {
       overview:
         "An intelligent AI meeting assistant that automatically captures notes, generates summaries, and extracts action items from your conversations. Focus on the discussion while Aimee handles the documentation.",
-      technologies: ["React", "Next.js", "AI/ML", "WebRTC", "TypeScript", "Tailwind CSS"],
+      technologies: ["React", "Next.js", "WebRTC", "TypeScript", "Tailwind CSS"],
+      aiTools: ["Cursor", "Bolt", "GPT-4", "Claude 3 Opus"],
       features: ["AI transcription", "Auto-generated summaries", "Action item extraction", "Multi-platform integration", "Real-time processing"],
       liveUrl: "#",
       codeUrl: "#",
@@ -73,7 +77,8 @@ const projects = [
     details: {
       overview:
         "An AI-powered SEO analysis tool that combines visual design evaluation with technical SEO checks to maximize landing page performance. Upload screenshots or URLs to get comprehensive insights and actionable recommendations.",
-      technologies: ["React", "Next.js", "AI/ML", "TypeScript", "Tailwind CSS", "SEO APIs"],
+      technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "SEO APIs"],
+      aiTools: ["Cursor", "Replit", "Grok", "Claude Sonnet"],
       features: ["AI-powered analysis", "Visual design evaluation", "Technical SEO checks", "Performance metrics", "Actionable insights"],
       liveUrl: "#",
       codeUrl: "#",
@@ -91,11 +96,13 @@ const projects = [
     details: {
       overview:
         "A full-featured e-commerce platform with AI-powered product recommendations and advanced inventory management.",
-      technologies: ["Next.js", "Prisma", "Stripe", "Vercel", "OpenAI"],
+      technologies: ["Next.js", "Prisma", "Vercel", "OpenAI", "PostgreSQL"],
+      aiTools: ["Cursor", "v0", "Claude 3 Opus", "GPT-4o"],
       features: ["AI recommendations", "Payment processing", "Inventory management", "Order tracking"],
       liveUrl: "#",
       codeUrl: "#",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/landings/hero_doze.png",
+      fullWebsiteImage: "/landings/doze_full.png",
     },
   },
   {
@@ -108,6 +115,7 @@ const projects = [
     details: {
       overview: "A comprehensive CLI toolkit designed for rapid prototyping and automated deployment workflows.",
       technologies: ["Node.js", "TypeScript", "Docker", "AWS", "GitHub Actions"],
+      aiTools: ["Cursor", "Lovable", "GPT-4 Turbo", "Gemini"],
       features: ["Project scaffolding", "Auto deployment", "Environment management", "CI/CD integration"],
       liveUrl: "#",
       codeUrl: "#",
@@ -125,6 +133,7 @@ const projects = [
       overview:
         "A SaaS platform for scheduling and optimizing social media content across multiple platforms with AI-powered insights.",
       technologies: ["Vue.js", "Python", "Redis", "OpenAI", "Social APIs"],
+      aiTools: ["Cursor", "Bolt", "GPT-4o", "Claude 3.5 Sonnet"],
       features: ["Multi-platform posting", "Content optimization", "Analytics dashboard", "Team collaboration"],
       liveUrl: "#",
       codeUrl: "#",
@@ -142,6 +151,7 @@ const projects = [
       overview:
         "An intelligent cryptocurrency trading bot that uses machine learning algorithms to predict market trends and execute trades.",
       technologies: ["Python", "TensorFlow", "WebSocket", "MongoDB", "Trading APIs"],
+      aiTools: ["Cursor", "Replit", "Claude Sonnet", "GPT-4"],
       features: ["ML predictions", "Risk management", "Portfolio tracking", "Backtesting"],
       liveUrl: "#",
       codeUrl: "#",
@@ -157,6 +167,7 @@ export default function Portfolio() {
   const [isAnimating, setIsAnimating] = useState(false)
   const [isFullscreenView, setIsFullscreenView] = useState(false)
   const [viewMode, setViewMode] = useState<'grid'>('grid')
+  const [displayMode, setDisplayMode] = useState<'landings' | 'logos'>('landings')
   
   // Refs for GSAP animations
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -197,14 +208,14 @@ export default function Portfolio() {
         y: "-10%", // Reduced movement for subtlety
         scale: 0.98, // Subtler scale
         autoAlpha: 0,
-        duration: 0.8,
+        duration: 0.5,
         ease: "power2.inOut"
       })
       .to(projectDetailsRef.current, {
         y: "0%",
-        duration: 0.8,
+        duration: 0.5,
         ease: "power2.inOut"
-      }, "-=0.6") // More overlap for seamless transition
+      }, "-=0.3") // More overlap for seamless transition
     }
   }
 
@@ -222,16 +233,16 @@ export default function Portfolio() {
 
       tl.to(projectDetailsRef.current, {
         y: "100%",
-        duration: 0.8,
+        duration: 0.5,
         ease: "power2.inOut"
       })
       .to(mainContentRef.current, {
         y: "0%",
         scale: 1,
         autoAlpha: 1,
-        duration: 0.8,
+        duration: 0.5,
         ease: "power2.inOut"
-      }, "-=0.6")
+      }, "-=0.3")
     }
   }
 
@@ -315,19 +326,19 @@ export default function Portfolio() {
       
       tl.to(titleLines, {
           y: 0,
-          duration: 0.6,
+          duration: 0.4,
           ease: "back.out(1.7)",
-          stagger: 0.1,
-          delay: 0.2,
+          stagger: 0.05,
+          delay: 0.1,
         })
         .to(subtitleRef.current, 
           {
             opacity: 1,
             y: 0,
-            duration: 0.5,
+            duration: 0.3,
             ease: "power2.out"
           },
-          "-=0.3"
+          "-=0.2"
         )
         .call(() => {
           // Dynamic rotating gradient animation
@@ -341,21 +352,21 @@ export default function Portfolio() {
           colors.forEach((color, colorIndex) => {
             colorCycle.to(words, {
               color: color,
-              duration: 0.8,
+              duration: 0.5,
               ease: "power2.inOut",
-              delay: colorIndex * 0.1
+              delay: colorIndex * 0.05
             })
           })
           
           // Continuous scale pulsing
           gsap.to(words, {
             scale: 1.05,
-            duration: 1.2,
+            duration: 0.8,
             ease: "sine.inOut",
             repeat: -1,
             yoyo: true,
             stagger: {
-              each: 0.15,
+              each: 0.1,
               repeat: -1
             },
             immediateRender: true
@@ -364,12 +375,12 @@ export default function Portfolio() {
           // Rotating glow effect
           gsap.to(words, {
             filter: "drop-shadow(0 0 8px rgba(255, 107, 107, 0.6))",
-            duration: 1.5,
+            duration: 1.0,
             ease: "power2.inOut",
             repeat: -1,
             yoyo: true,
             stagger: {
-              each: 0.2,
+              each: 0.1,
               repeat: -1
             },
             immediateRender: true
@@ -378,12 +389,12 @@ export default function Portfolio() {
           // Add rotation for more dynamic feel
           gsap.to(words, {
             rotation: 2,
-            duration: 3,
+            duration: 2,
             ease: "sine.inOut",
             repeat: -1,
             yoyo: true,
             stagger: {
-              each: 0.1,
+              each: 0.05,
               repeat: -1
             },
             immediateRender: true
@@ -426,7 +437,7 @@ export default function Portfolio() {
           transform: isFullscreenView ? 'translateY(-20%) scale(0.95)' : 'translateY(0) scale(1)',
           opacity: isFullscreenView ? 0 : 1,
           visibility: isFullscreenView ? 'hidden' : 'visible',
-          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
           pointerEvents: isFullscreenView ? 'none' : 'auto'
         }}
       >
@@ -457,18 +468,21 @@ export default function Portfolio() {
               <div className="flex justify-end">
                 <motion.button 
                   className="group bg-[var(--text-primary)] text-[var(--background)] px-8 py-4 rounded-full font-medium text-lg hover:bg-[#6366F1] hover:text-white transition-all duration-300 will-change-auto"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ 
+                    y: -2,
+                    boxShadow: "0 8px 25px rgba(99, 102, 241, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
                   animate={{
                     boxShadow: [
                       "0 4px 20px rgba(0,0,0,0.1)",
-                      "0 8px 30px rgba(0,0,0,0.15)",
+                      "0 6px 25px rgba(99, 102, 241, 0.15)",
                       "0 4px 20px rgba(0,0,0,0.1)"
                     ]
                   }}
                   transition={{
                     boxShadow: {
-                      duration: 3,
+                      duration: 2.5,
                       repeat: -1,
                       ease: "easeInOut"
                     }
@@ -480,12 +494,12 @@ export default function Portfolio() {
                       y: [0, -1, 0]
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 1.8,
                       repeat: -1,
                       ease: "easeInOut"
                     }}
                   >
-                    Get a Sample
+                    Get in Touch
                   </motion.span>
                   <motion.div
                     className="inline-block ml-2 w-5 h-5"
@@ -493,7 +507,7 @@ export default function Portfolio() {
                       rotate: [0, 15, -15, 0]
                     }}
                     transition={{
-                      duration: 4,
+                      duration: 3,
                       repeat: -1,
                       ease: "easeInOut"
                     }}
@@ -511,7 +525,7 @@ export default function Portfolio() {
           <div className="max-w-6xl mx-auto">
             {/* Section Header */}
             <div className="mb-20">
-              <div className="flex items-baseline justify-between mb-6">
+              <div className="flex items-center justify-between mb-6">
                 <motion.h2 
                   className="text-3xl md:text-4xl font-light text-[var(--text-primary)]"
                   animate={{
@@ -529,6 +543,32 @@ export default function Portfolio() {
                 >
                   Selected Work
                 </motion.h2>
+                
+                {/* Display Mode Switch */}
+                <div className="bg-[var(--card)] rounded-full p-1 border border-[var(--border)]">
+                  <div className="flex">
+                    <button
+                      onClick={() => setDisplayMode('landings')}
+                      className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                        displayMode === 'landings'
+                          ? 'bg-[var(--text-primary)] text-[var(--background)] shadow-lg'
+                          : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                      }`}
+                    >
+                      Landings
+                    </button>
+                    <button
+                      onClick={() => setDisplayMode('logos')}
+                      className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                        displayMode === 'logos'
+                          ? 'bg-[var(--text-primary)] text-[var(--background)] shadow-lg'
+                          : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                      }`}
+                    >
+                      Logos
+                    </button>
+                  </div>
+                </div>
               </div>
               <motion.div 
                 className="w-full h-px bg-[var(--border)]"
@@ -547,27 +587,33 @@ export default function Portfolio() {
                          {/* Projects Grid */}
              <motion.div
                key="grid"
-               initial={{ opacity: 0, y: 24 }}
+               initial={{ opacity: 0, y: 16 }}
                animate={{ opacity: 1, y: 0 }}
-               transition={{ duration: 0.4, ease: 'easeInOut' }}
-               className="grid grid-cols-1 md:grid-cols-2 gap-4"
+               transition={{ duration: 0.3, ease: 'easeInOut' }}
+               className={`grid gap-6 ${
+                 displayMode === 'logos' 
+                   ? 'grid-cols-2' 
+                   : 'grid-cols-1 md:grid-cols-2'
+               }`}
              >
-              {projects.map((project, index) => (
+              {projects.filter((project, index) => 
+                displayMode === 'landings' ? index < 5 : index < 2
+              ).map((project, index) => (
                                  <motion.div
                    key={index}
                    className="w-full"
-                   initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                   initial={{ opacity: 0, y: 20, scale: 0.95 }}
                    animate={{ opacity: 1, y: 0, scale: 1 }}
                    transition={{ 
-                     duration: 0.6, 
+                     duration: 0.4, 
                      ease: [0.25, 0.46, 0.45, 0.94],
-                     delay: index * 0.1,
+                     delay: index * 0.05,
                      type: "spring",
-                     stiffness: 80,
-                     damping: 20
+                     stiffness: 120,
+                     damping: 15
                    }}
                    whileHover={{ 
-                     transition: { duration: 0.4, ease: "easeOut" }
+                     transition: { duration: 0.2, ease: "easeOut" }
                    }}
                    onClick={() => handleProjectClick(index)}
                  >
@@ -581,19 +627,25 @@ export default function Portfolio() {
                      onMouseLeave={() => setHoveredProject(null)}
                      onMouseMove={handleMouseMove}
                    >
-                     {/* Image placeholder with project accent - larger aspect ratio */}
+                     {/* Image placeholder with project accent - responsive aspect ratio */}
                      <div 
-                       className="aspect-[3/2] bg-gradient-to-br from-[var(--card)] to-[var(--background)] flex items-center justify-center relative overflow-hidden rounded-lg border"
+                       className={`bg-gradient-to-br from-[var(--card)] to-[var(--background)] flex items-center justify-center relative overflow-hidden rounded-lg border ${
+                         displayMode === 'logos' ? 'aspect-square' : 'aspect-[3/2]'
+                       }`}
                        style={{
                          borderColor: project.accentColor + '30',
-                         background: project.index === "01" 
-                           ? `url('/landings/hero insightx AI.png') center/cover no-repeat`
-                           : project.index === "02"
-                           ? `url('/landings/hero_eevolution.png') center/cover no-repeat`
-                           : project.index === "03"
-                           ? `url('/landings/hero_aimee.png') center/cover no-repeat`
-                           : project.index === "04"
-                           ? `url('/landings/hero_spotly.png') center/cover no-repeat`
+                         background: displayMode === 'landings' 
+                           ? (project.index === "01" 
+                               ? `url('/landings/hero insightx AI.png') center/cover no-repeat`
+                               : project.index === "02"
+                               ? `url('/landings/hero_eevolution.png') center/cover no-repeat`
+                               : project.index === "03"
+                               ? `url('/landings/hero_aimee.png') center/cover no-repeat`
+                               : project.index === "04"
+                               ? `url('/landings/hero_spotly.png') center/cover no-repeat`
+                               : project.index === "05"
+                               ? `url('/landings/hero_doze.png') center/cover no-repeat`
+                               : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`)
                            : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
                        }}
                      >
@@ -606,31 +658,56 @@ export default function Portfolio() {
                       />
                       
                       {/* Project index in corner */}
-                      <div 
-                        className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-sm font-mono font-medium opacity-60 group-hover:opacity-100 transition-all duration-300"
-                        style={{
-                          backgroundColor: project.accentColor + '20',
-                          color: project.accentColor
-                        }}
-                      >
-                        {project.index}
-                      </div>
+                      {displayMode === 'landings' && (
+                        <div 
+                          className="absolute top-2 left-2 px-3 py-1.5 rounded-full text-sm font-mono font-medium opacity-60 group-hover:opacity-100 transition-all duration-300"
+                          style={{
+                            backgroundColor: project.accentColor + '20',
+                            color: project.accentColor
+                          }}
+                        >
+                          {project.index}
+                        </div>
+                      )}
+
+                      {/* Logo Display Mode */}
+                      {displayMode === 'logos' && (
+                        <div className="w-full h-full flex items-center justify-center">
+                          {project.index === "01" ? (
+                            <img 
+                              src="/logos/spotly logo.png" 
+                              alt="Spotly Logo"
+                              className="w-full h-full object-cover"
+                            />
+                          ) : project.index === "02" ? (
+                            <img 
+                              src="/logos/Eevolution logo.png" 
+                              alt="Eevolution Logo"
+                              className="w-full h-full object-contain"
+                            />
+                          ) : null}
+                        </div>
+                      )}
                       
                       {/* Hover accent dots */}
-                      <motion.div
-                        className="absolute top-4 right-4 w-2 h-2 rounded-full opacity-0 group-hover:opacity-100"
-                        style={{ backgroundColor: project.accentColor }}
-                        initial={{ scale: 0, rotate: 0 }}
-                        whileHover={{ scale: 1, rotate: 180 }}
-                        transition={{ duration: 0.4, delay: 0.1 }}
-                      />
-                      <motion.div
-                        className="absolute bottom-4 right-4 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100"
-                        style={{ backgroundColor: project.accentColor }}
-                        initial={{ scale: 0, rotate: 0 }}
-                        whileHover={{ scale: 1, rotate: -180 }}
-                        transition={{ duration: 0.4, delay: 0.2 }}
-                      />
+                      {displayMode === 'landings' && (
+                        <>
+                          <motion.div
+                            className="absolute top-4 right-4 w-2 h-2 opacity-0 group-hover:opacity-100 rounded-full"
+                            style={{ backgroundColor: project.accentColor }}
+                            initial={{ scale: 0, rotate: 0 }}
+                            whileHover={{ scale: 1, rotate: 180 }}
+                            transition={{ duration: 0.2, delay: 0.05 }}
+                          />
+                          <motion.div
+                            className="absolute bottom-4 right-4 w-1.5 h-1.5 opacity-0 group-hover:opacity-100 rounded-full"
+                            style={{ backgroundColor: project.accentColor }}
+                            initial={{ scale: 0, rotate: 0 }}
+                            whileHover={{ scale: 1, rotate: -180 }}
+                            transition={{ duration: 0.2, delay: 0.1 }}
+                          />
+                        </>
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -772,7 +849,7 @@ export default function Portfolio() {
 
              {/* Split Screen Content */}
              <div className="flex-1 flex overflow-hidden">
-               {/* Left Side - Project Details */}
+               {/* Left Side - Project Details with Style Guide */}
                <div className="w-1/2 p-20 flex flex-col justify-center overflow-y-auto">
                 <div className="max-w-2xl space-y-20">
                   {/* Project Header */}
@@ -786,6 +863,9 @@ export default function Portfolio() {
                     </h1>
                   </div>
 
+                  {/* Style Guide */}
+                  <SimpleStyleGuide project={projects[selectedProject]} />
+
                   {/* Tech Stack */}
                   <div className="space-y-8">
                     <h3 className="text-2xl font-light text-[var(--text-primary)]">Tech Stack</h3>
@@ -798,6 +878,70 @@ export default function Portfolio() {
                           {tech}
                         </span>
                       ))}
+                    </div>
+                  </div>
+
+                  {/* AI Tools */}
+                  <div className="space-y-8">
+                    <h3 className="text-2xl font-light text-[var(--text-primary)]">AI Tools Used</h3>
+                    <div className="flex flex-wrap gap-4">
+                      {projects[selectedProject].details.aiTools.map((tool, index) => {
+                        const getToolLogo = (toolName: string) => {
+                          switch (toolName) {
+                            case "Cursor":
+                              return "https://cursor.sh/favicon.ico"
+                            case "v0":
+                              return "https://vercel.com/favicon.ico"
+                            case "Lovable":
+                              return "https://lovable.dev/favicon.ico"
+                            case "Bolt":
+                              return "https://bolt.new/favicon.ico"
+                            case "Replit":
+                              return "https://replit.com/favicon.ico"
+                            case "Claude 3.5 Sonnet":
+                            case "Claude 3 Opus":
+                            case "Claude Sonnet":
+                              return "https://claude.ai/favicon.ico"
+                            case "GPT-4":
+                            case "GPT-4 Turbo":
+                            case "GPT-4o":
+                              return "https://openai.com/favicon.ico"
+                            case "Gemini":
+                            case "Gemini Pro":
+                              return "https://gemini.google.com/favicon.ico"
+                            case "Grok":
+                              return "https://x.com/favicon.ico"
+                            default:
+                              return null
+                          }
+                        }
+
+                        const logoUrl = getToolLogo(tool)
+                        
+                        return (
+                          <span
+                            key={index}
+                            className="px-6 py-3 rounded-full text-base font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-3"
+                            style={{
+                              backgroundColor: `${projects[selectedProject].accentColor}15`,
+                              color: projects[selectedProject].accentColor,
+                              border: `1px solid ${projects[selectedProject].accentColor}30`
+                            }}
+                          >
+                            {logoUrl && (
+                              <img 
+                                src={logoUrl} 
+                                alt={`${tool} logo`}
+                                className="w-5 h-5 rounded-sm"
+                                onError={(e) => {
+                                  e.currentTarget.style.display = 'none'
+                                }}
+                              />
+                            )}
+                            {tool}
+                          </span>
+                        )
+                      })}
                     </div>
                   </div>
                 </div>

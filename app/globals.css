@@ -33,6 +33,35 @@
     background-color: var(--background);
     color: var(--foreground);
   }
+
+  /* Font family utilities */
+  .font-outfit {
+    font-family: var(--font-outfit), sans-serif;
+  }
+
+  .font-geist-mono {
+    font-family: var(--font-geist-mono), monospace;
+  }
+
+  .font-montserrat {
+    font-family: var(--font-montserrat), sans-serif;
+  }
+
+  .font-jetbrains-mono {
+    font-family: var(--font-jetbrains-mono), monospace;
+  }
+
+  .font-sora {
+    font-family: var(--font-sora), sans-serif;
+  }
+
+  .font-plus-jakarta-sans {
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+  }
+
+  .font-playfair-display {
+    font-family: var(--font-playfair-display), serif;
+  }
 }
 
 @layer utilities {
