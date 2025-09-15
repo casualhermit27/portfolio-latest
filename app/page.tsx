@@ -209,8 +209,8 @@ function PortfolioContent() {
       const easedProgress = easeOutCubic(rawProgress) * 100
       const roundedProgress = Math.round(easedProgress)
       
-      // Only update state if progress actually changed to reduce re-renders
-      if (roundedProgress !== lastProgress) {
+      // Only update state if progress changed by at least 1% to reduce re-renders
+      if (Math.abs(roundedProgress - lastProgress) >= 1) {
         setLoadingProgress(roundedProgress)
         lastProgress = roundedProgress
       }
@@ -656,6 +656,28 @@ function PortfolioContent() {
         .mobile-simple:active {
           transform: scale(0.98);
         }
+        
+        /* Disable hover effects on mobile */
+        @media (max-width: 767px) {
+          .group:hover .group-hover\\:opacity-100 {
+            opacity: 0 !important;
+          }
+          .group:hover .group-hover\\:translate-x-1 {
+            transform: translateX(0) !important;
+          }
+          .group:hover .group-hover\\:-translate-y-1 {
+            transform: translateY(0) !important;
+          }
+          .group:hover .group-hover\\:scale-105 {
+            transform: scale(1) !important;
+          }
+        }
+        
+        /* Shimmer animation for progress bar */
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
       `}</style>
       <div className="min-h-screen bg-[var(--background)] relative overflow-hidden transition-colors duration-300">
       {/* Enhanced Loading Screen */}
@@ -681,47 +703,23 @@ function PortfolioContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <motion.span
-                key={loadingProgress}
-                initial={{ scale: 1.02, opacity: 0.9 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ 
-                  duration: 0.15, 
-                  ease: "easeOut",
-                  type: "tween"
-                }}
-                style={{ 
-                  willChange: "transform, opacity",
-                  backfaceVisibility: "hidden"
-                }}
-              >
+              <span className="text-3xl font-mono text-[var(--text-primary)] font-light">
                 {loadingProgress}%
-              </motion.span>
+              </span>
             </motion.div>
 
             {/* Enhanced progress bar with glow effect */}
             <div className="relative">
               <div className="w-64 h-2 bg-[var(--border)] rounded-full overflow-hidden shadow-inner">
-                <motion.div 
-                  className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full relative"
+                <div 
+                  className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full relative transition-all duration-300 ease-out"
                   style={{ width: `${loadingProgress}%` }}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${loadingProgress}%` }}
-                  transition={{ 
-                    duration: 0.4, 
-                    ease: [0.25, 0.46, 0.45, 0.94] 
-                  }}
                 >
                   {/* Shimmer effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                    animate={{
-                      x: ['-100%', '100%'],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut"
+                  <div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50"
+                    style={{
+                      animation: 'shimmer 2s ease-in-out infinite'
                     }}
                   />
                   
@@ -731,7 +729,7 @@ function PortfolioContent() {
                       boxShadow: `0 0 20px rgba(147, 51, 234, 0.4), 0 0 40px rgba(59, 130, 246, 0.2)`
                     }}
                   />
-                </motion.div>
+                </div>
               </div>
             </div>
           </div>
@@ -1237,7 +1235,7 @@ function PortfolioContent() {
                     stiffness: 120,
                     damping: 15
                   }}
-                  whileHover={{
+                  whileHover={isMobile ? {} : {
                     transition: { duration: 0.2, ease: "easeOut" }
                   }}
                   whileTap={{ 
@@ -1374,14 +1372,14 @@ function PortfolioContent() {
                             className="absolute top-4 right-4 w-2 h-2 opacity-0 group-hover:opacity-100 rounded-full"
                             style={{ backgroundColor: project.accentColor }}
                             initial={{ scale: 0, rotate: 0 }}
-                            whileHover={{ scale: 1, rotate: 180 }}
+                            whileHover={isMobile ? {} : { scale: 1, rotate: 180 }}
                             transition={{ duration: 0.2, delay: 0.05 }}
                           />
                           <motion.div
                             className="absolute bottom-4 right-4 w-1.5 h-1.5 opacity-0 group-hover:opacity-100 rounded-full"
                             style={{ backgroundColor: project.accentColor }}
                             initial={{ scale: 0, rotate: 0 }}
-                            whileHover={{ scale: 1, rotate: -180 }}
+                            whileHover={isMobile ? {} : { scale: 1, rotate: -180 }}
                             transition={{ duration: 0.2, delay: 0.1 }}
                           />
                         </>
