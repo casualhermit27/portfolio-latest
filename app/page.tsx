@@ -5,7 +5,6 @@ import type React from "react"
 import { useEffect, useState, useRef } from "react"
 import { Github, Linkedin, Mail, ArrowUpRight, ExternalLink, Code, X, ArrowLeft, ArrowRight } from "lucide-react"
 import { gsap } from "gsap"
-import { ThemeSwitcher } from "@/components/theme-switcher"
 import SimpleStyleGuide from "@/components/simple-style-guide"
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -16,7 +15,7 @@ const projects = [
     description: "AI-driven insights that transform your business",
     index: "01",
     hoverColor: "bg-[#E8F4FF]", // Soft blue
-    accentColor: "#3B82F6",
+    accentColor: "#3B82F6", // Blue
     details: {
       overview:
         "A sophisticated AI analytics platform that unlocks the power of your data with AI-driven insights. Features a clean, modern interface with powerful analytics and visualization tools tailored for modern enterprises.",
@@ -35,7 +34,7 @@ const projects = [
     description: "Modern e-commerce with AI-powered recommendations",
     index: "02",
     hoverColor: "bg-[#FFF0E8]", // Light orange
-    accentColor: "#F97316",
+    accentColor: "#F97316", // Orange
     details: {
       overview:
         "A cutting-edge e-commerce platform that revolutionizes online shopping with AI-powered product recommendations, seamless user experience, and advanced analytics. Built with modern web technologies for optimal performance and scalability.",
@@ -54,7 +53,7 @@ const projects = [
     description: "AI-powered meeting notes and summaries",
     index: "03",
     hoverColor: "bg-[#E8F5F0]", // Light green
-    accentColor: "#10B981",
+    accentColor: "#10B981", // Green
     details: {
       overview:
         "An intelligent AI meeting assistant that automatically captures notes, generates summaries, and extracts action items from your conversations. Focus on the discussion while Aimee handles the documentation.",
@@ -73,7 +72,7 @@ const projects = [
     description: "AI-powered SEO insights for landing pages",
     index: "04",
     hoverColor: "bg-[#F0FDF4]", // Light green
-    accentColor: "#22C55E",
+    accentColor: "#22C55E", // Lime Green
     details: {
       overview:
         "An AI-powered SEO analysis tool that combines visual design evaluation with technical SEO checks to maximize landing page performance. Upload screenshots or URLs to get comprehensive insights and actionable recommendations.",
@@ -92,7 +91,7 @@ const projects = [
     description: "Marketplace with AI-powered recommendations",
     index: "05",
     hoverColor: "bg-[#FFE8E8]", // Light coral
-    accentColor: "#EF4444",
+    accentColor: "#EF4444", // Red
     details: {
       overview:
         "A full-featured e-commerce platform with AI-powered product recommendations and advanced inventory management.",
@@ -106,12 +105,29 @@ const projects = [
     },
   },
   {
+    title: "Work in Progress",
+    type: "Coming Soon",
+    description: "New project in development",
+    index: "06",
+    hoverColor: "bg-[#F3E8FF]", // Light purple
+    accentColor: "#8B5CF6", // Purple
+    details: {
+      overview: "A new project currently in development. Stay tuned for updates!",
+      technologies: ["Coming Soon"],
+      aiTools: ["Coming Soon"],
+      features: ["Coming Soon"],
+      liveUrl: "#",
+      codeUrl: "#",
+      image: "/placeholder.svg?height=400&width=600",
+    },
+  },
+  {
     title: "Developer Tools Suite",
     type: "CLI Tool",
     description: "Rapid prototyping and deployment automation",
-    index: "06",
+    index: "07",
     hoverColor: "bg-[#FFFBE8]", // Gentle yellow
-    accentColor: "#EAB308",
+    accentColor: "#EAB308", // Yellow
     details: {
       overview: "A comprehensive CLI toolkit designed for rapid prototyping and automated deployment workflows.",
       technologies: ["Node.js", "TypeScript", "Docker", "AWS", "GitHub Actions"],
@@ -126,9 +142,9 @@ const projects = [
     title: "Social Media Scheduler",
     type: "SaaS Platform",
     description: "Multi-platform scheduling with optimization",
-    index: "07",
+    index: "08",
     hoverColor: "bg-[#F8E8FF]", // Soft pink
-    accentColor: "#EC4899",
+    accentColor: "#EC4899", // Pink
     details: {
       overview:
         "A SaaS platform for scheduling and optimizing social media content across multiple platforms with AI-powered insights.",
@@ -144,9 +160,9 @@ const projects = [
     title: "Crypto Trading Bot",
     type: "Algorithm",
     description: "Automated trading with ML predictions",
-    index: "08",
+    index: "09",
     hoverColor: "bg-[#E8F5F0]", // Light sage
-    accentColor: "#10B981",
+    accentColor: "#06B6D4", // Cyan
     details: {
       overview:
         "An intelligent cryptocurrency trading bot that uses machine learning algorithms to predict market trends and execute trades.",
@@ -342,8 +358,8 @@ export default function Portfolio() {
     if (titleRef.current && subtitleRef.current) {
       // Create beautiful split text animation
       titleRef.current.innerHTML = `
-        <div class="line-wrapper" style="overflow: hidden; padding-bottom: 0.2em;">
-          <div class="line font-light transition-colors duration-300" style="transform: translateY(100%); color: inherit;">Harsha</div>
+        <div class="line-wrapper" style="overflow: hidden; padding-bottom: 0.3em;">
+          <div class="line font-light italic transition-colors duration-300" style="transform: translateY(100%); color: inherit;">Harsha</div>
         </div>
         <div class="line-wrapper" style="overflow: hidden; padding-bottom: 0.2em;">
           <div class="line font-semibold transition-colors duration-300" style="transform: translateY(100%); color: inherit;">Chaganti</div>
@@ -352,13 +368,12 @@ export default function Portfolio() {
       
       // Create animated subtitle with enhanced highlighted words
       subtitleRef.current.innerHTML = `
-        <span class="highlight-word engineer-word transition-colors duration-300" style="filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.3));">Engineer</span> + <span class="highlight-word designer-word transition-colors duration-300" style="filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.3));">Designer</span> focused on building sharp <span class="highlight-word frontend-word transition-colors duration-300" style="filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.3));">frontends</span> and <span class="highlight-word ai-word transition-colors duration-300" style="filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.3));">AI-powered tools</span> with <span class="highlight-word speed-word transition-colors duration-300" style="filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.3));">speed</span>, <span class="highlight-word ux-word transition-colors duration-300" style="filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.3));">UX clarity</span>, and seamless dev handoffs.
+        <span class="highlight-word engineer-word transition-colors duration-300 font-light italic text-[var(--text-primary)]">Engineer + Designer</span> focused on building sharp <span class="highlight-word frontend-word transition-colors duration-300 font-light italic text-[var(--text-primary)]">frontends</span> and <span class="highlight-word ai-word transition-colors duration-300 font-light italic text-[var(--text-primary)]">AI-powered tools</span> with <span class="highlight-word speed-word transition-colors duration-300 font-light italic text-[var(--text-primary)]">speed</span>, <span class="highlight-word ux-word transition-colors duration-300 font-light italic text-[var(--text-primary)]">UX clarity</span>, and seamless dev handoffs.
       `
       
       // Enhanced animation timeline
       const titleLines = titleRef.current.querySelectorAll('.line')
       const engineerWord = subtitleRef.current.querySelector('.engineer-word')
-      const designerWord = subtitleRef.current.querySelector('.designer-word')
       const frontendWord = subtitleRef.current.querySelector('.frontend-word')
       const aiWord = subtitleRef.current.querySelector('.ai-word')
       const speedWord = subtitleRef.current.querySelector('.speed-word')
@@ -387,63 +402,117 @@ export default function Portfolio() {
           "-=0.2"
         )
         .call(() => {
-          // Dynamic rotating gradient animation
-          const words = [engineerWord, designerWord, frontendWord, aiWord, speedWord, uxWord]
-                     const colors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#A855F7", "#EC4899", "#10B981", "#F59E0B"]
+          // Smooth continuous animation - no vanishing/coming back
+          const words = [engineerWord, frontendWord, aiWord, speedWord, uxWord]
+          const colors = ["#2563EB", "#10B981", "#EF4444"]
           
-          // Create a continuous color cycling effect - all words together
-          const colorCycle = gsap.timeline({ repeat: -1 })
-          
-          // Cycle through different colors - all words change together
-          colors.forEach((color, colorIndex) => {
-            colorCycle.to(words, {
-              color: color,
-              duration: 0.5,
-              ease: "power2.inOut",
-              delay: colorIndex * 0.05
-            })
+          // Set initial state - all words visible with first animation color
+          gsap.set(words, { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1,
+            color: colors[0], // Start with blue
+            textShadow: `0 0 12px ${colors[0]}40`
           })
           
-          // Continuous scale pulsing
-          gsap.to(words, {
-            scale: 1.05,
-            duration: 0.8,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-            stagger: {
-              each: 0.1,
-              repeat: -1
-            },
-            immediateRender: true
-          })
+          // Create a smooth, continuous animation timeline
+          const masterTl = gsap.timeline({ repeat: -1 })
           
-          // Rotating glow effect
-          gsap.to(words, {
-            filter: "drop-shadow(0 0 8px rgba(255, 107, 107, 0.6))",
-            duration: 1.0,
+          // Smooth color transition animation with proper timing
+          const colorTl = gsap.timeline({ repeat: -1 })
+          
+          // Blue - 2 seconds
+          colorTl.to(words, {
+            color: colors[0], // Blue
+            textShadow: `0 0 12px ${colors[0]}40`,
+            duration: 2.0,
             ease: "power2.inOut",
-            repeat: -1,
-            yoyo: true,
             stagger: {
               each: 0.1,
-              repeat: -1
-            },
-            immediateRender: true
+              from: "start"
+            }
           })
           
-          // Add rotation for more dynamic feel
+          // Green - 2 seconds  
+          colorTl.to(words, {
+            color: colors[1], // Green
+            textShadow: `0 0 12px ${colors[1]}40`,
+            duration: 2.0,
+            ease: "power2.inOut",
+            stagger: {
+              each: 0.1,
+              from: "start"
+            }
+          })
+          
+          // Red - 2 seconds
+          colorTl.to(words, {
+            color: colors[2], // Red
+            textShadow: `0 0 12px ${colors[2]}40`,
+            duration: 2.0,
+            ease: "power2.inOut",
+            stagger: {
+              each: 0.1,
+              from: "start"
+            }
+          })
+          
+          // Gap - 1 second pause so red stays at full clarity
+          colorTl.to({}, { duration: 1.0 })
+          
+          // Subtle floating animation - continuous gentle movement
           gsap.to(words, {
-            rotation: 2,
-            duration: 2,
+            y: -2,
+            duration: 2.5,
             ease: "sine.inOut",
             repeat: -1,
             yoyo: true,
             stagger: {
-              each: 0.05,
-              repeat: -1
-            },
-            immediateRender: true
+              each: 0.2,
+              from: "random"
+            }
+          })
+          
+          // Gentle scale pulsing - very subtle
+          gsap.to(words, {
+            scale: 1.02,
+            duration: 3,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+            stagger: {
+              each: 0.3,
+              from: "random"
+            }
+          })
+          
+          // Add hover interactions
+          words.forEach((word, index) => {
+            if (word) {
+              word.addEventListener('mouseenter', () => {
+                gsap.to(word, {
+                  scale: 1.08,
+                  y: -4,
+                  rotation: 1,
+                  color: colors[index],
+                  textShadow: `0 0 20px ${colors[index]}60`,
+                  duration: 0.4,
+                  ease: "power2.out"
+                })
+              })
+              
+              word.addEventListener('mouseleave', () => {
+                gsap.to(word, {
+                  scale: 1,
+                  y: 0,
+                  rotation: 0,
+                  color: "var(--text-primary)",
+                  textShadow: "none",
+                  duration: 0.4,
+                  ease: "power2.out"
+                })
+              })
+            }
           })
         })
     }
@@ -451,64 +520,253 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-[var(--background)] relative overflow-hidden transition-colors duration-300">
-      {/* Theme Switcher */}
-      <ThemeSwitcher isHidden={isFullscreenView} />
+      {/* Texture Background */}
+      <div 
+        className="fixed inset-0 w-full h-full pointer-events-none z-0"
+        style={{
+          backgroundImage: 'url("/texture.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed'
+        }}
+      />
       
-      {/* Cursor Follower */}
-      {hoveredProject !== null && !isFullscreenView && (
-        <div
-          className="fixed pointer-events-none z-40 will-change-transform"
-          style={{
-            transform: `translate3d(${mousePosition.x + 20}px, ${mousePosition.y - 20}px, 0)`,
-            transition: 'transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-          }}
-        >
-          <div
-            className="px-4 py-2 rounded-full text-sm font-medium shadow-xl text-white transition-all duration-200"
-            style={{
-              background: projects[hoveredProject].accentColor,
-              border: `1px solid ${projects[hoveredProject].accentColor}80`,
-            }}
-          >
-            View Project
-          </div>
-        </div>
-      )}
+      {/* Tint overlay for texture */}
+      <div className="fixed inset-0 w-full h-full bg-white/60 dark:bg-black/70 pointer-events-none z-1" />
+      
+      {/* Subtle overlay for better text readability */}
+      <div className="fixed inset-0 w-full h-full bg-[var(--background)]/70 dark:bg-[var(--background)]/75 pointer-events-none z-5" />
+      
+      {/* Theme Switcher */}
+      
+       {/* Cursor Follower */}
+       {hoveredProject !== null && !isFullscreenView && displayMode === 'landings' && (
+         <div
+           className="fixed pointer-events-none z-40 will-change-transform"
+           style={{
+             transform: `translate3d(${mousePosition.x + 20}px, ${mousePosition.y - 20}px, 0)`,
+             transition: 'transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+           }}
+         >
+           <div
+             className="px-4 py-2 rounded-full text-sm font-medium shadow-xl text-white transition-all duration-200"
+             style={{
+               background: projects[hoveredProject].accentColor,
+               border: `1px solid ${projects[hoveredProject].accentColor}80`,
+             }}
+           >
+             {projects[hoveredProject].title === "Work in Progress" ? "Work in Progress" : "View Project"}
+           </div>
+         </div>
+       )}
 
       {/* Main Content */}
       <div 
         ref={mainContentRef}
-        className="relative z-10 transform-gpu"
+        className="relative z-20 transform-gpu"
         style={{
           transform: isFullscreenView ? 'translateY(-5%) scale(0.99)' : 'translateY(0) scale(1)',
           opacity: isFullscreenView ? 0 : 1,
           visibility: isFullscreenView ? 'hidden' : 'visible',
           transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           pointerEvents: isFullscreenView ? 'none' : 'auto',
-          zIndex: isFullscreenView ? 1 : 10
+          zIndex: isFullscreenView ? 1 : 20
         }}
       >
         {/* Header Section */}
         <header className="pt-24 pb-20 px-8 md:px-16 lg:px-24 xl:px-32 transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <div className="mb-12">
-              <h1 
-                ref={titleRef}
-                className="text-5xl md:text-7xl lg:text-8xl font-light text-[var(--text-primary)] leading-none tracking-tight mb-6 transition-colors duration-300"
-              >
-                Harsha
-                Chaganti
-              </h1>
+                <h1 
+                  ref={titleRef}
+                  className="text-5xl md:text-7xl lg:text-8xl text-[var(--text-primary)] leading-none tracking-tight mb-6 transition-colors duration-300"
+                >
+                  <span className="block mb-2 font-light italic">Harsha</span>
+                  <span className="block font-semibold">Chaganti</span>
+                </h1>
             </div>
 
             <div className="grid md:grid-cols-2 gap-12 items-end">
               <div className="space-y-4">
                 <p 
                   ref={subtitleRef}
-                  className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed font-light transition-colors duration-300"
+                  className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed font-normal transition-colors duration-300"
                 >
-                  Engineer + Designer focused on building sharp frontends and AI-powered tools with speed, UX clarity,
-                  and seamless dev handoffs.
+                  <motion.span 
+                    className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                    animate={{
+                      y: [0, -1, 0],
+                      scale: [1, 1.01, 1]
+                    }}
+            transition={{
+              duration: 6,
+              repeat: -1,
+              ease: "easeInOut"
+            }}
+                    whileHover={{
+                      scale: 1.05,
+                      y: -3,
+                      rotate: 1,
+                      color: "#2563EB",
+                      textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                    whileTap={{ 
+                      scale: 0.98,
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                  >
+                    Engineer + Designer
+                  </motion.span> focused on building sharp{' '}
+                  <motion.span 
+                    className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                    animate={{
+                      y: [0, -1, 0],
+                      scale: [1, 1.01, 1]
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: -1,
+                      ease: "easeInOut",
+                      delay: 0.5
+                    }}
+                    whileHover={{
+                      scale: 1.05,
+                      y: -3,
+                      rotate: 1,
+                      color: "#10B981",
+                      textShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                    whileTap={{ 
+                      scale: 0.98,
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                  >
+                    frontends
+                  </motion.span> and{' '}
+                  <motion.span 
+                    className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                    animate={{
+                      y: [0, -1, 0],
+                      scale: [1, 1.01, 1]
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: -1,
+                      ease: "easeInOut",
+                      delay: 1
+                    }}
+                    whileHover={{
+                      scale: 1.05,
+                      y: -3,
+                      rotate: 1,
+                      color: "#EF4444",
+                      textShadow: "0 0 12px rgba(239, 68, 68, 0.4)",
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                    whileTap={{ 
+                      scale: 0.98,
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                  >
+                    AI-powered tools
+                  </motion.span> with{' '}
+                  <motion.span 
+                    className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                    animate={{
+                      y: [0, -1, 0],
+                      scale: [1, 1.01, 1]
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: -1,
+                      ease: "easeInOut",
+                      delay: 1.5
+                    }}
+                    whileHover={{
+                      scale: 1.05,
+                      y: -3,
+                      rotate: 1,
+                      color: "#2563EB",
+                      textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                    whileTap={{ 
+                      scale: 0.98,
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                  >
+                    speed
+                  </motion.span>,{' '}
+                  <motion.span 
+                    className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                    animate={{
+                      y: [0, -1, 0],
+                      scale: [1, 1.01, 1]
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: -1,
+                      ease: "easeInOut",
+                      delay: 2
+                    }}
+                    whileHover={{
+                      scale: 1.05,
+                      y: -3,
+                      rotate: 1,
+                      color: "#10B981",
+                      textShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                    whileTap={{ 
+                      scale: 0.98,
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                  >
+                    UX clarity
+                  </motion.span>, and seamless dev handoffs.
                 </p>
               </div>
 
@@ -681,19 +939,19 @@ export default function Portfolio() {
             <div className="mb-20">
               <div className="flex items-center justify-between mb-6">
                 <motion.h2 
-                  className="text-3xl md:text-4xl font-light text-[var(--text-primary)]"
+                  className="text-3xl md:text-4xl font-normal text-[var(--text-primary)]"
                   animate={{
                     textShadow: [
-                      "0 0 0px rgba(99, 102, 241, 0)",
-                      "0 0 20px rgba(99, 102, 241, 0.3)",
-                      "0 0 0px rgba(99, 102, 241, 0)"
+                      "0 0 0px rgba(0, 0, 0, 0)",
+                      "0 0 20px rgba(0, 0, 0, 0.1)",
+                      "0 0 0px rgba(0, 0, 0, 0)"
                     ]
                   }}
-                  transition={{
-                    duration: 4,
-                    repeat: -1,
-                    ease: "easeInOut"
-                  }}
+                    transition={{
+                      duration: 7,
+                      repeat: -1,
+                      ease: "easeInOut"
+                    }}
                 >
                   Selected Work
                 </motion.h2>
@@ -725,7 +983,7 @@ export default function Portfolio() {
                 </div>
               </div>
               <motion.div 
-                className="w-full h-px bg-[var(--border)]"
+                className="w-full h-px bg-white/20 my-12"
                 animate={{
                   scaleX: [1, 1.1, 1],
                   opacity: [0.6, 1, 0.6]
@@ -738,20 +996,20 @@ export default function Portfolio() {
               />
             </div>
             
-                         {/* Projects Grid */}
-             <motion.div
+            {/* Projects Grid */}
+            <motion.div
                key="grid"
                initial={{ opacity: 0, y: 16 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.3, ease: 'easeInOut' }}
-               className={`grid gap-6 ${
+               className={`grid gap-6 mt-12 ${
                  displayMode === 'logos' 
                    ? 'grid-cols-2' 
                    : 'grid-cols-1 md:grid-cols-2'
                }`}
              >
               {projects.filter((project, index) => 
-                displayMode === 'landings' ? index < 5 : index < 2
+                displayMode === 'landings' ? index < 6 : index < 2
               ).map((project, index) => (
                                  <motion.div
                    key={index}
@@ -769,10 +1027,12 @@ export default function Portfolio() {
                    whileHover={{ 
                      transition: { duration: 0.2, ease: "easeOut" }
                    }}
-                   onClick={() => handleProjectClick(index)}
+                   onClick={project.title !== "Work in Progress" ? () => handleProjectClick(index) : undefined}
                  >
                    <div 
-                     className="relative overflow-hidden rounded-lg cursor-pointer group"
+                     className={`relative overflow-hidden rounded-lg group ${
+                       displayMode === 'logos' || project.title === "Work in Progress" ? 'cursor-default' : 'cursor-pointer'
+                     }`}
                      style={{ 
                        backgroundColor: project.accentColor + '10',
                        border: `1px solid ${project.accentColor}20`
@@ -780,6 +1040,7 @@ export default function Portfolio() {
                      onMouseEnter={() => setHoveredProject(index)}
                      onMouseLeave={() => setHoveredProject(null)}
                      onMouseMove={handleMouseMove}
+                     onClick={displayMode === 'landings' && project.title !== "Work in Progress" ? () => handleProjectClick(index) : undefined}
                    >
                      {/* Image placeholder with project accent - responsive aspect ratio */}
                      <div 
@@ -788,19 +1049,21 @@ export default function Portfolio() {
                        }`}
                        style={{
                          borderColor: project.accentColor + '30',
-                         background: displayMode === 'landings' 
-                           ? (project.index === "01" 
-                               ? `url('/landings/hero insightx AI.png') center/cover no-repeat`
-                               : project.index === "02"
-                               ? `url('/landings/hero_eevolution.png') center/cover no-repeat`
-                               : project.index === "03"
-                               ? `url('/landings/hero_aimee.png') center/cover no-repeat`
-                               : project.index === "04"
-                               ? `url('/landings/hero_spotly.png') center/cover no-repeat`
-                               : project.index === "05"
-                               ? `url('/landings/hero_doze.png') center/cover no-repeat`
-                               : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`)
-                           : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
+                        background: displayMode === 'landings' 
+                          ? (project.title === "Work in Progress"
+                              ? `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
+                              : project.index === "01" 
+                              ? `url('/landings/hero insightx AI.png') center/cover no-repeat`
+                              : project.index === "02"
+                              ? `url('/landings/hero_eevolution.png') center/cover no-repeat`
+                              : project.index === "03"
+                              ? `url('/landings/hero_aimee.png') center/cover no-repeat`
+                              : project.index === "04"
+                              ? `url('/landings/hero_spotly.png') center/cover no-repeat`
+                              : project.index === "05"
+                              ? `url('/landings/hero_doze.png') center/cover no-repeat`
+                              : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`)
+                          : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
                        }}
                      >
                       {/* Subtle accent overlay */}
@@ -811,34 +1074,56 @@ export default function Portfolio() {
                         }}
                       />
                       
-                      {/* Project index in corner */}
-                      {displayMode === 'landings' && (
-                        <div 
-                          className="absolute top-2 left-2 px-3 py-1.5 rounded-full text-sm font-mono font-medium opacity-60 group-hover:opacity-100 transition-all duration-300"
-                          style={{
-                            backgroundColor: project.accentColor + '20',
-                            color: project.accentColor
-                          }}
-                        >
-                          {project.index}
+
+                      {/* Work in Progress special content */}
+                      {displayMode === 'landings' && project.title === "Work in Progress" && (
+                        <div className="text-center relative z-10">
+                          <p className="text-[var(--text-tertiary)] text-sm font-mono tracking-wide opacity-60">
+                            Work in Progress
+                          </p>
+                          <div className="flex justify-center mt-2 space-x-1">
+                            <div className="w-1 h-1 bg-[var(--text-tertiary)] rounded-full animate-pulse opacity-40"></div>
+                            <div className="w-1 h-1 bg-[var(--text-tertiary)] rounded-full animate-pulse opacity-40" style={{ animationDelay: '0.2s' }}></div>
+                            <div className="w-1 h-1 bg-[var(--text-tertiary)] rounded-full animate-pulse opacity-40" style={{ animationDelay: '0.4s' }}></div>
+                          </div>
                         </div>
                       )}
 
                       {/* Logo Display Mode */}
                       {displayMode === 'logos' && (
-                        <div className="w-full h-full flex items-center justify-center">
+                        <div className="w-full h-full flex items-center justify-center relative group">
                           {project.index === "01" ? (
-                            <img 
-                              src="/logos/spotly logo.png" 
-                              alt="Spotly Logo"
-                              className="w-full h-full object-cover"
-                            />
+                            <>
+                              <img 
+                                src="/logos/spotly logo.png" 
+                                alt="Spotly Logo"
+                                className="w-full h-full object-cover"
+                              />
+                              {/* Cursor-style tooltip */}
+                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
+                                   style={{
+                                     background: project.accentColor,
+                                     border: `1px solid ${project.accentColor}80`,
+                                   }}>
+                                Spotly
+                              </div>
+                            </>
                           ) : project.index === "02" ? (
-                            <img 
-                              src="/logos/Eevolution logo.png" 
-                              alt="Eevolution Logo"
-                              className="w-full h-full object-contain"
-                            />
+                            <>
+                              <img 
+                                src="/logos/Eevolution logo.png" 
+                                alt="Eevolution Logo"
+                                className="w-full h-full object-contain"
+                              />
+                              {/* Cursor-style tooltip */}
+                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
+                                   style={{
+                                     background: project.accentColor,
+                                     border: `1px solid ${project.accentColor}80`,
+                                   }}>
+                                Eevolution
+                              </div>
+                            </>
                           ) : null}
                         </div>
                       )}
@@ -871,25 +1156,18 @@ export default function Portfolio() {
         </section>
 
         {/* Footer */}
-        <footer className="px-8 md:px-16 lg:px-24 xl:px-32 pb-16 transition-colors duration-300">
+        <footer className="px-8 md:px-16 lg:px-24 xl:px-32 pt-12 pb-16 transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
-            <div className="w-full h-px bg-[var(--border)] mb-12"></div>
+            <div className="w-full h-px bg-white/20 my-12"></div>
 
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <p className="text-[var(--text-tertiary)] text-sm font-mono">
-                  © 2024 Harsha Chaganti. Crafted with precision and care.
+                  2025 Harsha Chaganti. Crafted with precision and care.
                 </p>
               </div>
 
               <div className="flex justify-end gap-6">
-                <a
-                  href="https://github.com"
-                  className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors duration-200"
-                  aria-label="GitHub"
-                >
-                  <Github size={20} />
-                </a>
                 <a
                   href="https://linkedin.com"
                   className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors duration-200"
