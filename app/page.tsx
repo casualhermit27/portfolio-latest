@@ -575,23 +575,23 @@ export default function Portfolio() {
         }}
       >
         {/* Header Section */}
-        <header className="pt-24 pb-20 px-8 md:px-16 lg:px-24 xl:px-32 transition-colors duration-300">
+        <header className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 md:px-16 lg:px-24 xl:px-32 transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
-            <div className="mb-12">
+            <div className="mb-8 sm:mb-10 md:mb-12">
                 <h1 
                   ref={titleRef}
-                  className="text-5xl md:text-7xl lg:text-8xl text-[var(--text-primary)] leading-none tracking-tight mb-6 transition-colors duration-300"
+                  className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-[var(--text-primary)] leading-none tracking-tight mb-4 sm:mb-6 transition-colors duration-300"
                 >
-                  <span className="block mb-2 font-light italic">Harsha</span>
+                  <span className="block mb-1 sm:mb-2 font-light italic">Harsha</span>
                   <span className="block font-semibold">Chaganti</span>
                 </h1>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-12 items-end">
-              <div className="space-y-4">
+            <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-end">
+              <div className="space-y-3 sm:space-y-4">
                 <p 
                   ref={subtitleRef}
-                  className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed font-normal transition-colors duration-300"
+                  className="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed font-normal transition-colors duration-300"
                 >
                   <motion.span 
                     className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
@@ -770,7 +770,7 @@ export default function Portfolio() {
                 </p>
               </div>
 
-                <div className="flex justify-end relative">
+                <div className="flex justify-start sm:justify-end relative">
                   <motion.button 
                     onClick={handleEmailCopy}
                     className="group relative bg-white text-gray-900 px-8 py-4 rounded-full font-medium text-lg hover:bg-purple-600 hover:text-white transition-all duration-300 will-change-auto shadow-lg hover:shadow-xl"
@@ -933,13 +933,13 @@ export default function Portfolio() {
         </header>
 
         {/* Projects Section */}
-        <section className="px-8 md:px-16 lg:px-24 xl:px-32 pb-24 transition-colors duration-300">
+        <section className="px-4 sm:px-6 md:px-16 lg:px-24 xl:px-32 pb-16 sm:pb-20 md:pb-24 transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             {/* Section Header */}
-            <div className="mb-20">
-              <div className="flex items-center justify-between mb-6">
+            <div className="mb-12 sm:mb-16 md:mb-20">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4 sm:gap-0">
                 <motion.h2 
-                  className="text-3xl md:text-4xl font-normal text-[var(--text-primary)]"
+                  className="text-2xl sm:text-3xl md:text-4xl font-normal text-[var(--text-primary)]"
                   animate={{
                     textShadow: [
                       "0 0 0px rgba(0, 0, 0, 0)",
@@ -957,11 +957,11 @@ export default function Portfolio() {
                 </motion.h2>
                 
                 {/* Display Mode Switch */}
-                <div className="bg-[var(--card)] rounded-full p-1 border border-[var(--border)]">
+                <div className="bg-[var(--card)] rounded-full p-1 border border-[var(--border)] w-full sm:w-auto">
                   <div className="flex">
                     <button
                       onClick={() => setDisplayMode('landings')}
-                      className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                      className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                         displayMode === 'landings'
                           ? 'bg-[var(--text-primary)] text-[var(--background)] shadow-lg'
                           : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
@@ -971,7 +971,7 @@ export default function Portfolio() {
                     </button>
                     <button
                       onClick={() => setDisplayMode('logos')}
-                      className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                      className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                         displayMode === 'logos'
                           ? 'bg-[var(--text-primary)] text-[var(--background)] shadow-lg'
                           : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
@@ -1002,10 +1002,10 @@ export default function Portfolio() {
                initial={{ opacity: 0, y: 16 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.3, ease: 'easeInOut' }}
-               className={`grid gap-6 mt-12 ${
+               className={`grid gap-4 sm:gap-6 mt-8 sm:mt-10 md:mt-12 ${
                  displayMode === 'logos' 
                    ? 'grid-cols-2' 
-                   : 'grid-cols-1 md:grid-cols-2'
+                   : 'grid-cols-1 sm:grid-cols-2'
                }`}
              >
               {projects.filter((project, index) => 
@@ -1156,18 +1156,18 @@ export default function Portfolio() {
         </section>
 
         {/* Footer */}
-        <footer className="px-8 md:px-16 lg:px-24 xl:px-32 pt-12 pb-16 transition-colors duration-300">
+        <footer className="px-4 sm:px-6 md:px-16 lg:px-24 xl:px-32 pt-8 sm:pt-10 md:pt-12 pb-12 sm:pb-14 md:pb-16 transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
-            <div className="w-full h-px bg-white/20 my-12"></div>
+            <div className="w-full h-px bg-white/20 my-8 sm:my-10 md:my-12"></div>
 
-            <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center text-center md:text-left">
               <div>
                 <p className="text-[var(--text-tertiary)] text-sm font-mono">
                   2025 Harsha Chaganti. Crafted with precision and care.
                 </p>
               </div>
 
-              <div className="flex justify-end gap-6">
+              <div className="flex justify-center md:justify-end gap-6">
                 <a
                   href="https://linkedin.com"
                   className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors duration-200"
@@ -1199,8 +1199,8 @@ export default function Portfolio() {
           pointerEvents: selectedProject !== null ? 'auto' : 'none'
         }}
       >
-                 {selectedProject !== null && (
-           <div className="h-screen w-full flex flex-col">
+        {selectedProject !== null && (
+          <div className="h-screen w-full flex flex-col">
              {/* Project Navigation Header */}
              <div className="flex-shrink-0 bg-[var(--background)]/90 backdrop-blur-xl border-b border-[var(--border)] transition-colors duration-300">
                <div className="max-w-7xl mx-auto px-8 py-6">
@@ -1280,8 +1280,127 @@ export default function Portfolio() {
                </div>
              </div>
 
-             {/* Split Screen Content */}
-             <div className="flex-1 flex overflow-hidden">
+             {/* Mobile Layout */}
+             <div className="lg:hidden flex-1 overflow-y-auto">
+               <div className="p-4 sm:p-6 space-y-6 sm:space-y-8">
+                 {/* Mobile Project Header */}
+                 <div className="space-y-4">
+                   <div
+                     className="w-12 h-1 rounded-full"
+                     style={{ backgroundColor: projects[selectedProject].accentColor }}
+                   />
+                   <h1 className="text-3xl sm:text-4xl font-light text-[var(--text-primary)] leading-tight">
+                     {projects[selectedProject].title}
+                   </h1>
+                   <p className="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed">
+                     {projects[selectedProject].details.overview}
+                   </p>
+                 </div>
+
+                 {/* Mobile Tech Stack */}
+                 <div className="space-y-4">
+                   <h3 className="text-lg sm:text-xl font-light text-[var(--text-primary)]">Tech Stack</h3>
+                   <div className="flex flex-wrap gap-2">
+                     {projects[selectedProject].details.technologies.map((tech, index) => (
+                       <span
+                         key={index}
+                         className="px-3 py-2 rounded-full text-sm font-medium bg-[var(--card)] text-[var(--text-secondary)] border border-[var(--border)]"
+                       >
+                         {tech}
+                       </span>
+                     ))}
+                   </div>
+                 </div>
+
+                 {/* Mobile AI Tools */}
+                 <div className="space-y-4">
+                   <h3 className="text-lg sm:text-xl font-light text-[var(--text-primary)]">AI Tools Used</h3>
+                   <div className="flex flex-wrap gap-2">
+                     {projects[selectedProject].details.aiTools.map((tool, index) => {
+                       const getToolLogo = (toolName: string) => {
+                         const logos: { [key: string]: string } = {
+                           'Cursor': 'https://cursor.sh/favicon.ico',
+                           'v0': 'https://v0.dev/favicon.ico',
+                           'Claude 3.5 Sonnet': 'https://claude.ai/favicon.ico',
+                           'GPT-4': 'https://openai.com/favicon.ico',
+                           'GPT-4o': 'https://openai.com/favicon.ico',
+                           'Claude 3 Opus': 'https://claude.ai/favicon.ico',
+                           'Gemini': 'https://ai.google.dev/favicon.ico',
+                           'Lovable': 'https://lovable.dev/favicon.ico',
+                           'Bolt': 'https://bolt.new/favicon.ico',
+                           'Replit': 'https://replit.com/favicon.ico',
+                           'Grok': 'https://x.ai/favicon.ico',
+                           'Claude Sonnet': 'https://claude.ai/favicon.ico'
+                         }
+                         return logos[toolName] || null
+                       }
+                       
+                       const logoUrl = getToolLogo(tool)
+                       
+                       return (
+                         <span
+                           key={index}
+                           className="px-3 py-2 rounded-full text-sm font-medium flex items-center gap-2"
+                           style={{
+                             backgroundColor: `${projects[selectedProject].accentColor}15`,
+                             color: projects[selectedProject].accentColor,
+                             border: `1px solid ${projects[selectedProject].accentColor}30`
+                           }}
+                         >
+                           {logoUrl && (
+                             <img 
+                               src={logoUrl} 
+                               alt={`${tool} logo`}
+                               className="w-4 h-4 rounded-sm"
+                               onError={(e) => {
+                                 e.currentTarget.style.display = 'none'
+                               }}
+                             />
+                           )}
+                           {tool}
+                         </span>
+                       )
+                     })}
+                   </div>
+                 </div>
+
+                 {/* Mobile Features */}
+                 <div className="space-y-4">
+                   <h3 className="text-lg sm:text-xl font-light text-[var(--text-primary)]">Key Features</h3>
+                   <div className="space-y-2">
+                     {projects[selectedProject].details.features.map((feature, index) => (
+                       <div key={index} className="flex items-center gap-3">
+                         <div 
+                           className="w-2 h-2 rounded-full flex-shrink-0"
+                           style={{ backgroundColor: projects[selectedProject].accentColor }}
+                         />
+                         <span className="text-[var(--text-secondary)] text-sm sm:text-base">{feature}</span>
+                       </div>
+                     ))}
+                   </div>
+                 </div>
+
+                 {/* Mobile Visit Site Button */}
+                 <div className="pt-4">
+                   <a
+                     href={projects[selectedProject].details.liveUrl}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-4 rounded-full text-base font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                     style={{
+                       backgroundColor: projects[selectedProject].accentColor,
+                       boxShadow: `0 8px 25px ${projects[selectedProject].accentColor}40`
+                     }}
+                   >
+                     <span>Visit Website</span>
+                     <ArrowUpRight size={18} />
+                   </a>
+                 </div>
+               </div>
+             </div>
+
+             {/* Desktop Layout */}
+             <div className="hidden lg:flex flex-1 overflow-hidden">
                {/* Left Side - Project Details with Style Guide */}
                <div className="w-1/2 p-20 flex flex-col justify-center overflow-y-auto">
                 <div className="max-w-2xl space-y-20">
@@ -1502,9 +1621,10 @@ export default function Portfolio() {
                    )}
                  </div>
                </div>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )
