@@ -7,6 +7,7 @@ import { Github, Linkedin, Mail, ArrowUpRight, ExternalLink, Code, X, ArrowLeft,
 import { gsap } from "gsap"
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 // Lazy load heavy components
 const SimpleStyleGuide = lazy(() => import("@/components/simple-style-guide"))
@@ -146,6 +147,9 @@ const projects = [
 ]
 
 export default function Portfolio() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -158,12 +162,37 @@ export default function Portfolio() {
   const [showPopup, setShowPopup] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [loadingProgress, setLoadingProgress] = useState(0)
+  const [lastClickTime, setLastClickTime] = useState(0)
 
   // Refs for GSAP animations
   const titleRef = useRef<HTMLHeadingElement>(null)
   const subtitleRef = useRef<HTMLParagraphElement>(null)
   const mainContentRef = useRef<HTMLDivElement>(null)
   const projectDetailsRef = useRef<HTMLDivElement>(null)
+
+  // URL state management
+  useEffect(() => {
+    const projectId = searchParams.get('project')
+    if (projectId) {
+      const projectIndex = parseInt(projectId)
+      if (projectIndex >= 0 && projectIndex < projects.length) {
+        setSelectedProject(projectIndex)
+        setIsFullscreenView(true)
+      }
+    }
+  }, [searchParams])
+
+  // Update URL when project changes
+  useEffect(() => {
+    if (selectedProject !== null) {
+      router.push(`?project=${selectedProject}`, { scroll: false })
+    } else {
+      router.push('/', { scroll: false })
+    }
+  }, [selectedProject, router])
+
+  // Mobile detection helper
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
   // Enhanced loading effect with smooth easing
   useEffect(() => {
@@ -238,6 +267,11 @@ export default function Portfolio() {
   }
 
   const handleProjectClick = (index: number) => {
+    // Prevent multiple rapid clicks with debouncing
+    const now = Date.now()
+    if (isAnimating || (now - lastClickTime) < 300) return
+    
+    setLastClickTime(now)
     setIsAnimating(true)
     setSelectedProject(index)
 
@@ -249,7 +283,7 @@ export default function Portfolio() {
         pointerEvents: "none"
       })
 
-      // Create a quick, smooth animation timeline
+      // Create a quick, smooth animation timeline with mobile optimizations
       const tl = gsap.timeline({
         onComplete: () => {
           setIsFullscreenView(true)
@@ -261,24 +295,33 @@ export default function Portfolio() {
         }
       })
 
-      // Quick and smooth animation sequence
+      // Mobile-optimized animation sequence
+      const isMobile = window.innerWidth < 768
+      const duration = isMobile ? 0.2 : 0.3
+      const ease = isMobile ? "power1.out" : "power2.out"
+
       tl.to(mainContentRef.current, {
-        y: "-5%",
-        scale: 0.99,
+        y: isMobile ? "-2%" : "-5%",
+        scale: isMobile ? 0.995 : 0.99,
         autoAlpha: 0,
-        duration: 0.3,
-        ease: "power2.out"
+        duration: duration,
+        ease: ease,
+        force3D: true
       })
         .to(projectDetailsRef.current, {
           y: "0%",
           autoAlpha: 1,
-          duration: 0.3,
-          ease: "power2.out"
-        }, "-=0.2") // Overlap for seamless transition
+          duration: duration,
+          ease: ease,
+          force3D: true
+        }, "-=0.1") // Reduced overlap for mobile
     }
   }
 
   const closeFullscreenView = () => {
+    // Prevent multiple rapid clicks
+    if (isAnimating) return
+    
     setIsAnimating(true)
 
     if (mainContentRef.current && projectDetailsRef.current) {
@@ -287,6 +330,8 @@ export default function Portfolio() {
           setSelectedProject(null)
           setIsFullscreenView(false)
           setIsAnimating(false)
+          // Update URL to go back to main
+          router.push('/', { scroll: false })
           // Ensure proper cleanup
           if (projectDetailsRef.current) {
             projectDetailsRef.current.style.pointerEvents = 'none'
@@ -294,19 +339,26 @@ export default function Portfolio() {
         }
       })
 
+      // Mobile-optimized close animation
+      const isMobile = window.innerWidth < 768
+      const duration = isMobile ? 0.2 : 0.3
+      const ease = isMobile ? "power1.in" : "power2.in"
+
       tl.to(projectDetailsRef.current, {
         y: "100%",
         autoAlpha: 0,
-        duration: 0.3,
-        ease: "power2.in"
+        duration: duration,
+        ease: ease,
+        force3D: true
       })
         .to(mainContentRef.current, {
           y: "0%",
           scale: 1,
           autoAlpha: 1,
-          duration: 0.3,
-          ease: "power2.out"
-        }, "-=0.2")
+          duration: duration,
+          ease: "power2.out",
+          force3D: true
+        }, "-=0.1") // Reduced overlap for mobile
     }
   }
 
@@ -314,6 +366,8 @@ export default function Portfolio() {
   const handleCloseFullscreen = () => {
     setSelectedProject(null)
     setIsFullscreenView(false)
+    // Update URL to go back to main
+    router.push('/', { scroll: false })
     // Reset main content style to ensure visibility
     if (mainContentRef.current) {
       mainContentRef.current.style.transform = 'translateY(0) scale(1)'
@@ -373,7 +427,7 @@ export default function Portfolio() {
         <span class="highlight-word engineer-word transition-colors duration-300 font-light italic">Engineer + Designer</span> focused on building sharp <span class="highlight-word frontend-word transition-colors duration-300 font-light italic">frontends</span> and <span class="highlight-word ai-word transition-colors duration-300 font-light italic">AI-powered tools</span> with <span class="highlight-word speed-word transition-colors duration-300 font-light italic">speed</span>, <span class="highlight-word ux-word transition-colors duration-300 font-light italic">UX clarity</span>, and pixel-perfect execution.
       `
 
-      // Enhanced animation timeline
+      // Enhanced animation timeline with mobile optimization
       const titleLines = titleRef.current.querySelectorAll('.line')
       const engineerWord = subtitleRef.current.querySelector('.engineer-word')
       const frontendWord = subtitleRef.current.querySelector('.frontend-word')
@@ -387,19 +441,26 @@ export default function Portfolio() {
       gsap.set(titleRef.current, { opacity: 1 })
       gsap.set(subtitleRef.current, { opacity: 0, y: 20 })
 
+      // Mobile-optimized but identical animations
+      const isMobile = window.innerWidth < 768
+      const titleDuration = isMobile ? 0.35 : 0.4
+      const subtitleDuration = isMobile ? 0.25 : 0.3
+
       tl.to(titleLines, {
         y: 0,
-        duration: 0.4,
+        duration: titleDuration,
         ease: "back.out(1.7)",
         stagger: 0.05,
         delay: 0.1,
+        force3D: true
       })
         .to(subtitleRef.current,
           {
             opacity: 1,
             y: 0,
-            duration: 0.3,
-            ease: "power2.out"
+            duration: subtitleDuration,
+            ease: "power2.out",
+            force3D: true
           },
           "-=0.2"
         )
@@ -423,99 +484,112 @@ export default function Portfolio() {
           // Smooth color transition animation with proper timing
           const colorTl = gsap.timeline({ repeat: -1 })
 
+          // Mobile-optimized durations but same visual effect
+          const colorDuration = isMobile ? 1.8 : 2.0
+          const gapDuration = isMobile ? 0.8 : 1.0
+
           // Blue - 2 seconds
           colorTl.to(words, {
             color: colors[0], // Blue
             textShadow: `0 0 12px ${colors[0]}40`,
-            duration: 2.0,
+            duration: colorDuration,
             ease: "power2.inOut",
             stagger: {
               each: 0.1,
               from: "start"
-            }
+            },
+            force3D: true
           })
 
           // Green - 2 seconds  
           colorTl.to(words, {
             color: colors[1], // Green
             textShadow: `0 0 12px ${colors[1]}40`,
-            duration: 2.0,
+            duration: colorDuration,
             ease: "power2.inOut",
             stagger: {
               each: 0.1,
               from: "start"
-            }
+            },
+            force3D: true
           })
 
           // Red - 2 seconds
           colorTl.to(words, {
             color: colors[2], // Red
             textShadow: `0 0 12px ${colors[2]}40`,
-            duration: 2.0,
+            duration: colorDuration,
             ease: "power2.inOut",
             stagger: {
               each: 0.1,
               from: "start"
-            }
+            },
+            force3D: true
           })
 
           // Gap - 1 second pause so red stays at full clarity
-          colorTl.to({}, { duration: 1.0 })
+          colorTl.to({}, { duration: gapDuration })
 
           // Subtle floating animation - continuous gentle movement
           gsap.to(words, {
             y: -2,
-            duration: 2.5,
+            duration: isMobile ? 2.2 : 2.5,
             ease: "sine.inOut",
             repeat: -1,
             yoyo: true,
             stagger: {
               each: 0.2,
               from: "random"
-            }
+            },
+            force3D: true
           })
 
           // Gentle scale pulsing - very subtle
           gsap.to(words, {
             scale: 1.02,
-            duration: 3,
+            duration: isMobile ? 2.8 : 3,
             ease: "sine.inOut",
             repeat: -1,
             yoyo: true,
             stagger: {
               each: 0.3,
               from: "random"
-            }
+            },
+            force3D: true
           })
 
-          // Add hover interactions
-          words.forEach((word, index) => {
-            if (word) {
-              word.addEventListener('mouseenter', () => {
-                gsap.to(word, {
-                  scale: 1.08,
-                  y: -4,
-                  rotation: 1,
-                  color: colors[index],
-                  textShadow: `0 0 20px ${colors[index]}60`,
-                  duration: 0.4,
-                  ease: "power2.out"
+          // Add hover interactions (desktop only)
+          if (!isMobile) {
+            words.forEach((word, index) => {
+              if (word) {
+                word.addEventListener('mouseenter', () => {
+                  gsap.to(word, {
+                    scale: 1.08,
+                    y: -4,
+                    rotation: 1,
+                    color: colors[index],
+                    textShadow: `0 0 20px ${colors[index]}60`,
+                    duration: 0.4,
+                    ease: "power2.out",
+                    force3D: true
+                  })
                 })
-              })
 
-              word.addEventListener('mouseleave', () => {
-                gsap.to(word, {
-                  scale: 1,
-                  y: 0,
-                  rotation: 0,
-                  color: "var(--text-primary)",
-                  textShadow: "none",
-                  duration: 0.4,
-                  ease: "power2.out"
+                word.addEventListener('mouseleave', () => {
+                  gsap.to(word, {
+                    scale: 1,
+                    y: 0,
+                    rotation: 0,
+                    color: "var(--text-primary)",
+                    textShadow: "none",
+                    duration: 0.4,
+                    ease: "power2.out",
+                    force3D: true
+                  })
                 })
-              })
-            }
-          })
+              }
+            })
+          }
         })
     }
   }, [isLoading])
@@ -686,16 +760,16 @@ export default function Portfolio() {
                       textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
                       transition: {
                         type: "spring",
-                        stiffness: 300,
-                        damping: 20
+                        stiffness: isMobile ? 400 : 300,
+                        damping: isMobile ? 25 : 20
                       }
                     }}
                     whileTap={{
                       scale: 0.98,
                       transition: {
                         type: "spring",
-                        stiffness: 300,
-                        damping: 20
+                        stiffness: isMobile ? 400 : 300,
+                        damping: isMobile ? 25 : 20
                       }
                     }}
                   >
@@ -1084,19 +1158,29 @@ export default function Portfolio() {
                   whileHover={{
                     transition: { duration: 0.2, ease: "easeOut" }
                   }}
+                  whileTap={{ 
+                    scale: 0.98,
+                    transition: { duration: 0.1 }
+                  }}
                   onClick={project.title !== "Work in Progress" ? () => handleProjectClick(index) : undefined}
+                  style={{
+                    WebkitTapHighlightColor: 'transparent',
+                    WebkitTouchCallout: 'none',
+                    WebkitUserSelect: 'none',
+                    userSelect: 'none'
+                  }}
                 >
                   <div
                     className={`relative overflow-hidden rounded-lg group ${displayMode === 'logos' || project.title === "Work in Progress" ? 'cursor-default' : 'cursor-pointer'
                       }`}
                     style={{
                       backgroundColor: project.accentColor + '10',
-                      border: `1px solid ${project.accentColor}20`
+                      border: `1px solid ${project.accentColor}20`,
+                      touchAction: 'manipulation'
                     }}
                     onMouseEnter={() => setHoveredProject(index)}
                     onMouseLeave={() => setHoveredProject(null)}
                     onMouseMove={handleMouseMove}
-                    onClick={displayMode === 'landings' && project.title !== "Work in Progress" ? () => handleProjectClick(index) : undefined}
                   >
                     {/* Image placeholder with project accent - responsive aspect ratio */}
                     <div
