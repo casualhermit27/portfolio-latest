@@ -295,22 +295,21 @@ function PortfolioContent() {
         }
       })
 
-      // Simplified mobile animations
+      // Mobile vs Desktop animations
       const isMobile = window.innerWidth < 768
       
       if (isMobile) {
-        // Simple mobile animations - no complex transforms
+        // Ultra-simple mobile: just fade out main, pop up details
         tl.to(mainContentRef.current, {
-          autoAlpha: 0,
-          duration: 0.2,
-          ease: "power2.out"
+          opacity: 0,
+          duration: 0.15,
+          ease: "none"
         })
-          .to(projectDetailsRef.current, {
+          .set(projectDetailsRef.current, {
             y: "0%",
-            autoAlpha: 1,
-            duration: 0.2,
-            ease: "power2.out"
-          }, "-=0.1")
+            opacity: 1,
+            pointerEvents: "auto"
+          })
       } else {
         // Desktop animations with full effects
         tl.to(mainContentRef.current, {
@@ -353,21 +352,20 @@ function PortfolioContent() {
         }
       })
 
-      // Simplified mobile close animation
+      // Mobile vs Desktop close animations
       const isMobile = window.innerWidth < 768
       
       if (isMobile) {
-        // Simple mobile close - no complex transforms
+        // Ultra-simple mobile close: just fade out details, fade in main
         tl.to(projectDetailsRef.current, {
-          autoAlpha: 0,
-          duration: 0.2,
-          ease: "power2.out"
+          opacity: 0,
+          duration: 0.15,
+          ease: "none"
         })
-          .to(mainContentRef.current, {
-            autoAlpha: 1,
-            duration: 0.2,
-            ease: "power2.out"
-          }, "-=0.1")
+          .set(mainContentRef.current, {
+            opacity: 1,
+            pointerEvents: "auto"
+          })
       } else {
         // Desktop close with full effects
         tl.to(projectDetailsRef.current, {
@@ -472,22 +470,22 @@ function PortfolioContent() {
       const isMobile = window.innerWidth < 768
       
       if (isMobile) {
-        // Simple mobile animations - no complex easing
+        // Ultra-simple mobile: basic fade in, no complex easing
         tl.to(titleLines, {
           y: 0,
-          duration: 0.3,
-          ease: "power2.out",
-          stagger: 0.1,
+          duration: 0.2,
+          ease: "none",
+          stagger: 0.05,
           delay: 0.1
         })
           .to(subtitleRef.current,
             {
               opacity: 1,
               y: 0,
-              duration: 0.2,
-              ease: "power2.out"
+              duration: 0.15,
+              ease: "none"
             },
-            "-=0.1"
+            "-=0.05"
           )
       } else {
         // Desktop animations with full effects
@@ -532,15 +530,10 @@ function PortfolioContent() {
           const colorTl = gsap.timeline({ repeat: -1 })
 
           if (isMobile) {
-            // Simple mobile word animations - no complex effects
-            gsap.to(words, {
+            // Ultra-simple mobile: just set static color, no animations
+            gsap.set(words, {
               color: colors[0], // Blue
-              textShadow: `0 0 8px ${colors[0]}30`,
-              duration: 2.0,
-              ease: "power2.inOut",
-              repeat: -1,
-              yoyo: true,
-              stagger: 0.2
+              textShadow: `0 0 6px ${colors[0]}20`
             })
           } else {
             // Desktop word animations with full effects
@@ -655,7 +648,16 @@ function PortfolioContent() {
   }, [isLoading])
 
   return (
-    <div className="min-h-screen bg-[var(--background)] relative overflow-hidden transition-colors duration-300">
+    <>
+      <style jsx>{`
+        .mobile-simple {
+          transition: transform 0.1s ease-out;
+        }
+        .mobile-simple:active {
+          transform: scale(0.98);
+        }
+      `}</style>
+      <div className="min-h-screen bg-[var(--background)] relative overflow-hidden transition-colors duration-300">
       {/* Enhanced Loading Screen */}
       <AnimatePresence>
         {isLoading && (
@@ -801,170 +803,200 @@ function PortfolioContent() {
                   ref={subtitleRef}
                   className="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed font-normal transition-colors duration-300"
                 >
-                  <motion.span
-                    className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
-                    animate={isMobile ? {} : {
-                      y: [0, -1, 0],
-                      scale: [1, 1.01, 1]
-                    }}
-                    transition={isMobile ? {} : {
-                      duration: 6,
-                      repeat: -1,
-                      ease: "easeInOut"
-                    }}
-                    whileHover={isMobile ? {} : {
-                      scale: 1.05,
-                      y: -3,
-                      rotate: 1,
-                      color: "#2563EB",
-                      textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                    whileTap={{
-                      scale: 0.98,
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                  >
-                    Engineer + Designer
-                  </motion.span> focused on building sharp{' '}
-                  <motion.span
-                    className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
-                    animate={isMobile ? {} : {
-                      y: [0, -1, 0],
-                      scale: [1, 1.01, 1]
-                    }}
-                    transition={isMobile ? {} : {
-                      duration: 4,
-                      repeat: -1,
-                      ease: "easeInOut",
-                      delay: 0.5
-                    }}
-                    whileHover={isMobile ? {} : {
-                      scale: 1.05,
-                      y: -3,
-                      rotate: 1,
-                      color: "#10B981",
-                      textShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                    whileTap={{
-                      scale: 0.98,
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                  >
-                    frontends
-                  </motion.span> and{' '}
-                  <motion.span
-                    className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
-                    animate={{
-                      y: [0, -1, 0],
-                      scale: [1, 1.01, 1]
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: -1,
-                      ease: "easeInOut",
-                      delay: 1
-                    }}
-                    whileHover={{
-                      scale: 1.05,
-                      y: -3,
-                      rotate: 1,
-                      color: "#EF4444",
-                      textShadow: "0 0 12px rgba(239, 68, 68, 0.4)",
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                    whileTap={{
-                      scale: 0.98,
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                  >
-                    AI-powered tools
-                  </motion.span> with{' '}
-                  <motion.span
-                    className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
-                    animate={{
-                      y: [0, -1, 0],
-                      scale: [1, 1.01, 1]
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: -1,
-                      ease: "easeInOut",
-                      delay: 1.5
-                    }}
-                    whileHover={{
-                      scale: 1.05,
-                      y: -3,
-                      rotate: 1,
-                      color: "#2563EB",
-                      textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                    whileTap={{
-                      scale: 0.98,
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                  >
-                    speed
-                  </motion.span>,{' '}
-                  <motion.span
-                    className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
-                    animate={{
-                      y: [0, -1, 0],
-                      scale: [1, 1.01, 1]
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: -1,
-                      ease: "easeInOut",
-                      delay: 2
-                    }}
-                    whileHover={{
-                      scale: 1.05,
-                      y: -3,
-                      rotate: 1,
-                      color: "#10B981",
-                      textShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                    whileTap={{
-                      scale: 0.98,
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                  >
-                    UX clarity
-                  </motion.span>, and pixel-perfect execution.
+                  {isMobile ? (
+                    <span className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer mobile-simple">
+                      Engineer + Designer
+                    </span>
+                  ) : (
+                    <motion.span
+                      className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                      animate={{
+                        y: [0, -1, 0],
+                        scale: [1, 1.01, 1]
+                      }}
+                      transition={{
+                        duration: 6,
+                        repeat: -1,
+                        ease: "easeInOut"
+                      }}
+                      whileHover={{
+                        scale: 1.05,
+                        y: -3,
+                        rotate: 1,
+                        color: "#2563EB",
+                        textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                      whileTap={{
+                        scale: 0.98,
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                    >
+                      Engineer + Designer
+                    </motion.span>
+                  )} focused on building sharp{' '}
+                  {isMobile ? (
+                    <span className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer mobile-simple">
+                      frontends
+                    </span>
+                  ) : (
+                    <motion.span
+                      className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                      animate={{
+                        y: [0, -1, 0],
+                        scale: [1, 1.01, 1]
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: -1,
+                        ease: "easeInOut",
+                        delay: 0.5
+                      }}
+                      whileHover={{
+                        scale: 1.05,
+                        y: -3,
+                        rotate: 1,
+                        color: "#10B981",
+                        textShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                      whileTap={{
+                        scale: 0.98,
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                    >
+                      frontends
+                    </motion.span>
+                  )} and{' '}
+                  {isMobile ? (
+                    <span className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer mobile-simple">
+                      AI-powered tools
+                    </span>
+                  ) : (
+                    <motion.span
+                      className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                      animate={{
+                        y: [0, -1, 0],
+                        scale: [1, 1.01, 1]
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: -1,
+                        ease: "easeInOut",
+                        delay: 1
+                      }}
+                      whileHover={{
+                        scale: 1.05,
+                        y: -3,
+                        rotate: 1,
+                        color: "#EF4444",
+                        textShadow: "0 0 12px rgba(239, 68, 68, 0.4)",
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                      whileTap={{
+                        scale: 0.98,
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                    >
+                      AI-powered tools
+                    </motion.span>
+                  )} with{' '}
+                  {isMobile ? (
+                    <span className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer mobile-simple">
+                      speed
+                    </span>
+                  ) : (
+                    <motion.span
+                      className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                      animate={{
+                        y: [0, -1, 0],
+                        scale: [1, 1.01, 1]
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: -1,
+                        ease: "easeInOut",
+                        delay: 1.5
+                      }}
+                      whileHover={{
+                        scale: 1.05,
+                        y: -3,
+                        rotate: 1,
+                        color: "#2563EB",
+                        textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                      whileTap={{
+                        scale: 0.98,
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                    >
+                      speed
+                    </motion.span>
+                  )},{' '}
+                  {isMobile ? (
+                    <span className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer mobile-simple">
+                      UX clarity
+                    </span>
+                  ) : (
+                    <motion.span
+                      className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                      animate={{
+                        y: [0, -1, 0],
+                        scale: [1, 1.01, 1]
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: -1,
+                        ease: "easeInOut",
+                        delay: 2
+                      }}
+                      whileHover={{
+                        scale: 1.05,
+                        y: -3,
+                        rotate: 1,
+                        color: "#10B981",
+                        textShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                      whileTap={{
+                        scale: 0.98,
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                    >
+                      UX clarity
+                    </motion.span>
+                  )}, and pixel-perfect execution.
                 </p>
               </div>
 
@@ -1828,6 +1860,7 @@ function PortfolioContent() {
         )}
       </div>
     </div>
+    </>
 
   )
 }
