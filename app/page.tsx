@@ -2,12 +2,14 @@
 
 import type React from "react"
 
-import { useEffect, useState, useRef } from "react"
-import { Github, Linkedin, Mail, ArrowUpRight, ExternalLink, Code, X, ArrowLeft, ArrowRight } from "lucide-react"
+import { useEffect, useState, useRef, lazy, Suspense } from "react"
+import { Github, Linkedin, Mail, ArrowUpRight, ExternalLink, Code, X, ArrowLeft, ArrowRight, ThumbsUp } from "lucide-react"
 import { gsap } from "gsap"
-import SimpleStyleGuide from "@/components/simple-style-guide"
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+
+// Lazy load heavy components
+const SimpleStyleGuide = lazy(() => import("@/components/simple-style-guide"))
 
 const projects = [
   {
@@ -154,12 +156,55 @@ export default function Portfolio() {
   const [emailCopied, setEmailCopied] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [loadingProgress, setLoadingProgress] = useState(0)
 
   // Refs for GSAP animations
   const titleRef = useRef<HTMLHeadingElement>(null)
   const subtitleRef = useRef<HTMLParagraphElement>(null)
   const mainContentRef = useRef<HTMLDivElement>(null)
   const projectDetailsRef = useRef<HTMLDivElement>(null)
+
+  // Enhanced loading effect with smooth easing
+  useEffect(() => {
+    const startTime = Date.now()
+    const duration = 2500 // 2.5 seconds for smoother feel
+    
+    // Smooth easing function for more natural progress
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+    let lastProgress = 0
+    
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime
+      const rawProgress = Math.min(elapsed / duration, 1)
+      const easedProgress = easeOutCubic(rawProgress) * 100
+      const roundedProgress = Math.round(easedProgress)
+      
+      // Only update state if progress actually changed to reduce re-renders
+      if (roundedProgress !== lastProgress) {
+        setLoadingProgress(roundedProgress)
+        lastProgress = roundedProgress
+      }
+      
+      if (rawProgress < 1) {
+        requestAnimationFrame(updateProgress)
+      } else {
+        // Add a small delay before hiding for smooth transition
+        setTimeout(() => {
+          setIsLoading(false)
+          triggerPageAnimations()
+        }, 300)
+      }
+    }
+    
+    requestAnimationFrame(updateProgress)
+  }, [])
+
+  // Function to trigger existing page animations after loading completes
+  const triggerPageAnimations = () => {
+    // The existing GSAP animations in the useEffect will automatically trigger
+    // when the refs are available, so we don't need to do anything here
+  }
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     // Direct, immediate cursor tracking for smooth movement
@@ -174,14 +219,8 @@ export default function Portfolio() {
       await navigator.clipboard.writeText('harshachaganti12@gmail.com')
       setEmailCopied(true)
       setShowConfetti(true)
-      setShowPopup(true)
 
-      // Reset after 5 seconds
-      setTimeout(() => {
-        setEmailCopied(false)
-        setShowConfetti(false)
-        setShowPopup(false)
-      }, 5000)
+      // Keep the success state until page reload - no timeout reset
     } catch (err) {
       // Fallback for older browsers
       const textArea = document.createElement('textarea')
@@ -194,11 +233,7 @@ export default function Portfolio() {
       setEmailCopied(true)
       setShowConfetti(true)
       setShowPopup(true)
-      setTimeout(() => {
-        setEmailCopied(false)
-        setShowConfetti(false)
-        setShowPopup(false)
-      }, 5000)
+      // Keep the success state until page reload - no timeout reset
     }
   }
 
@@ -322,7 +357,7 @@ export default function Portfolio() {
 
   // GSAP Animation for title
   useEffect(() => {
-    if (titleRef.current && subtitleRef.current) {
+    if (titleRef.current && subtitleRef.current && !isLoading) {
       // Create beautiful split text animation
       titleRef.current.innerHTML = `
         <div class="line-wrapper" style="overflow: hidden; padding-bottom: 0.3em;">
@@ -335,7 +370,7 @@ export default function Portfolio() {
 
       // Create animated subtitle with enhanced highlighted words
       subtitleRef.current.innerHTML = `
-        <span class="highlight-word engineer-word transition-colors duration-300 font-light italic">Engineer + Designer</span> focused on building sharp <span class="highlight-word frontend-word transition-colors duration-300 font-light italic">frontends</span> and <span class="highlight-word ai-word transition-colors duration-300 font-light italic">AI-powered tools</span> with <span class="highlight-word speed-word transition-colors duration-300 font-light italic">speed</span>, <span class="highlight-word ux-word transition-colors duration-300 font-light italic">UX clarity</span>, and seamless dev handoffs.
+        <span class="highlight-word engineer-word transition-colors duration-300 font-light italic">Engineer + Designer</span> focused on building sharp <span class="highlight-word frontend-word transition-colors duration-300 font-light italic">frontends</span> and <span class="highlight-word ai-word transition-colors duration-300 font-light italic">AI-powered tools</span> with <span class="highlight-word speed-word transition-colors duration-300 font-light italic">speed</span>, <span class="highlight-word ux-word transition-colors duration-300 font-light italic">UX clarity</span>, and pixel-perfect execution.
       `
 
       // Enhanced animation timeline
@@ -483,10 +518,91 @@ export default function Portfolio() {
           })
         })
     }
-  }, [])
+  }, [isLoading])
 
   return (
     <div className="min-h-screen bg-[var(--background)] relative overflow-hidden transition-colors duration-300">
+      {/* Enhanced Loading Screen */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div 
+            className="fixed inset-0 z-50 bg-[var(--background)] flex items-center justify-center"
+            initial={{ opacity: 1 }}
+            exit={{ 
+              opacity: 0,
+              scale: 1.05,
+              transition: { 
+                duration: 0.6, 
+                ease: [0.25, 0.46, 0.45, 0.94] 
+              }
+            }}
+          >
+          <div className="text-center space-y-8">
+            {/* Animated percentage with smooth transitions */}
+            <motion.div 
+              className="text-3xl font-mono text-[var(--text-primary)] font-light"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <motion.span
+                key={loadingProgress}
+                initial={{ scale: 1.02, opacity: 0.9 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ 
+                  duration: 0.15, 
+                  ease: "easeOut",
+                  type: "tween"
+                }}
+                style={{ 
+                  willChange: "transform, opacity",
+                  backfaceVisibility: "hidden"
+                }}
+              >
+                {loadingProgress}%
+              </motion.span>
+            </motion.div>
+
+            {/* Enhanced progress bar with glow effect */}
+            <div className="relative">
+              <div className="w-64 h-2 bg-[var(--border)] rounded-full overflow-hidden shadow-inner">
+                <motion.div 
+                  className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full relative"
+                  style={{ width: `${loadingProgress}%` }}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${loadingProgress}%` }}
+                  transition={{ 
+                    duration: 0.4, 
+                    ease: [0.25, 0.46, 0.45, 0.94] 
+                  }}
+                >
+                  {/* Shimmer effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                    animate={{
+                      x: ['-100%', '100%'],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 rounded-full shadow-lg"
+                    style={{
+                      boxShadow: `0 0 20px rgba(147, 51, 234, 0.4), 0 0 40px rgba(59, 130, 246, 0.2)`
+                    }}
+                  />
+                </motion.div>
+              </div>
+            </div>
+          </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Texture Background */}
       <div className="fixed inset-0 w-full h-full pointer-events-none z-0 animated-gradient-bg" />
 
@@ -724,20 +840,31 @@ export default function Portfolio() {
                     }}
                   >
                     UX clarity
-                  </motion.span>, and seamless dev handoffs.
+                  </motion.span>, and pixel-perfect execution.
                 </p>
               </div>
 
               <div className="flex justify-start sm:justify-end relative">
                 <motion.button
                   onClick={handleEmailCopy}
-                  className="group relative bg-white text-gray-900 px-8 py-4 rounded-full font-medium text-lg hover:bg-purple-600 hover:text-white transition-all duration-300 will-change-auto shadow-lg hover:shadow-xl"
-                  whileHover={{
+                  className={`group relative px-8 py-4 rounded-full font-medium text-lg transition-all duration-300 will-change-auto shadow-lg hover:shadow-xl overflow-hidden ${
+                    emailCopied 
+                      ? 'bg-green-500 text-white' 
+                      : 'bg-white text-gray-900 hover:bg-purple-600 hover:text-white'
+                  }`}
+                  whileHover={!emailCopied ? {
                     y: -2,
                     boxShadow: "0 8px 25px rgba(147, 51, 234, 0.3)"
-                  }}
+                  } : {}}
                   whileTap={{ scale: 0.98 }}
-                  animate={{
+                  animate={emailCopied ? {
+                    scale: [1, 1.05, 1],
+                    boxShadow: [
+                      "0 4px 20px rgba(34, 197, 94, 0.3)",
+                      "0 8px 30px rgba(34, 197, 94, 0.4)",
+                      "0 4px 20px rgba(34, 197, 94, 0.3)"
+                    ]
+                  } : {
                     boxShadow: [
                       "0 4px 20px rgba(0,0,0,0.1)",
                       "0 6px 25px rgba(147, 51, 234, 0.15)",
@@ -752,14 +879,29 @@ export default function Portfolio() {
                     }
                   }}
                 >
+                  {/* Success background animation */}
+                  {emailCopied && (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-500"
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+
                   {/* Content container */}
                   <div className="relative z-10 flex items-center gap-2">
                     <motion.span
-                      animate={{
+                      animate={emailCopied ? {
+                        y: [0, -2, 0],
+                      } : {
                         x: [0, 2, 0],
                         y: [0, -1, 0]
                       }}
-                      transition={{
+                      transition={emailCopied ? {
+                        duration: 0.6,
+                        ease: "easeInOut"
+                      } : {
                         duration: 1.8,
                         repeat: -1,
                         ease: "easeInOut"
@@ -770,19 +912,45 @@ export default function Portfolio() {
 
                     <motion.div
                       className="w-5 h-5 flex items-center justify-center"
-                      animate={{
+                      animate={emailCopied ? {
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 0, 0]
+                      } : {
                         rotate: [0, 15, -15, 0],
                         scale: 1
                       }}
-                      transition={{
+                      transition={emailCopied ? {
+                        duration: 0.4,
+                        ease: "easeInOut"
+                      } : {
                         duration: 3,
                         repeat: -1,
                         ease: "easeInOut"
                       }}
                     >
-                      <ArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      {emailCopied ? (
+                        <motion.div
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ duration: 0.4, delay: 0.1 }}
+                        >
+                          <ThumbsUp className="text-white w-5 h-5" />
+                        </motion.div>
+                      ) : (
+                        <ArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      )}
                     </motion.div>
                   </div>
+
+                  {/* Shimmer effect on success */}
+                  {emailCopied && (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                      initial={{ x: '-100%' }}
+                      animate={{ x: '100%' }}
+                      transition={{ duration: 0.8, delay: 0.3 }}
+                    />
+                  )}
                 </motion.button>
 
                 {/* Confetti around button */}
@@ -819,72 +987,6 @@ export default function Portfolio() {
                   </div>
                 )}
 
-                {/* Modern Popup above button */}
-                {showPopup && (
-                  <motion.div
-                    className="absolute bottom-full mb-4 z-50"
-                    initial={{ opacity: 0, y: 15, scale: 0.8, rotateX: -15 }}
-                    animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-                    exit={{ opacity: 0, y: 15, scale: 0.8, rotateX: -15 }}
-                    transition={{ duration: 0.4, ease: [0.68, -0.55, 0.265, 1.55] }}
-                    style={{
-                      left: 'calc(50% + 20px)',
-                      transform: 'translateX(-50%)'
-                    }}
-                  >
-                    <div className="relative">
-                      {/* Main card */}
-                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 backdrop-blur-md border border-green-200/50 dark:border-green-700/50 rounded-2xl px-6 py-4 shadow-2xl text-center relative overflow-hidden min-w-[280px]">
-                        {/* Animated background gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 via-emerald-400/10 to-teal-400/10 animate-pulse"></div>
-
-                        {/* Success icon with animation */}
-                        <motion.div
-                          className="relative z-10 mb-3"
-                          initial={{ scale: 0, rotate: -180 }}
-                          animate={{ scale: 1, rotate: 0 }}
-                          transition={{ duration: 0.5, delay: 0.1, ease: "backOut" }}
-                        >
-                          <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto shadow-lg">
-                            <motion.span
-                              className="text-white text-xl font-bold"
-                              animate={{ scale: [1, 1.2, 1] }}
-                              transition={{ duration: 0.6, delay: 0.3 }}
-                            >
-                              ✓
-                            </motion.span>
-                          </div>
-                        </motion.div>
-
-                        {/* Text content */}
-                        <div className="relative z-10">
-                          <motion.h3
-                            className="text-lg font-bold text-green-800 dark:text-green-200 mb-1"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3, delay: 0.2 }}
-                          >
-                            Email Copied!
-                          </motion.h3>
-                          <motion.p
-                            className="text-sm text-green-600 dark:text-green-300 font-medium"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3, delay: 0.3 }}
-                          >
-                            Feel free to reach out anytime
-                          </motion.p>
-                        </div>
-
-                        {/* Shimmer effect */}
-                        <div className="absolute inset-0 -top-1 -left-1 -right-1 -bottom-1 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-shimmer"></div>
-                      </div>
-
-                      {/* Arrow pointing down */}
-                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-green-200 dark:border-t-green-700"></div>
-                    </div>
-                  </motion.div>
-                )}
               </div>
             </div>
           </div>
@@ -1289,21 +1391,6 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                {/* Mobile Features */}
-                <div className="space-y-4">
-                  <h3 className="text-lg sm:text-xl font-light text-[var(--text-primary)]">Key Features</h3>
-                  <div className="space-y-2">
-                    {projects[selectedProject].details.features.map((feature, index) => (
-                      <div key={index} className="flex items-center gap-3">
-                        <div
-                          className="w-2 h-2 rounded-full flex-shrink-0"
-                          style={{ backgroundColor: projects[selectedProject].accentColor }}
-                        />
-                        <span className="text-[var(--text-secondary)] text-sm sm:text-base">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
 
                 {/* Mobile Visit Site Button */}
                 <div className="pt-4">
@@ -1356,7 +1443,9 @@ export default function Portfolio() {
 
                     {/* Style Guide */}
                     <div className="flex justify-center">
-                      <SimpleStyleGuide project={projects[selectedProject]} />
+                      <Suspense fallback={<div className="w-32 h-8 bg-gray-200 rounded animate-pulse"></div>}>
+                        <SimpleStyleGuide project={projects[selectedProject]} />
+                      </Suspense>
                     </div>
 
                     {/* Tech Stack & AI Tools Grid */}
