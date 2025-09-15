@@ -23,7 +23,7 @@ const projects = [
       technologies: ["React", "Next.js", "Tailwind CSS", "TypeScript", "Data Visualization"],
       aiTools: ["Cursor", "v0", "Claude 3.5 Sonnet", "GPT-4"],
       features: ["AI-driven analytics", "Real-time data visualization", "Business intelligence", "Custom dashboards", "Enterprise scalability"],
-      liveUrl: "#",
+      liveUrl: "https://insightx-ai.vercel.app/",
       codeUrl: "#",
       image: "/landings/hero insightx AI.png",
       fullWebsiteImage: "/landings/full_insightx.png",
@@ -42,7 +42,7 @@ const projects = [
       technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma"],
       aiTools: ["Cursor", "Lovable", "Gemini", "GPT-4 Turbo"],
       features: ["AI recommendations", "Smart search", "Real-time analytics", "Mobile-first design", "Payment integration"],
-      liveUrl: "#",
+      liveUrl: "https://eevolution-wd2u.vercel.app/",
       codeUrl: "#",
       image: "/landings/hero_eevolution.png",
       fullWebsiteImage: "/landings/full_eevolution.png",
@@ -61,7 +61,7 @@ const projects = [
       technologies: ["React", "Next.js", "WebRTC", "TypeScript", "Tailwind CSS"],
       aiTools: ["Cursor", "Bolt", "GPT-4", "Claude 3 Opus"],
       features: ["AI transcription", "Auto-generated summaries", "Action item extraction", "Multi-platform integration", "Real-time processing"],
-      liveUrl: "#",
+      liveUrl: "https://aimee-jo9p.vercel.app/",
       codeUrl: "#",
       image: "/landings/hero_aimee.png",
       fullWebsiteImage: "/landings/full_aimee.png",
@@ -80,7 +80,7 @@ const projects = [
       technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "SEO APIs"],
       aiTools: ["Cursor", "Replit", "Grok", "Claude Sonnet"],
       features: ["AI-powered analysis", "Visual design evaluation", "Technical SEO checks", "Performance metrics", "Actionable insights"],
-      liveUrl: "#",
+      liveUrl: "https://seo-spotly.vercel.app/",
       codeUrl: "#",
       image: "/landings/hero_spotly.png",
       fullWebsiteImage: "/landings/full_spotly.png",
@@ -99,7 +99,7 @@ const projects = [
       technologies: ["Next.js", "Prisma", "Vercel", "OpenAI", "PostgreSQL"],
       aiTools: ["Cursor", "v0", "Claude 3 Opus", "GPT-4o"],
       features: ["AI recommendations", "Payment processing", "Inventory management", "Order tracking"],
-      liveUrl: "#",
+      liveUrl: "https://doze.vercel.app/",
       codeUrl: "#",
       image: "/landings/hero_doze.png",
       fullWebsiteImage: "/landings/doze_full.png",
@@ -168,6 +168,9 @@ export default function Portfolio() {
   const [isFullscreenView, setIsFullscreenView] = useState(false)
   const [viewMode, setViewMode] = useState<'grid'>('grid')
   const [displayMode, setDisplayMode] = useState<'landings' | 'logos'>('landings')
+  const [emailCopied, setEmailCopied] = useState(false)
+  const [showConfetti, setShowConfetti] = useState(false)
+  const [showPopup, setShowPopup] = useState(false)
   
   // Refs for GSAP animations
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -183,39 +186,77 @@ export default function Portfolio() {
     })
   }
 
+  const handleEmailCopy = async () => {
+    try {
+      await navigator.clipboard.writeText('harshachaganti12@gmail.com')
+      setEmailCopied(true)
+      setShowConfetti(true)
+      setShowPopup(true)
+      
+      // Reset after 5 seconds
+      setTimeout(() => {
+        setEmailCopied(false)
+        setShowConfetti(false)
+        setShowPopup(false)
+      }, 5000)
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea')
+      textArea.value = 'harshachaganti12@gmail.com'
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textArea)
+      
+      setEmailCopied(true)
+      setShowConfetti(true)
+      setShowPopup(true)
+      setTimeout(() => {
+        setEmailCopied(false)
+        setShowConfetti(false)
+        setShowPopup(false)
+      }, 5000)
+    }
+  }
+
   const handleProjectClick = (index: number) => {
     setIsAnimating(true)
     setSelectedProject(index)
     
     if (mainContentRef.current && projectDetailsRef.current) {
-      // Ensure project details view is positioned correctly
+      // Set initial state properly
       gsap.set(projectDetailsRef.current, {
         y: "100%",
-        display: "block",
-        autoAlpha: 1
+        autoAlpha: 0,
+        pointerEvents: "none"
       })
 
-      // Create the animation timeline with smoother easing
+      // Create a quick, smooth animation timeline
       const tl = gsap.timeline({
         onComplete: () => {
           setIsFullscreenView(true)
           setIsAnimating(false)
+          // Enable pointer events after animation
+          if (projectDetailsRef.current) {
+            projectDetailsRef.current.style.pointerEvents = 'auto'
+          }
         }
       })
 
-      // Smoother animation sequence
+      // Quick and smooth animation sequence
       tl.to(mainContentRef.current, {
-        y: "-10%", // Reduced movement for subtlety
-        scale: 0.98, // Subtler scale
+        y: "-5%",
+        scale: 0.99,
         autoAlpha: 0,
-        duration: 0.5,
-        ease: "power2.inOut"
+        duration: 0.3,
+        ease: "power2.out"
       })
       .to(projectDetailsRef.current, {
         y: "0%",
-        duration: 0.5,
-        ease: "power2.inOut"
-      }, "-=0.3") // More overlap for seamless transition
+        autoAlpha: 1,
+        duration: 0.3,
+        ease: "power2.out"
+      }, "-=0.2") // Overlap for seamless transition
     }
   }
 
@@ -228,21 +269,26 @@ export default function Portfolio() {
           setSelectedProject(null)
           setIsFullscreenView(false)
           setIsAnimating(false)
+          // Ensure proper cleanup
+          if (projectDetailsRef.current) {
+            projectDetailsRef.current.style.pointerEvents = 'none'
+          }
         }
       })
 
       tl.to(projectDetailsRef.current, {
         y: "100%",
-        duration: 0.5,
-        ease: "power2.inOut"
+        autoAlpha: 0,
+        duration: 0.3,
+        ease: "power2.in"
       })
       .to(mainContentRef.current, {
         y: "0%",
         scale: 1,
         autoAlpha: 1,
-        duration: 0.5,
-        ease: "power2.inOut"
-      }, "-=0.3")
+        duration: 0.3,
+        ease: "power2.out"
+      }, "-=0.2")
     }
   }
 
@@ -434,11 +480,12 @@ export default function Portfolio() {
         ref={mainContentRef}
         className="relative z-10 transform-gpu"
         style={{
-          transform: isFullscreenView ? 'translateY(-20%) scale(0.95)' : 'translateY(0) scale(1)',
+          transform: isFullscreenView ? 'translateY(-5%) scale(0.99)' : 'translateY(0) scale(1)',
           opacity: isFullscreenView ? 0 : 1,
           visibility: isFullscreenView ? 'hidden' : 'visible',
-          transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-          pointerEvents: isFullscreenView ? 'none' : 'auto'
+          transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          pointerEvents: isFullscreenView ? 'none' : 'auto',
+          zIndex: isFullscreenView ? 1 : 10
         }}
       >
         {/* Header Section */}
@@ -465,57 +512,164 @@ export default function Portfolio() {
                 </p>
               </div>
 
-              <div className="flex justify-end">
-                <motion.button 
-                  className="group bg-[var(--text-primary)] text-[var(--background)] px-8 py-4 rounded-full font-medium text-lg hover:bg-[#6366F1] hover:text-white transition-all duration-300 will-change-auto"
-                  whileHover={{ 
-                    y: -2,
-                    boxShadow: "0 8px 25px rgba(99, 102, 241, 0.3)"
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                  animate={{
-                    boxShadow: [
-                      "0 4px 20px rgba(0,0,0,0.1)",
-                      "0 6px 25px rgba(99, 102, 241, 0.15)",
-                      "0 4px 20px rgba(0,0,0,0.1)"
-                    ]
-                  }}
-                  transition={{
-                    boxShadow: {
-                      duration: 2.5,
-                      repeat: -1,
-                      ease: "easeInOut"
-                    }
-                  }}
-                >
-                  <motion.span
-                    animate={{ 
-                      x: [0, 2, 0],
-                      y: [0, -1, 0]
+                <div className="flex justify-end relative">
+                  <motion.button 
+                    onClick={handleEmailCopy}
+                    className="group relative bg-white text-gray-900 px-8 py-4 rounded-full font-medium text-lg hover:bg-purple-600 hover:text-white transition-all duration-300 will-change-auto shadow-lg hover:shadow-xl"
+                    whileHover={{ 
+                      y: -2,
+                      boxShadow: "0 8px 25px rgba(147, 51, 234, 0.3)"
                     }}
-                    transition={{
-                      duration: 1.8,
-                      repeat: -1,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    Get in Touch
-                  </motion.span>
-                  <motion.div
-                    className="inline-block ml-2 w-5 h-5"
+                    whileTap={{ scale: 0.98 }}
                     animate={{
-                      rotate: [0, 15, -15, 0]
+                      boxShadow: [
+                        "0 4px 20px rgba(0,0,0,0.1)",
+                        "0 6px 25px rgba(147, 51, 234, 0.15)",
+                        "0 4px 20px rgba(0,0,0,0.1)"
+                      ]
                     }}
                     transition={{
-                      duration: 3,
-                      repeat: -1,
-                      ease: "easeInOut"
+                      boxShadow: {
+                        duration: 2.5,
+                        repeat: -1,
+                        ease: "easeInOut"
+                      }
                     }}
                   >
-                    <ArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </motion.div>
-                </motion.button>
-              </div>
+                    {/* Content container */}
+                    <div className="relative z-10 flex items-center gap-2">
+                      <motion.span
+                        animate={{ 
+                          x: [0, 2, 0],
+                          y: [0, -1, 0]
+                        }}
+                        transition={{
+                          duration: 1.8,
+                          repeat: -1,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        {emailCopied ? "Email Copied!" : "Get in Touch"}
+                      </motion.span>
+                      
+                      <motion.div
+                        className="w-5 h-5 flex items-center justify-center"
+                        animate={{
+                          rotate: [0, 15, -15, 0],
+                          scale: 1
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: -1,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <ArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      </motion.div>
+                    </div>
+                  </motion.button>
+                  
+                  {/* Confetti around button */}
+                  {showConfetti && (
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(15)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          className="absolute w-3 h-3 rounded-full"
+                          style={{
+                            backgroundColor: ['#6366F1', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#F97316', '#EF4444'][i % 7],
+                            left: '50%',
+                            top: '50%'
+                          }}
+                          initial={{ 
+                            x: 0, 
+                            y: 0, 
+                            scale: 0,
+                            rotate: 0
+                          }}
+                          animate={{ 
+                            x: (Math.random() - 0.5) * 150,
+                            y: (Math.random() - 0.5) * 100 - 50,
+                            scale: [0, 1.2, 0.8, 0],
+                            rotate: [0, 180, 360]
+                          }}
+                          transition={{ 
+                            duration: 1.5,
+                            delay: i * 0.05,
+                            ease: "easeOut"
+                          }}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  
+                  {/* Modern Popup above button */}
+                  {showPopup && (
+                    <motion.div
+                      className="absolute bottom-full mb-4 z-50"
+                      initial={{ opacity: 0, y: 15, scale: 0.8, rotateX: -15 }}
+                      animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+                      exit={{ opacity: 0, y: 15, scale: 0.8, rotateX: -15 }}
+                      transition={{ duration: 0.4, ease: [0.68, -0.55, 0.265, 1.55] }}
+                      style={{
+                        left: 'calc(50% + 20px)',
+                        transform: 'translateX(-50%)'
+                      }}
+                    >
+                      <div className="relative">
+                        {/* Main card */}
+                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 backdrop-blur-md border border-green-200/50 dark:border-green-700/50 rounded-2xl px-6 py-4 shadow-2xl text-center relative overflow-hidden min-w-[280px]">
+                          {/* Animated background gradient */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 via-emerald-400/10 to-teal-400/10 animate-pulse"></div>
+                          
+                          {/* Success icon with animation */}
+                          <motion.div
+                            className="relative z-10 mb-3"
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ duration: 0.5, delay: 0.1, ease: "backOut" }}
+                          >
+                            <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto shadow-lg">
+                              <motion.span
+                                className="text-white text-xl font-bold"
+                                animate={{ scale: [1, 1.2, 1] }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
+                              >
+                                ✓
+                              </motion.span>
+                            </div>
+                          </motion.div>
+                          
+                          {/* Text content */}
+                          <div className="relative z-10">
+                            <motion.h3
+                              className="text-lg font-bold text-green-800 dark:text-green-200 mb-1"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.3, delay: 0.2 }}
+                            >
+                              Email Copied!
+                            </motion.h3>
+                            <motion.p
+                              className="text-sm text-green-600 dark:text-green-300 font-medium"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.3, delay: 0.3 }}
+                            >
+                              Feel free to reach out anytime
+                            </motion.p>
+                          </div>
+                          
+                          {/* Shimmer effect */}
+                          <div className="absolute inset-0 -top-1 -left-1 -right-1 -bottom-1 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-shimmer"></div>
+                        </div>
+                        
+                        {/* Arrow pointing down */}
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-green-200 dark:border-t-green-700"></div>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
             </div>
           </div>
         </header>
@@ -763,7 +917,8 @@ export default function Portfolio() {
         style={{
           transform: 'translateY(100%)',
           visibility: selectedProject !== null ? 'visible' : 'hidden',
-          opacity: selectedProject !== null ? 1 : 0
+          opacity: selectedProject !== null ? 1 : 0,
+          pointerEvents: selectedProject !== null ? 'auto' : 'none'
         }}
       >
                  {selectedProject !== null && (
@@ -943,6 +1098,66 @@ export default function Portfolio() {
                         )
                       })}
                     </div>
+                  </div>
+
+                  {/* Visit Site Button */}
+                  <div className="space-y-6">
+                    <a
+                      href={projects[selectedProject].details.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl backdrop-blur-md border border-white/40 shadow-xl overflow-hidden"
+                      style={{
+                        background: `linear-gradient(135deg, ${projects[selectedProject].accentColor}60, ${projects[selectedProject].accentColor}40, ${projects[selectedProject].accentColor}20)`,
+                        boxShadow: `0 8px 32px ${projects[selectedProject].accentColor}40, inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 0 1px ${projects[selectedProject].accentColor}30`
+                      }}
+                    >
+                      {/* Animated background gradient */}
+                      <div 
+                        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{
+                          background: `linear-gradient(135deg, ${projects[selectedProject].accentColor}80, ${projects[selectedProject].accentColor}60, ${projects[selectedProject].accentColor}40)`,
+                          zIndex: -1
+                        }}
+                      />
+                      
+                      {/* Shimmer effect */}
+                      <div 
+                        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 shimmer"
+                        style={{
+                          background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)`,
+                          zIndex: 1
+                        }}
+                      />
+                      
+                      <span className="relative z-10">Visit Live Site</span>
+                      <motion.div
+                        className="w-5 h-5 flex items-center justify-center relative z-10"
+                        animate={{ 
+                          x: [0, 3, 0],
+                          y: [0, -2, 0],
+                          rotate: [0, 5, -5, 0]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: -1,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <ExternalLink size={16} />
+                      </motion.div>
+                      
+                      {/* Pulsing glow effect */}
+                      <div 
+                        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{
+                          background: `radial-gradient(circle at center, ${projects[selectedProject].accentColor}50, transparent 70%)`,
+                          filter: 'blur(8px)',
+                          transform: 'scale(1.1)',
+                          zIndex: -2
+                        }}
+                      />
+                    </a>
                   </div>
                 </div>
               </div>

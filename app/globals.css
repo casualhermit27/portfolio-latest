@@ -223,7 +223,35 @@ body {
   color: #111111;
 }
 
-/* Backdrop blur support */
+  /* Shimmer animation for buttons */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .shimmer {
+    animation: shimmer 2s infinite;
+  }
+
+  /* Shimmer animation for popup */
+  @keyframes shimmer-popup {
+    0% {
+      transform: translateX(-100%) skewX(-12deg);
+    }
+    100% {
+      transform: translateX(100%) skewX(-12deg);
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer-popup 2s infinite;
+  }
+
+  /* Backdrop blur support */
 @supports (backdrop-filter: blur(10px)) {
   .backdrop-blur-sm {
     backdrop-filter: blur(4px);
