@@ -157,13 +157,7 @@ const SimpleStyleGuide: React.FC<SimpleStyleGuideProps> = ({ project }) => {
 
   return (
     <div className="space-y-4">
-      {/* Project Name */}
-      <div>
-        <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2">
-          {project.title}
-        </h3>
-      </div>
-
+      {/* Style Guide Content - Project name removed to avoid duplication */}
     </div>
   )
 }

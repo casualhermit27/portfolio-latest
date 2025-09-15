@@ -7,6 +7,7 @@ import { Github, Linkedin, Mail, ArrowUpRight, ExternalLink, Code, X, ArrowLeft,
 import { gsap } from "gsap"
 import SimpleStyleGuide from "@/components/simple-style-guide"
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 
 const projects = [
   {
@@ -86,8 +87,8 @@ const projects = [
     },
   },
   {
-    title: "E-commerce Platform",
-    type: "Full-Stack",
+    title: "Doze",
+    type: "E-commerce Platform",
     description: "Marketplace with AI-powered recommendations",
     index: "05",
     hoverColor: "bg-[#FFE8E8]", // Light coral
@@ -117,7 +118,7 @@ const projects = [
       technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Healthcare APIs"],
       aiTools: ["Cursor", "v0", "Claude 3.5 Sonnet", "GPT-4"],
       features: ["Digital Health Records", "LIMS Integration", "Secure Data Exchange", "Real-time Analytics", "Interoperable Care"],
-      liveUrl: "#",
+      liveUrl: "https://acme-health-kappa.vercel.app/",
       codeUrl: "#",
       image: "/landings/acme_hero.png",
       fullWebsiteImage: "/landings/acme_full.png",
@@ -135,59 +136,6 @@ const projects = [
       technologies: ["Coming Soon"],
       aiTools: ["Coming Soon"],
       features: ["Coming Soon"],
-      liveUrl: "#",
-      codeUrl: "#",
-      image: "/placeholder.svg?height=400&width=600",
-    },
-  },
-  {
-    title: "Developer Tools Suite",
-    type: "CLI Tool",
-    description: "Rapid prototyping and deployment automation",
-    index: "08",
-    hoverColor: "bg-[#FFFBE8]", // Gentle yellow
-    accentColor: "#EAB308", // Yellow
-    details: {
-      overview: "A comprehensive CLI toolkit designed for rapid prototyping and automated deployment workflows.",
-      technologies: ["Node.js", "TypeScript", "Docker", "AWS", "GitHub Actions"],
-      aiTools: ["Cursor", "Lovable", "GPT-4 Turbo", "Gemini"],
-      features: ["Project scaffolding", "Auto deployment", "Environment management", "CI/CD integration"],
-      liveUrl: "#",
-      codeUrl: "#",
-      image: "/placeholder.svg?height=400&width=600",
-    },
-  },
-  {
-    title: "Social Media Scheduler",
-    type: "SaaS Platform",
-    description: "Multi-platform scheduling with optimization",
-    index: "09",
-    hoverColor: "bg-[#F8E8FF]", // Soft pink
-    accentColor: "#EC4899", // Pink
-    details: {
-      overview:
-        "A SaaS platform for scheduling and optimizing social media content across multiple platforms with AI-powered insights.",
-      technologies: ["Vue.js", "Python", "Redis", "OpenAI", "Social APIs"],
-      aiTools: ["Cursor", "Bolt", "GPT-4o", "Claude 3.5 Sonnet"],
-      features: ["Multi-platform posting", "Content optimization", "Analytics dashboard", "Team collaboration"],
-      liveUrl: "#",
-      codeUrl: "#",
-      image: "/placeholder.svg?height=400&width=600",
-    },
-  },
-  {
-    title: "Crypto Trading Bot",
-    type: "Algorithm",
-    description: "Automated trading with ML predictions",
-    index: "10",
-    hoverColor: "bg-[#E8F5F0]", // Light sage
-    accentColor: "#06B6D4", // Cyan
-    details: {
-      overview:
-        "An intelligent cryptocurrency trading bot that uses machine learning algorithms to predict market trends and execute trades.",
-      technologies: ["Python", "TensorFlow", "WebSocket", "MongoDB", "Trading APIs"],
-      aiTools: ["Cursor", "Replit", "Claude Sonnet", "GPT-4"],
-      features: ["ML predictions", "Risk management", "Portfolio tracking", "Backtesting"],
       liveUrl: "#",
       codeUrl: "#",
       image: "/placeholder.svg?height=400&width=600",
@@ -540,19 +488,10 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-[var(--background)] relative overflow-hidden transition-colors duration-300">
       {/* Texture Background */}
-      <div
-        className="fixed inset-0 w-full h-full pointer-events-none z-0"
-        style={{
-          backgroundImage: 'url("/texture.jpg")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed'
-        }}
-      />
+      <div className="fixed inset-0 w-full h-full pointer-events-none z-0 animated-gradient-bg" />
 
       {/* Tint overlay for texture */}
-      <div className="fixed inset-0 w-full h-full bg-white/60 dark:bg-black/70 pointer-events-none z-1" />
+      <div className="fixed inset-0 w-full h-full bg-white/20 dark:bg-black/30 pointer-events-none z-1" />
 
       {/* Subtle overlay for better text readability */}
       <div className="fixed inset-0 w-full h-full bg-[var(--background)]/70 dark:bg-[var(--background)]/75 pointer-events-none z-5" />
@@ -1025,7 +964,7 @@ export default function Portfolio() {
                 }`}
             >
                {projects.filter((project, index) =>
-                 displayMode === 'landings' ? index < 7 : index < 3
+                 displayMode === 'landings' ? index < 7 : (project.index === "01" || project.index === "02" || project.index === "03" || project.index === "04" || project.index === "05" || project.index === "06")
                ).map((project, index) => (
                 <motion.div
                   key={index}
@@ -1110,18 +1049,16 @@ export default function Portfolio() {
                         <div className="w-full h-full flex items-center justify-center relative group">
                           {project.index === "01" ? (
                             <>
-                              <img
-                                src="/logos/spotly logo.png"
-                                alt="Spotly Logo"
-                                className="w-full h-full object-cover"
-                              />
+                              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg">
+                                <span className="text-white font-bold text-2xl">AI</span>
+                              </div>
                               {/* Cursor-style tooltip */}
                               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
                                  style={{
                                    background: project.accentColor,
                                    border: `1px solid ${project.accentColor}80`,
                                  }}>
-                                Spotly
+                                Insightix AI
                               </div>
                             </>
                           ) : project.index === "02" ? (
@@ -1138,6 +1075,50 @@ export default function Portfolio() {
                                    border: `1px solid ${project.accentColor}80`,
                                  }}>
                                 Eevolution
+                              </div>
+                            </>
+                          ) : project.index === "03" ? (
+                            <>
+                              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-500 to-green-600 rounded-lg">
+                                <span className="text-white font-bold text-2xl">A</span>
+                              </div>
+                              {/* Cursor-style tooltip */}
+                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
+                                 style={{
+                                   background: project.accentColor,
+                                   border: `1px solid ${project.accentColor}80`,
+                                 }}>
+                                Aimee
+                              </div>
+                            </>
+                          ) : project.index === "04" ? (
+                            <>
+                              <img
+                                src="/logos/spotly logo.png"
+                                alt="Spotly Logo"
+                                className="w-full h-full object-cover"
+                              />
+                              {/* Cursor-style tooltip */}
+                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
+                                 style={{
+                                   background: project.accentColor,
+                                   border: `1px solid ${project.accentColor}80`,
+                                 }}>
+                                Spotly
+                              </div>
+                            </>
+                          ) : project.index === "05" ? (
+                            <>
+                              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-red-500 to-red-600 rounded-lg">
+                                <span className="text-white font-bold text-2xl">D</span>
+                              </div>
+                              {/* Cursor-style tooltip */}
+                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
+                                 style={{
+                                   background: project.accentColor,
+                                   border: `1px solid ${project.accentColor}80`,
+                                 }}>
+                                Doze
                               </div>
                             </>
                           ) : project.index === "06" ? (
@@ -1259,55 +1240,9 @@ export default function Portfolio() {
                       </span>
                     </div>
                   </div>
-                  {projects[selectedProject].details.fullWebsiteImage ? (
-                    <div className="w-1/2 flex justify-center">
-                      <div
-                        className="flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-medium text-white shadow-lg backdrop-blur-sm border"
-                        style={{
-                          backgroundColor: `${projects[selectedProject].accentColor}20`,
-                          borderColor: `${projects[selectedProject].accentColor}40`,
-                          boxShadow: `0 8px 32px ${projects[selectedProject].accentColor}20`
-                        }}
-                      >
-                        <div
-                          className="w-2 h-2 rounded-full animate-pulse"
-                          style={{ backgroundColor: projects[selectedProject].accentColor }}
-                        ></div>
-                        <span>Scroll to explore</span>
-                        <motion.div
-                          animate={{ y: [0, 4, 0] }}
-                          transition={{ duration: 1.5, repeat: -1, ease: "easeInOut" }}
-                          className="w-4 h-4 flex items-center justify-center"
-                        >
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M7 13l3 3 3-3M7 6l3 3 3-3" />
-                          </svg>
-                        </motion.div>
-                      </div>
-                    </div>
-                  ) : (
-                    <a
-                      href={projects[selectedProject].details.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--card)] hover:bg-[var(--border)] text-sm text-[var(--text-primary)] transition-all duration-300 hover:scale-105 group"
-                    >
-                      <span>View Live</span>
-                      <ExternalLink
-                        size={14}
-                        className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      />
-                    </a>
-                  )}
+                   <div className="w-1/2 flex justify-center">
+                     {/* Empty space - View Live button removed */}
+                   </div>
                 </div>
               </div>
             </div>
@@ -1324,9 +1259,6 @@ export default function Portfolio() {
                   <h1 className="text-3xl sm:text-4xl font-light text-[var(--text-primary)] leading-tight">
                     {projects[selectedProject].title}
                   </h1>
-                  <p className="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed">
-                    {projects[selectedProject].details.overview}
-                  </p>
                 </div>
 
                 {/* Mobile Tech Stack */}
@@ -1412,245 +1344,296 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                {/* Mobile Visit Site Button */}
-                <div className="pt-4">
-                  <a
-                    href={projects[selectedProject].details.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-4 rounded-full text-base font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                    style={{
-                      backgroundColor: projects[selectedProject].accentColor,
-                      boxShadow: `0 8px 25px ${projects[selectedProject].accentColor}40`
-                    }}
-                  >
-                    <span>Visit Website</span>
-                    <ArrowUpRight size={18} />
-                  </a>
-                </div>
+                 {/* Mobile Visit Site Button */}
+                 <div className="pt-4">
+                   <a
+                     href={projects[selectedProject].details.liveUrl}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-4 rounded-full text-base font-medium text-white transition-all duration-300 hover:scale-105 overflow-hidden"
+                     style={{
+                       backgroundColor: projects[selectedProject].accentColor,
+                       boxShadow: `0 8px 25px ${projects[selectedProject].accentColor}40`
+                     }}
+                   >
+                     {/* Shine animation on hover */}
+                     <div 
+                       className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
+                       style={{
+                         background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent)`,
+                         transform: 'translateX(-100%)',
+                         animation: 'shine 0.8s ease-out'
+                       }}
+                     />
+                     
+                     <span className="relative z-10">Visit Website</span>
+                     <ArrowUpRight size={18} />
+                   </a>
+                 </div>
               </div>
             </div>
 
-            {/* Desktop Layout */}
-            <div className="hidden lg:flex flex-1 overflow-hidden">
-              {/* Left Side - Project Details with Style Guide */}
-              <div className="w-1/2 p-20 flex flex-col justify-center overflow-y-auto">
-                <div className="max-w-2xl space-y-20">
-                  {/* Project Header */}
-                  <div className="space-y-12">
-                    <div
-                      className="w-20 h-1 rounded-full"
-                      style={{ backgroundColor: projects[selectedProject].accentColor }}
-                    />
-                    <h1 className="text-7xl md:text-8xl font-light text-[var(--text-primary)] leading-none">
-                      {projects[selectedProject].title}
-                    </h1>
-                  </div>
-
-                  {/* Style Guide */}
-                  <SimpleStyleGuide project={projects[selectedProject]} />
-
-                  {/* Tech Stack */}
-                  <div className="space-y-8">
-                    <h3 className="text-2xl font-light text-[var(--text-primary)]">Tech Stack</h3>
-                    <div className="flex flex-wrap gap-4">
-                      {projects[selectedProject].details.technologies.map((tech, index) => (
-                        <span
-                          key={index}
-                          className="px-6 py-3 rounded-full text-base font-medium bg-[var(--card)] text-[var(--text-secondary)] border border-[var(--border)] transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+            {/* Desktop Layout - New Scrollable Design */}
+            <div className="hidden lg:flex flex-1 overflow-y-auto">
+              <div className="w-full">
+                {/* Project Details Section - Centered at Top */}
+                <div className="min-h-screen flex items-center justify-center px-20 py-20">
+                  <div className="max-w-4xl mx-auto text-center space-y-16">
+                    {/* Project Header */}
+                    <div className="space-y-8">
+                      <div
+                        className="w-24 h-1 rounded-full mx-auto"
+                        style={{ backgroundColor: projects[selectedProject].accentColor }}
+                      />
+                      <h1 className="text-8xl font-light text-[var(--text-primary)] leading-none">
+                        {projects[selectedProject].title}
+                      </h1>
                     </div>
-                  </div>
 
-                  {/* AI Tools */}
-                  <div className="space-y-8">
-                    <h3 className="text-2xl font-light text-[var(--text-primary)]">AI Tools Used</h3>
-                    <div className="flex flex-wrap gap-4">
-                      {projects[selectedProject].details.aiTools.map((tool, index) => {
-                        const getToolLogo = (toolName: string) => {
-                          switch (toolName) {
-                            case "Cursor":
-                              return "https://cursor.sh/favicon.ico"
-                            case "v0":
-                              return "https://vercel.com/favicon.ico"
-                            case "Lovable":
-                              return "https://lovable.dev/favicon.ico"
-                            case "Bolt":
-                              return "https://bolt.new/favicon.ico"
-                            case "Replit":
-                              return "https://replit.com/favicon.ico"
-                            case "Claude 3.5 Sonnet":
-                            case "Claude 3 Opus":
-                            case "Claude Sonnet":
-                              return "https://claude.ai/favicon.ico"
-                            case "GPT-4":
-                            case "GPT-4 Turbo":
-                            case "GPT-4o":
-                              return "https://openai.com/favicon.ico"
-                            case "Gemini":
-                            case "Gemini Pro":
-                              return "https://gemini.google.com/favicon.ico"
-                            case "Grok":
-                              return "https://x.com/favicon.ico"
-                            default:
-                              return null
-                          }
-                        }
+                    {/* Style Guide */}
+                    <div className="flex justify-center">
+                      <SimpleStyleGuide project={projects[selectedProject]} />
+                    </div>
 
-                        const logoUrl = getToolLogo(tool)
+                    {/* Tech Stack & AI Tools Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                      {/* Tech Stack */}
+                      <div className="space-y-6">
+                        <h3 className="text-2xl font-light text-[var(--text-primary)]">Tech Stack</h3>
+                        <div className="flex flex-wrap gap-3 justify-center">
+                          {projects[selectedProject].details.technologies.map((tech, index) => (
+                            <span
+                              key={index}
+                              className="px-4 py-2 rounded-full text-sm font-medium bg-[var(--card)] text-[var(--text-secondary)] border border-[var(--border)] transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
 
-                        return (
-                          <span
-                            key={index}
-                            className="px-6 py-3 rounded-full text-base font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-3"
-                            style={{
-                              backgroundColor: `${projects[selectedProject].accentColor}15`,
-                              color: projects[selectedProject].accentColor,
-                              border: `1px solid ${projects[selectedProject].accentColor}30`
-                            }}
-                          >
-                            {logoUrl && (
-                              <img
-                                src={logoUrl}
-                                alt={`${tool} logo`}
-                                className="w-5 h-5 rounded-sm"
-                                onError={(e) => {
-                                  e.currentTarget.style.display = 'none'
+                      {/* AI Tools */}
+                      <div className="space-y-6">
+                        <h3 className="text-2xl font-light text-[var(--text-primary)]">AI Tools Used</h3>
+                        <div className="flex flex-wrap gap-3 justify-center">
+                          {projects[selectedProject].details.aiTools.map((tool, index) => {
+                            const getToolLogo = (toolName: string) => {
+                              switch (toolName) {
+                                case "Cursor":
+                                  return "https://cursor.sh/favicon.ico"
+                                case "v0":
+                                  return "https://vercel.com/favicon.ico"
+                                case "Lovable":
+                                  return "https://lovable.dev/favicon.ico"
+                                case "Bolt":
+                                  return "https://bolt.new/favicon.ico"
+                                case "Replit":
+                                  return "https://replit.com/favicon.ico"
+                                case "Claude 3.5 Sonnet":
+                                case "Claude 3 Opus":
+                                case "Claude Sonnet":
+                                  return "https://claude.ai/favicon.ico"
+                                case "GPT-4":
+                                case "GPT-4 Turbo":
+                                case "GPT-4o":
+                                  return "https://openai.com/favicon.ico"
+                                case "Gemini":
+                                case "Gemini Pro":
+                                  return "https://gemini.google.com/favicon.ico"
+                                case "Grok":
+                                  return "https://x.com/favicon.ico"
+                                default:
+                                  return null
+                              }
+                            }
+
+                            const logoUrl = getToolLogo(tool)
+
+                            return (
+                              <span
+                                key={index}
+                                className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2"
+                                style={{
+                                  backgroundColor: `${projects[selectedProject].accentColor}15`,
+                                  color: projects[selectedProject].accentColor,
+                                  border: `1px solid ${projects[selectedProject].accentColor}30`
                                 }}
-                              />
-                            )}
-                            {tool}
-                          </span>
-                        )
-                      })}
+                              >
+                                {logoUrl && (
+                                  <img
+                                    src={logoUrl}
+                                    alt={`${tool} logo`}
+                                    className="w-4 h-4 rounded-sm"
+                                    onError={(e) => {
+                                      e.currentTarget.style.display = 'none'
+                                    }}
+                                  />
+                                )}
+                                {tool}
+                              </span>
+                            )
+                          })}
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Visit Site Button */}
-                  <div className="space-y-6">
-                    <a
-                      href={projects[selectedProject].details.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl backdrop-blur-md border border-white/40 shadow-xl overflow-hidden"
-                      style={{
-                        background: `linear-gradient(135deg, ${projects[selectedProject].accentColor}60, ${projects[selectedProject].accentColor}40, ${projects[selectedProject].accentColor}20)`,
-                        boxShadow: `0 8px 32px ${projects[selectedProject].accentColor}40, inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 0 1px ${projects[selectedProject].accentColor}30`
-                      }}
-                    >
-                      {/* Animated background gradient */}
-                      <div
-                        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    {/* Visit Site Button */}
+                    <div className="pt-8">
+                      <a
+                        href={projects[selectedProject].details.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-base font-medium text-white transition-all duration-300 hover:scale-105 overflow-hidden border-2 shine-button"
                         style={{
-                          background: `linear-gradient(135deg, ${projects[selectedProject].accentColor}80, ${projects[selectedProject].accentColor}60, ${projects[selectedProject].accentColor}40)`,
-                          zIndex: -1
-                        }}
-                      />
-
-                      {/* Shimmer effect */}
-                      <div
-                        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 shimmer"
-                        style={{
-                          background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)`,
-                          zIndex: 1
-                        }}
-                      />
-
-                      <span className="relative z-10">Visit Live Site</span>
-                      <motion.div
-                        className="w-5 h-5 flex items-center justify-center relative z-10"
-                        animate={{
-                          x: [0, 3, 0],
-                          y: [0, -2, 0],
-                          rotate: [0, 5, -5, 0]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: -1,
-                          ease: "easeInOut"
+                          backgroundColor: projects[selectedProject].accentColor,
+                          borderColor: `${projects[selectedProject].accentColor}60`
                         }}
                       >
-                        <ExternalLink size={16} />
-                      </motion.div>
-
-                      {/* Pulsing glow effect */}
-                      <div
-                        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{
-                          background: `radial-gradient(circle at center, ${projects[selectedProject].accentColor}50, transparent 70%)`,
-                          filter: 'blur(8px)',
-                          transform: 'scale(1.1)',
-                          zIndex: -2
-                        }}
-                      />
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Side - Visual Showcase */}
-              <div className="w-1/2 bg-[var(--card)] overflow-y-auto flex items-start justify-center">
-                <div className="w-full max-w-none">
-                  {/* Full Website Screenshot - Single scrollable image */}
-                  {projects[selectedProject].details.fullWebsiteImage ? (
-                    <div className="w-full h-full">
-                      <img
-                        src={projects[selectedProject].details.fullWebsiteImage}
-                        alt={`${projects[selectedProject].title} - Complete Website`}
-                        className="w-full h-auto object-contain min-h-full"
-                        style={{ objectFit: 'contain' }}
-                      />
-                    </div>
-                  ) : (
-                    /* Regular project images for other projects */
-                    <div className="p-16 w-full max-w-2xl mx-auto space-y-8">
-                      <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-[var(--background)] shadow-2xl group">
-                        <img
-                          src={projects[selectedProject].details.image}
-                          alt={projects[selectedProject].title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                        <div
-                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        {/* Enhanced shine animation on hover */}
+                        <div 
+                          className="absolute inset-0 rounded-2xl shine-overlay"
                           style={{
-                            background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                            background: `linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%)`,
+                            transform: 'translateX(-100%)'
                           }}
                         />
-                      </div>
+                        
+                        <span className="relative z-10">Visit Live Site</span>
+                        <motion.div
+                          className="w-5 h-5 flex items-center justify-center relative z-10"
+                          animate={{ 
+                            x: [0, 3, 0],
+                            y: [0, -2, 0],
+                            rotate: [0, 5, -5, 0]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: -1,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <ExternalLink size={16} />
+                        </motion.div>
+                      </a>
+                    </div>
 
-                      <div className="grid grid-cols-2 gap-6">
-                        <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
-                          <img
-                            src={projects[selectedProject].details.image}
-                            alt={`${projects[selectedProject].title} detail 1`}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
-                          <div
-                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    {/* Scroll Indicator - Simple Design */}
+                    <div className="pt-16">
+                      <div className="flex flex-col items-center justify-center space-y-4">
+                        {/* Bigger down arrow in circle */}
+                        <motion.div
+                          className="relative"
+                          animate={{
+                            y: [0, 6, 0]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: -1,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <div 
+                            className="w-12 h-12 rounded-full border-2 flex items-center justify-center"
                             style={{
-                              background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                              borderColor: projects[selectedProject].accentColor,
+                              backgroundColor: `${projects[selectedProject].accentColor}10`
                             }}
-                          />
-                        </div>
-                        <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
-                          <img
-                            src={projects[selectedProject].details.image}
-                            alt={`${projects[selectedProject].title} detail 2`}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
-                          <div
-                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            style={{
-                              background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
-                            }}
-                          />
+                          >
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke={projects[selectedProject].accentColor}
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M12 5v14M5 12l7 7 7-7" />
+                            </svg>
+                          </div>
+                        </motion.div>
+                        
+                        {/* Text */}
+                        <div className="text-sm font-medium tracking-wide"
+                             style={{ color: projects[selectedProject].accentColor }}>
+                          Scroll to view
                         </div>
                       </div>
                     </div>
-                  )}
+                  </div>
+                </div>
+
+                {/* Image Container Section - Scrollable */}
+                <div className="min-h-screen bg-[var(--card)] flex items-center justify-center">
+                  <div className="w-full max-w-6xl mx-auto p-8">
+                    {projects[selectedProject].details.fullWebsiteImage ? (
+                      <div className="w-full">
+                        <Image
+                          src={projects[selectedProject].details.fullWebsiteImage}
+                          alt={`${projects[selectedProject].title} - Complete Website`}
+                          width={1200}
+                          height={800}
+                          quality={100}
+                          className="w-full h-auto object-contain rounded-2xl shadow-2xl"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-full max-w-4xl mx-auto space-y-8">
+                        <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-[var(--background)] shadow-2xl group">
+                          <Image
+                            src={projects[selectedProject].details.image}
+                            alt={projects[selectedProject].title}
+                            width={800}
+                            height={500}
+                            quality={100}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          <div
+                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            style={{
+                              background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                            }}
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-6">
+                          <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
+                            <Image
+                              src={projects[selectedProject].details.image}
+                              alt={`${projects[selectedProject].title} detail 1`}
+                              width={400}
+                              height={400}
+                              quality={100}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div
+                              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                              style={{
+                                background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                              }}
+                            />
+                          </div>
+                          <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
+                            <Image
+                              src={projects[selectedProject].details.image}
+                              alt={`${projects[selectedProject].title} detail 2`}
+                              width={400}
+                              height={400}
+                              quality={100}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div
+                              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                              style={{
+                                background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
