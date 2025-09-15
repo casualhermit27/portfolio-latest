@@ -146,7 +146,7 @@ const projects = [
   },
 ]
 
-export default function Portfolio() {
+function PortfolioContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   
@@ -1779,5 +1779,21 @@ export default function Portfolio() {
       </div>
     </div>
 
+  )
+}
+
+export default function Portfolio() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[var(--background)] flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-2xl font-mono text-[var(--text-primary)] mb-4">
+            Loading...
+          </div>
+        </div>
+      </div>
+    }>
+      <PortfolioContent />
+    </Suspense>
   )
 }
