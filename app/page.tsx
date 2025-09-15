@@ -105,10 +105,29 @@ const projects = [
     },
   },
   {
+    title: "Acme Health",
+    type: "Digital Health Platform",
+    description: "Comprehensive healthcare management system",
+    index: "06",
+    hoverColor: "bg-[#E8F5F0]", // Light green
+    accentColor: "#10B981", // Green
+    details: {
+      overview:
+        "A comprehensive digital health platform that reimagines healthcare delivery through streamlined, interoperable care. Features secure data exchange, unified digital workflows, and integrated LIMS (Laboratory Information Management System) for modern healthcare organizations.",
+      technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Healthcare APIs"],
+      aiTools: ["Cursor", "v0", "Claude 3.5 Sonnet", "GPT-4"],
+      features: ["Digital Health Records", "LIMS Integration", "Secure Data Exchange", "Real-time Analytics", "Interoperable Care"],
+      liveUrl: "#",
+      codeUrl: "#",
+      image: "/landings/acme_hero.png",
+      fullWebsiteImage: "/landings/acme_full.png",
+    },
+  },
+  {
     title: "Work in Progress",
     type: "Coming Soon",
     description: "New project in development",
-    index: "06",
+    index: "07",
     hoverColor: "bg-[#F3E8FF]", // Light purple
     accentColor: "#8B5CF6", // Purple
     details: {
@@ -125,7 +144,7 @@ const projects = [
     title: "Developer Tools Suite",
     type: "CLI Tool",
     description: "Rapid prototyping and deployment automation",
-    index: "07",
+    index: "08",
     hoverColor: "bg-[#FFFBE8]", // Gentle yellow
     accentColor: "#EAB308", // Yellow
     details: {
@@ -142,7 +161,7 @@ const projects = [
     title: "Social Media Scheduler",
     type: "SaaS Platform",
     description: "Multi-platform scheduling with optimization",
-    index: "08",
+    index: "09",
     hoverColor: "bg-[#F8E8FF]", // Soft pink
     accentColor: "#EC4899", // Pink
     details: {
@@ -160,7 +179,7 @@ const projects = [
     title: "Crypto Trading Bot",
     type: "Algorithm",
     description: "Automated trading with ML predictions",
-    index: "09",
+    index: "10",
     hoverColor: "bg-[#E8F5F0]", // Light sage
     accentColor: "#06B6D4", // Cyan
     details: {
@@ -187,7 +206,7 @@ export default function Portfolio() {
   const [emailCopied, setEmailCopied] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
-  
+
   // Refs for GSAP animations
   const titleRef = useRef<HTMLHeadingElement>(null)
   const subtitleRef = useRef<HTMLParagraphElement>(null)
@@ -208,7 +227,7 @@ export default function Portfolio() {
       setEmailCopied(true)
       setShowConfetti(true)
       setShowPopup(true)
-      
+
       // Reset after 5 seconds
       setTimeout(() => {
         setEmailCopied(false)
@@ -223,7 +242,7 @@ export default function Portfolio() {
       textArea.select()
       document.execCommand('copy')
       document.body.removeChild(textArea)
-      
+
       setEmailCopied(true)
       setShowConfetti(true)
       setShowPopup(true)
@@ -238,7 +257,7 @@ export default function Portfolio() {
   const handleProjectClick = (index: number) => {
     setIsAnimating(true)
     setSelectedProject(index)
-    
+
     if (mainContentRef.current && projectDetailsRef.current) {
       // Set initial state properly
       gsap.set(projectDetailsRef.current, {
@@ -267,12 +286,12 @@ export default function Portfolio() {
         duration: 0.3,
         ease: "power2.out"
       })
-      .to(projectDetailsRef.current, {
-        y: "0%",
-        autoAlpha: 1,
-        duration: 0.3,
-        ease: "power2.out"
-      }, "-=0.2") // Overlap for seamless transition
+        .to(projectDetailsRef.current, {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        }, "-=0.2") // Overlap for seamless transition
     }
   }
 
@@ -298,13 +317,13 @@ export default function Portfolio() {
         duration: 0.3,
         ease: "power2.in"
       })
-      .to(mainContentRef.current, {
-        y: "0%",
-        scale: 1,
-        autoAlpha: 1,
-        duration: 0.3,
-        ease: "power2.out"
-      }, "-=0.2")
+        .to(mainContentRef.current, {
+          y: "0%",
+          scale: 1,
+          autoAlpha: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        }, "-=0.2")
     }
   }
 
@@ -365,12 +384,12 @@ export default function Portfolio() {
           <div class="line font-semibold transition-colors duration-300" style="transform: translateY(100%); color: inherit;">Chaganti</div>
         </div>
       `
-      
+
       // Create animated subtitle with enhanced highlighted words
       subtitleRef.current.innerHTML = `
-        <span class="highlight-word engineer-word transition-colors duration-300 font-light italic text-[var(--text-primary)]">Engineer + Designer</span> focused on building sharp <span class="highlight-word frontend-word transition-colors duration-300 font-light italic text-[var(--text-primary)]">frontends</span> and <span class="highlight-word ai-word transition-colors duration-300 font-light italic text-[var(--text-primary)]">AI-powered tools</span> with <span class="highlight-word speed-word transition-colors duration-300 font-light italic text-[var(--text-primary)]">speed</span>, <span class="highlight-word ux-word transition-colors duration-300 font-light italic text-[var(--text-primary)]">UX clarity</span>, and seamless dev handoffs.
+        <span class="highlight-word engineer-word transition-colors duration-300 font-light italic">Engineer + Designer</span> focused on building sharp <span class="highlight-word frontend-word transition-colors duration-300 font-light italic">frontends</span> and <span class="highlight-word ai-word transition-colors duration-300 font-light italic">AI-powered tools</span> with <span class="highlight-word speed-word transition-colors duration-300 font-light italic">speed</span>, <span class="highlight-word ux-word transition-colors duration-300 font-light italic">UX clarity</span>, and seamless dev handoffs.
       `
-      
+
       // Enhanced animation timeline
       const titleLines = titleRef.current.querySelectorAll('.line')
       const engineerWord = subtitleRef.current.querySelector('.engineer-word')
@@ -378,21 +397,21 @@ export default function Portfolio() {
       const aiWord = subtitleRef.current.querySelector('.ai-word')
       const speedWord = subtitleRef.current.querySelector('.speed-word')
       const uxWord = subtitleRef.current.querySelector('.ux-word')
-      
+
       const tl = gsap.timeline()
-      
+
       // Set initial state
       gsap.set(titleRef.current, { opacity: 1 })
       gsap.set(subtitleRef.current, { opacity: 0, y: 20 })
-      
+
       tl.to(titleLines, {
-          y: 0,
-          duration: 0.4,
-          ease: "back.out(1.7)",
-          stagger: 0.05,
-          delay: 0.1,
-        })
-        .to(subtitleRef.current, 
+        y: 0,
+        duration: 0.4,
+        ease: "back.out(1.7)",
+        stagger: 0.05,
+        delay: 0.1,
+      })
+        .to(subtitleRef.current,
           {
             opacity: 1,
             y: 0,
@@ -405,22 +424,22 @@ export default function Portfolio() {
           // Smooth continuous animation - no vanishing/coming back
           const words = [engineerWord, frontendWord, aiWord, speedWord, uxWord]
           const colors = ["#2563EB", "#10B981", "#EF4444"]
-          
+
           // Set initial state - all words visible with first animation color
-          gsap.set(words, { 
-            opacity: 1, 
-            y: 0, 
+          gsap.set(words, {
+            opacity: 1,
+            y: 0,
             scale: 1,
             color: colors[0], // Start with blue
             textShadow: `0 0 12px ${colors[0]}40`
           })
-          
+
           // Create a smooth, continuous animation timeline
           const masterTl = gsap.timeline({ repeat: -1 })
-          
+
           // Smooth color transition animation with proper timing
           const colorTl = gsap.timeline({ repeat: -1 })
-          
+
           // Blue - 2 seconds
           colorTl.to(words, {
             color: colors[0], // Blue
@@ -432,7 +451,7 @@ export default function Portfolio() {
               from: "start"
             }
           })
-          
+
           // Green - 2 seconds  
           colorTl.to(words, {
             color: colors[1], // Green
@@ -444,7 +463,7 @@ export default function Portfolio() {
               from: "start"
             }
           })
-          
+
           // Red - 2 seconds
           colorTl.to(words, {
             color: colors[2], // Red
@@ -456,10 +475,10 @@ export default function Portfolio() {
               from: "start"
             }
           })
-          
+
           // Gap - 1 second pause so red stays at full clarity
           colorTl.to({}, { duration: 1.0 })
-          
+
           // Subtle floating animation - continuous gentle movement
           gsap.to(words, {
             y: -2,
@@ -472,7 +491,7 @@ export default function Portfolio() {
               from: "random"
             }
           })
-          
+
           // Gentle scale pulsing - very subtle
           gsap.to(words, {
             scale: 1.02,
@@ -485,7 +504,7 @@ export default function Portfolio() {
               from: "random"
             }
           })
-          
+
           // Add hover interactions
           words.forEach((word, index) => {
             if (word) {
@@ -500,7 +519,7 @@ export default function Portfolio() {
                   ease: "power2.out"
                 })
               })
-              
+
               word.addEventListener('mouseleave', () => {
                 gsap.to(word, {
                   scale: 1,
@@ -521,7 +540,7 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-[var(--background)] relative overflow-hidden transition-colors duration-300">
       {/* Texture Background */}
-      <div 
+      <div
         className="fixed inset-0 w-full h-full pointer-events-none z-0"
         style={{
           backgroundImage: 'url("/texture.jpg")',
@@ -531,38 +550,38 @@ export default function Portfolio() {
           backgroundAttachment: 'fixed'
         }}
       />
-      
+
       {/* Tint overlay for texture */}
       <div className="fixed inset-0 w-full h-full bg-white/60 dark:bg-black/70 pointer-events-none z-1" />
-      
+
       {/* Subtle overlay for better text readability */}
       <div className="fixed inset-0 w-full h-full bg-[var(--background)]/70 dark:bg-[var(--background)]/75 pointer-events-none z-5" />
-      
+
       {/* Theme Switcher */}
-      
-       {/* Cursor Follower */}
-       {hoveredProject !== null && !isFullscreenView && displayMode === 'landings' && (
-         <div
-           className="fixed pointer-events-none z-40 will-change-transform"
-           style={{
-             transform: `translate3d(${mousePosition.x + 20}px, ${mousePosition.y - 20}px, 0)`,
-             transition: 'transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-           }}
-         >
-           <div
-             className="px-4 py-2 rounded-full text-sm font-medium shadow-xl text-white transition-all duration-200"
-             style={{
-               background: projects[hoveredProject].accentColor,
-               border: `1px solid ${projects[hoveredProject].accentColor}80`,
-             }}
-           >
-             {projects[hoveredProject].title === "Work in Progress" ? "Work in Progress" : "View Project"}
-           </div>
-         </div>
-       )}
+
+      {/* Cursor Follower */}
+      {hoveredProject !== null && !isFullscreenView && displayMode === 'landings' && (
+        <div
+          className="fixed pointer-events-none z-40 will-change-transform"
+          style={{
+            transform: `translate3d(${mousePosition.x + 20}px, ${mousePosition.y - 20}px, 0)`,
+            transition: 'transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          }}
+        >
+          <div
+            className="px-4 py-2 rounded-full text-sm font-medium shadow-xl text-white transition-all duration-200"
+            style={{
+              background: projects[hoveredProject].accentColor,
+              border: `1px solid ${projects[hoveredProject].accentColor}80`,
+            }}
+          >
+            {projects[hoveredProject].title === "Work in Progress" ? "Work in Progress" : "View Project"}
+          </div>
+        </div>
+      )}
 
       {/* Main Content */}
-      <div 
+      <div
         ref={mainContentRef}
         className="relative z-20 transform-gpu"
         style={{
@@ -578,32 +597,32 @@ export default function Portfolio() {
         <header className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 md:px-16 lg:px-24 xl:px-32 transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <div className="mb-8 sm:mb-10 md:mb-12">
-                <h1 
-                  ref={titleRef}
-                  className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-[var(--text-primary)] leading-none tracking-tight mb-4 sm:mb-6 transition-colors duration-300"
-                >
-                  <span className="block mb-1 sm:mb-2 font-light italic">Harsha</span>
-                  <span className="block font-semibold">Chaganti</span>
-                </h1>
+              <h1
+                ref={titleRef}
+                className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-[var(--text-primary)] leading-none tracking-tight mb-4 sm:mb-6 transition-colors duration-300"
+              >
+                <span className="block mb-1 sm:mb-2 font-light italic">Harsha</span>
+                <span className="block font-semibold">Chaganti</span>
+              </h1>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-end">
               <div className="space-y-3 sm:space-y-4">
-                <p 
+                <p
                   ref={subtitleRef}
                   className="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed font-normal transition-colors duration-300"
                 >
-                  <motion.span 
+                  <motion.span
                     className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
                     animate={{
                       y: [0, -1, 0],
                       scale: [1, 1.01, 1]
                     }}
-            transition={{
-              duration: 6,
-              repeat: -1,
-              ease: "easeInOut"
-            }}
+                    transition={{
+                      duration: 6,
+                      repeat: -1,
+                      ease: "easeInOut"
+                    }}
                     whileHover={{
                       scale: 1.05,
                       y: -3,
@@ -616,7 +635,7 @@ export default function Portfolio() {
                         damping: 20
                       }
                     }}
-                    whileTap={{ 
+                    whileTap={{
                       scale: 0.98,
                       transition: {
                         type: "spring",
@@ -627,7 +646,7 @@ export default function Portfolio() {
                   >
                     Engineer + Designer
                   </motion.span> focused on building sharp{' '}
-                  <motion.span 
+                  <motion.span
                     className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
                     animate={{
                       y: [0, -1, 0],
@@ -651,7 +670,7 @@ export default function Portfolio() {
                         damping: 20
                       }
                     }}
-                    whileTap={{ 
+                    whileTap={{
                       scale: 0.98,
                       transition: {
                         type: "spring",
@@ -662,7 +681,7 @@ export default function Portfolio() {
                   >
                     frontends
                   </motion.span> and{' '}
-                  <motion.span 
+                  <motion.span
                     className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
                     animate={{
                       y: [0, -1, 0],
@@ -686,7 +705,7 @@ export default function Portfolio() {
                         damping: 20
                       }
                     }}
-                    whileTap={{ 
+                    whileTap={{
                       scale: 0.98,
                       transition: {
                         type: "spring",
@@ -697,7 +716,7 @@ export default function Portfolio() {
                   >
                     AI-powered tools
                   </motion.span> with{' '}
-                  <motion.span 
+                  <motion.span
                     className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
                     animate={{
                       y: [0, -1, 0],
@@ -721,7 +740,7 @@ export default function Portfolio() {
                         damping: 20
                       }
                     }}
-                    whileTap={{ 
+                    whileTap={{
                       scale: 0.98,
                       transition: {
                         type: "spring",
@@ -732,7 +751,7 @@ export default function Portfolio() {
                   >
                     speed
                   </motion.span>,{' '}
-                  <motion.span 
+                  <motion.span
                     className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
                     animate={{
                       y: [0, -1, 0],
@@ -756,7 +775,7 @@ export default function Portfolio() {
                         damping: 20
                       }
                     }}
-                    whileTap={{ 
+                    whileTap={{
                       scale: 0.98,
                       transition: {
                         type: "spring",
@@ -770,164 +789,164 @@ export default function Portfolio() {
                 </p>
               </div>
 
-                <div className="flex justify-start sm:justify-end relative">
-                  <motion.button 
-                    onClick={handleEmailCopy}
-                    className="group relative bg-white text-gray-900 px-8 py-4 rounded-full font-medium text-lg hover:bg-purple-600 hover:text-white transition-all duration-300 will-change-auto shadow-lg hover:shadow-xl"
-                    whileHover={{ 
-                      y: -2,
-                      boxShadow: "0 8px 25px rgba(147, 51, 234, 0.3)"
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                    animate={{
-                      boxShadow: [
-                        "0 4px 20px rgba(0,0,0,0.1)",
-                        "0 6px 25px rgba(147, 51, 234, 0.15)",
-                        "0 4px 20px rgba(0,0,0,0.1)"
-                      ]
-                    }}
-                    transition={{
-                      boxShadow: {
-                        duration: 2.5,
+              <div className="flex justify-start sm:justify-end relative">
+                <motion.button
+                  onClick={handleEmailCopy}
+                  className="group relative bg-white text-gray-900 px-8 py-4 rounded-full font-medium text-lg hover:bg-purple-600 hover:text-white transition-all duration-300 will-change-auto shadow-lg hover:shadow-xl"
+                  whileHover={{
+                    y: -2,
+                    boxShadow: "0 8px 25px rgba(147, 51, 234, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  animate={{
+                    boxShadow: [
+                      "0 4px 20px rgba(0,0,0,0.1)",
+                      "0 6px 25px rgba(147, 51, 234, 0.15)",
+                      "0 4px 20px rgba(0,0,0,0.1)"
+                    ]
+                  }}
+                  transition={{
+                    boxShadow: {
+                      duration: 2.5,
+                      repeat: -1,
+                      ease: "easeInOut"
+                    }
+                  }}
+                >
+                  {/* Content container */}
+                  <div className="relative z-10 flex items-center gap-2">
+                    <motion.span
+                      animate={{
+                        x: [0, 2, 0],
+                        y: [0, -1, 0]
+                      }}
+                      transition={{
+                        duration: 1.8,
                         repeat: -1,
                         ease: "easeInOut"
-                      }
-                    }}
-                  >
-                    {/* Content container */}
-                    <div className="relative z-10 flex items-center gap-2">
-                      <motion.span
-                        animate={{ 
-                          x: [0, 2, 0],
-                          y: [0, -1, 0]
-                        }}
-                        transition={{
-                          duration: 1.8,
-                          repeat: -1,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        {emailCopied ? "Email Copied!" : "Get in Touch"}
-                      </motion.span>
-                      
-                      <motion.div
-                        className="w-5 h-5 flex items-center justify-center"
-                        animate={{
-                          rotate: [0, 15, -15, 0],
-                          scale: 1
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: -1,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        <ArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                      </motion.div>
-                    </div>
-                  </motion.button>
-                  
-                  {/* Confetti around button */}
-                  {showConfetti && (
-                    <div className="absolute inset-0 pointer-events-none">
-                      {[...Array(15)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          className="absolute w-3 h-3 rounded-full"
-                          style={{
-                            backgroundColor: ['#6366F1', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#F97316', '#EF4444'][i % 7],
-                            left: '50%',
-                            top: '50%'
-                          }}
-                          initial={{ 
-                            x: 0, 
-                            y: 0, 
-                            scale: 0,
-                            rotate: 0
-                          }}
-                          animate={{ 
-                            x: (Math.random() - 0.5) * 150,
-                            y: (Math.random() - 0.5) * 100 - 50,
-                            scale: [0, 1.2, 0.8, 0],
-                            rotate: [0, 180, 360]
-                          }}
-                          transition={{ 
-                            duration: 1.5,
-                            delay: i * 0.05,
-                            ease: "easeOut"
-                          }}
-                        />
-                      ))}
-                    </div>
-                  )}
-                  
-                  {/* Modern Popup above button */}
-                  {showPopup && (
-                    <motion.div
-                      className="absolute bottom-full mb-4 z-50"
-                      initial={{ opacity: 0, y: 15, scale: 0.8, rotateX: -15 }}
-                      animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-                      exit={{ opacity: 0, y: 15, scale: 0.8, rotateX: -15 }}
-                      transition={{ duration: 0.4, ease: [0.68, -0.55, 0.265, 1.55] }}
-                      style={{
-                        left: 'calc(50% + 20px)',
-                        transform: 'translateX(-50%)'
                       }}
                     >
-                      <div className="relative">
-                        {/* Main card */}
-                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 backdrop-blur-md border border-green-200/50 dark:border-green-700/50 rounded-2xl px-6 py-4 shadow-2xl text-center relative overflow-hidden min-w-[280px]">
-                          {/* Animated background gradient */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 via-emerald-400/10 to-teal-400/10 animate-pulse"></div>
-                          
-                          {/* Success icon with animation */}
-                          <motion.div
-                            className="relative z-10 mb-3"
-                            initial={{ scale: 0, rotate: -180 }}
-                            animate={{ scale: 1, rotate: 0 }}
-                            transition={{ duration: 0.5, delay: 0.1, ease: "backOut" }}
-                          >
-                            <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto shadow-lg">
-                              <motion.span
-                                className="text-white text-xl font-bold"
-                                animate={{ scale: [1, 1.2, 1] }}
-                                transition={{ duration: 0.6, delay: 0.3 }}
-                              >
-                                ✓
-                              </motion.span>
-                            </div>
-                          </motion.div>
-                          
-                          {/* Text content */}
-                          <div className="relative z-10">
-                            <motion.h3
-                              className="text-lg font-bold text-green-800 dark:text-green-200 mb-1"
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.3, delay: 0.2 }}
-                            >
-                              Email Copied!
-                            </motion.h3>
-                            <motion.p
-                              className="text-sm text-green-600 dark:text-green-300 font-medium"
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.3, delay: 0.3 }}
-                            >
-                              Feel free to reach out anytime
-                            </motion.p>
-                          </div>
-                          
-                          {/* Shimmer effect */}
-                          <div className="absolute inset-0 -top-1 -left-1 -right-1 -bottom-1 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-shimmer"></div>
-                        </div>
-                        
-                        {/* Arrow pointing down */}
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-green-200 dark:border-t-green-700"></div>
-                      </div>
+                      {emailCopied ? "Email Copied!" : "Get in Touch"}
+                    </motion.span>
+
+                    <motion.div
+                      className="w-5 h-5 flex items-center justify-center"
+                      animate={{
+                        rotate: [0, 15, -15, 0],
+                        scale: 1
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: -1,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <ArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                     </motion.div>
-                  )}
-                </div>
+                  </div>
+                </motion.button>
+
+                {/* Confetti around button */}
+                {showConfetti && (
+                  <div className="absolute inset-0 pointer-events-none">
+                    {[...Array(15)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute w-3 h-3 rounded-full"
+                        style={{
+                          backgroundColor: ['#6366F1', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#F97316', '#EF4444'][i % 7],
+                          left: '50%',
+                          top: '50%'
+                        }}
+                        initial={{
+                          x: 0,
+                          y: 0,
+                          scale: 0,
+                          rotate: 0
+                        }}
+                        animate={{
+                          x: (Math.random() - 0.5) * 150,
+                          y: (Math.random() - 0.5) * 100 - 50,
+                          scale: [0, 1.2, 0.8, 0],
+                          rotate: [0, 180, 360]
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          delay: i * 0.05,
+                          ease: "easeOut"
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {/* Modern Popup above button */}
+                {showPopup && (
+                  <motion.div
+                    className="absolute bottom-full mb-4 z-50"
+                    initial={{ opacity: 0, y: 15, scale: 0.8, rotateX: -15 }}
+                    animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+                    exit={{ opacity: 0, y: 15, scale: 0.8, rotateX: -15 }}
+                    transition={{ duration: 0.4, ease: [0.68, -0.55, 0.265, 1.55] }}
+                    style={{
+                      left: 'calc(50% + 20px)',
+                      transform: 'translateX(-50%)'
+                    }}
+                  >
+                    <div className="relative">
+                      {/* Main card */}
+                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 backdrop-blur-md border border-green-200/50 dark:border-green-700/50 rounded-2xl px-6 py-4 shadow-2xl text-center relative overflow-hidden min-w-[280px]">
+                        {/* Animated background gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 via-emerald-400/10 to-teal-400/10 animate-pulse"></div>
+
+                        {/* Success icon with animation */}
+                        <motion.div
+                          className="relative z-10 mb-3"
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ duration: 0.5, delay: 0.1, ease: "backOut" }}
+                        >
+                          <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto shadow-lg">
+                            <motion.span
+                              className="text-white text-xl font-bold"
+                              animate={{ scale: [1, 1.2, 1] }}
+                              transition={{ duration: 0.6, delay: 0.3 }}
+                            >
+                              ✓
+                            </motion.span>
+                          </div>
+                        </motion.div>
+
+                        {/* Text content */}
+                        <div className="relative z-10">
+                          <motion.h3
+                            className="text-lg font-bold text-green-800 dark:text-green-200 mb-1"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3, delay: 0.2 }}
+                          >
+                            Email Copied!
+                          </motion.h3>
+                          <motion.p
+                            className="text-sm text-green-600 dark:text-green-300 font-medium"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3, delay: 0.3 }}
+                          >
+                            Feel free to reach out anytime
+                          </motion.p>
+                        </div>
+
+                        {/* Shimmer effect */}
+                        <div className="absolute inset-0 -top-1 -left-1 -right-1 -bottom-1 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-shimmer"></div>
+                      </div>
+
+                      {/* Arrow pointing down */}
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-green-200 dark:border-t-green-700"></div>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
             </div>
           </div>
         </header>
@@ -938,7 +957,7 @@ export default function Portfolio() {
             {/* Section Header */}
             <div className="mb-12 sm:mb-16 md:mb-20">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4 sm:gap-0">
-                <motion.h2 
+                <motion.h2
                   className="text-2xl sm:text-3xl md:text-4xl font-normal text-[var(--text-primary)]"
                   animate={{
                     textShadow: [
@@ -947,42 +966,40 @@ export default function Portfolio() {
                       "0 0 0px rgba(0, 0, 0, 0)"
                     ]
                   }}
-                    transition={{
-                      duration: 7,
-                      repeat: -1,
-                      ease: "easeInOut"
-                    }}
+                  transition={{
+                    duration: 7,
+                    repeat: -1,
+                    ease: "easeInOut"
+                  }}
                 >
                   Selected Work
                 </motion.h2>
-                
+
                 {/* Display Mode Switch */}
                 <div className="bg-[var(--card)] rounded-full p-1 border border-[var(--border)] w-full sm:w-auto">
                   <div className="flex">
                     <button
                       onClick={() => setDisplayMode('landings')}
-                      className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-medium transition-all duration-300 ${
-                        displayMode === 'landings'
+                      className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-medium transition-all duration-300 ${displayMode === 'landings'
                           ? 'bg-[var(--text-primary)] text-[var(--background)] shadow-lg'
                           : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                      }`}
+                        }`}
                     >
                       Landings
                     </button>
                     <button
                       onClick={() => setDisplayMode('logos')}
-                      className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-medium transition-all duration-300 ${
-                        displayMode === 'logos'
+                      className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-medium transition-all duration-300 ${displayMode === 'logos'
                           ? 'bg-[var(--text-primary)] text-[var(--background)] shadow-lg'
                           : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                      }`}
+                        }`}
                     >
                       Logos
                     </button>
                   </div>
                 </div>
               </div>
-              <motion.div 
+              <motion.div
                 className="w-full h-px bg-white/20 my-12"
                 animate={{
                   scaleX: [1, 1.1, 1],
@@ -995,85 +1012,84 @@ export default function Portfolio() {
                 }}
               />
             </div>
-            
+
             {/* Projects Grid */}
             <motion.div
-               key="grid"
-               initial={{ opacity: 0, y: 16 }}
-               animate={{ opacity: 1, y: 0 }}
-               transition={{ duration: 0.3, ease: 'easeInOut' }}
-               className={`grid gap-4 sm:gap-6 mt-8 sm:mt-10 md:mt-12 ${
-                 displayMode === 'logos' 
-                   ? 'grid-cols-2' 
-                   : 'grid-cols-1 sm:grid-cols-2'
-               }`}
-             >
-              {projects.filter((project, index) => 
-                displayMode === 'landings' ? index < 6 : index < 2
-              ).map((project, index) => (
-                                 <motion.div
-                   key={index}
-                   className="w-full"
-                   initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                   transition={{ 
-                     duration: 0.4, 
-                     ease: [0.25, 0.46, 0.45, 0.94],
-                     delay: index * 0.05,
-                     type: "spring",
-                     stiffness: 120,
-                     damping: 15
-                   }}
-                   whileHover={{ 
-                     transition: { duration: 0.2, ease: "easeOut" }
-                   }}
-                   onClick={project.title !== "Work in Progress" ? () => handleProjectClick(index) : undefined}
-                 >
-                   <div 
-                     className={`relative overflow-hidden rounded-lg group ${
-                       displayMode === 'logos' || project.title === "Work in Progress" ? 'cursor-default' : 'cursor-pointer'
-                     }`}
-                     style={{ 
-                       backgroundColor: project.accentColor + '10',
-                       border: `1px solid ${project.accentColor}20`
-                     }}
-                     onMouseEnter={() => setHoveredProject(index)}
-                     onMouseLeave={() => setHoveredProject(null)}
-                     onMouseMove={handleMouseMove}
-                     onClick={displayMode === 'landings' && project.title !== "Work in Progress" ? () => handleProjectClick(index) : undefined}
-                   >
-                     {/* Image placeholder with project accent - responsive aspect ratio */}
-                     <div 
-                       className={`bg-gradient-to-br from-[var(--card)] to-[var(--background)] flex items-center justify-center relative overflow-hidden rounded-lg border ${
-                         displayMode === 'logos' ? 'aspect-square' : 'aspect-[3/2]'
-                       }`}
-                       style={{
-                         borderColor: project.accentColor + '30',
-                        background: displayMode === 'landings' 
-                          ? (project.title === "Work in Progress"
-                              ? `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
-                              : project.index === "01" 
-                              ? `url('/landings/hero insightx AI.png') center/cover no-repeat`
-                              : project.index === "02"
-                              ? `url('/landings/hero_eevolution.png') center/cover no-repeat`
-                              : project.index === "03"
-                              ? `url('/landings/hero_aimee.png') center/cover no-repeat`
-                              : project.index === "04"
-                              ? `url('/landings/hero_spotly.png') center/cover no-repeat`
-                              : project.index === "05"
-                              ? `url('/landings/hero_doze.png') center/cover no-repeat`
-                              : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`)
-                          : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
-                       }}
-                     >
+              key="grid"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className={`grid gap-4 sm:gap-6 mt-8 sm:mt-10 md:mt-12 ${displayMode === 'logos'
+                  ? 'grid-cols-2'
+                  : 'grid-cols-1 sm:grid-cols-2'
+                }`}
+            >
+               {projects.filter((project, index) =>
+                 displayMode === 'landings' ? index < 7 : index < 3
+               ).map((project, index) => (
+                <motion.div
+                  key={index}
+                  className="w-full"
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                    delay: index * 0.05,
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 15
+                  }}
+                  whileHover={{
+                    transition: { duration: 0.2, ease: "easeOut" }
+                  }}
+                  onClick={project.title !== "Work in Progress" ? () => handleProjectClick(index) : undefined}
+                >
+                  <div
+                    className={`relative overflow-hidden rounded-lg group ${displayMode === 'logos' || project.title === "Work in Progress" ? 'cursor-default' : 'cursor-pointer'
+                      }`}
+                    style={{
+                      backgroundColor: project.accentColor + '10',
+                      border: `1px solid ${project.accentColor}20`
+                    }}
+                    onMouseEnter={() => setHoveredProject(index)}
+                    onMouseLeave={() => setHoveredProject(null)}
+                    onMouseMove={handleMouseMove}
+                    onClick={displayMode === 'landings' && project.title !== "Work in Progress" ? () => handleProjectClick(index) : undefined}
+                  >
+                    {/* Image placeholder with project accent - responsive aspect ratio */}
+                    <div
+                      className={`bg-gradient-to-br from-[var(--card)] to-[var(--background)] flex items-center justify-center relative overflow-hidden rounded-lg border ${displayMode === 'logos' ? 'aspect-square' : 'aspect-[3/2]'
+                        }`}
+                      style={{
+                        borderColor: project.accentColor + '30',
+                         background: displayMode === 'landings'
+                           ? (project.title === "Work in Progress"
+                             ? `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
+                             : project.index === "01"
+                               ? `url('/landings/hero insightx AI.png') center/cover no-repeat`
+                               : project.index === "02"
+                                 ? `url('/landings/hero_eevolution.png') center/cover no-repeat`
+                                 : project.index === "03"
+                                   ? `url('/landings/hero_aimee.png') center/cover no-repeat`
+                                   : project.index === "04"
+                                     ? `url('/landings/hero_spotly.png') center/cover no-repeat`
+                                     : project.index === "05"
+                                       ? `url('/landings/hero_doze.png') center/cover no-repeat`
+                                       : project.index === "06"
+                                         ? `url('/landings/acme_hero.png') center/cover no-repeat`
+                                         : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`)
+                           : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
+                      }}
+                    >
                       {/* Subtle accent overlay */}
-                      <div 
+                      <div
                         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                         style={{
                           background: `radial-gradient(circle at 50% 50%, ${project.accentColor}20 0%, transparent 70%)`
                         }}
                       />
-                      
+
 
                       {/* Work in Progress special content */}
                       {displayMode === 'landings' && project.title === "Work in Progress" && (
@@ -1094,40 +1110,56 @@ export default function Portfolio() {
                         <div className="w-full h-full flex items-center justify-center relative group">
                           {project.index === "01" ? (
                             <>
-                              <img 
-                                src="/logos/spotly logo.png" 
+                              <img
+                                src="/logos/spotly logo.png"
                                 alt="Spotly Logo"
                                 className="w-full h-full object-cover"
                               />
                               {/* Cursor-style tooltip */}
                               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
-                                   style={{
-                                     background: project.accentColor,
-                                     border: `1px solid ${project.accentColor}80`,
-                                   }}>
+                                 style={{
+                                   background: project.accentColor,
+                                   border: `1px solid ${project.accentColor}80`,
+                                 }}>
                                 Spotly
                               </div>
                             </>
                           ) : project.index === "02" ? (
                             <>
-                              <img 
-                                src="/logos/Eevolution logo.png" 
+                              <img
+                                src="/logos/Eevolution logo.png"
                                 alt="Eevolution Logo"
                                 className="w-full h-full object-contain"
                               />
                               {/* Cursor-style tooltip */}
                               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
-                                   style={{
-                                     background: project.accentColor,
-                                     border: `1px solid ${project.accentColor}80`,
-                                   }}>
+                                 style={{
+                                   background: project.accentColor,
+                                   border: `1px solid ${project.accentColor}80`,
+                                 }}>
                                 Eevolution
+                              </div>
+                            </>
+                          ) : project.index === "06" ? (
+                            <>
+                              <img
+                                src="/logos/acme health logo.png"
+                                alt="Acme Health Logo"
+                                className="w-full h-full object-contain"
+                              />
+                              {/* Cursor-style tooltip */}
+                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
+                                 style={{
+                                   background: project.accentColor,
+                                   border: `1px solid ${project.accentColor}80`,
+                                 }}>
+                                Acme Health
                               </div>
                             </>
                           ) : null}
                         </div>
                       )}
-                      
+
                       {/* Hover accent dots */}
                       {displayMode === 'landings' && (
                         <>
@@ -1201,208 +1233,208 @@ export default function Portfolio() {
       >
         {selectedProject !== null && (
           <div className="h-screen w-full flex flex-col">
-             {/* Project Navigation Header */}
-             <div className="flex-shrink-0 bg-[var(--background)]/90 backdrop-blur-xl border-b border-[var(--border)] transition-colors duration-300">
-               <div className="max-w-7xl mx-auto px-8 py-6">
-                 <div className="flex items-center justify-between">
-                   <div className="flex items-center gap-6">
-                     <button
-                       onClick={closeFullscreenView}
-                       className="w-10 h-10 rounded-full bg-[var(--card)] hover:bg-[var(--border)] flex items-center justify-center transition-all duration-300 hover:scale-105"
-                     >
-                       <ArrowLeft size={18} className="text-[var(--text-primary)]" />
-                     </button>
-                     <div className="flex items-center gap-4">
-                       <div
-                         className="px-3 py-1.5 rounded-full text-sm font-mono"
-                         style={{
-                           backgroundColor: `${projects[selectedProject].accentColor}15`,
-                           color: projects[selectedProject].accentColor
-                         }}
-                       >
-                         {projects[selectedProject].index}
-                       </div>
-                       <span className="text-[var(--text-primary)] font-medium text-lg">
-                         {projects[selectedProject].title}
-                       </span>
-                     </div>
-                   </div>
-                   {projects[selectedProject].details.fullWebsiteImage ? (
-                     <div className="w-1/2 flex justify-center">
-                       <div 
-                         className="flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-medium text-white shadow-lg backdrop-blur-sm border"
-                         style={{
-                           backgroundColor: `${projects[selectedProject].accentColor}20`,
-                           borderColor: `${projects[selectedProject].accentColor}40`,
-                           boxShadow: `0 8px 32px ${projects[selectedProject].accentColor}20`
-                         }}
-                       >
-                         <div 
-                           className="w-2 h-2 rounded-full animate-pulse"
-                           style={{ backgroundColor: projects[selectedProject].accentColor }}
-                         ></div>
-                         <span>Scroll to explore</span>
-                         <motion.div
-                           animate={{ y: [0, 4, 0] }}
-                           transition={{ duration: 1.5, repeat: -1, ease: "easeInOut" }}
-                           className="w-4 h-4 flex items-center justify-center"
-                         >
-                           <svg 
-                             width="12" 
-                             height="12" 
-                             viewBox="0 0 24 24" 
-                             fill="none" 
-                             stroke="currentColor" 
-                             strokeWidth="2" 
-                             strokeLinecap="round" 
-                             strokeLinejoin="round"
-                           >
-                             <path d="M7 13l3 3 3-3M7 6l3 3 3-3"/>
-                           </svg>
-                         </motion.div>
-                       </div>
-                     </div>
-                   ) : (
-                     <a
-                       href={projects[selectedProject].details.liveUrl}
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       className="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--card)] hover:bg-[var(--border)] text-sm text-[var(--text-primary)] transition-all duration-300 hover:scale-105 group"
-                     >
-                       <span>View Live</span>
-                       <ExternalLink 
-                         size={14} 
-                         className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
-                       />
-                     </a>
-                   )}
-                 </div>
-               </div>
-             </div>
+            {/* Project Navigation Header */}
+            <div className="flex-shrink-0 bg-[var(--background)]/90 backdrop-blur-xl border-b border-[var(--border)] transition-colors duration-300">
+              <div className="max-w-7xl mx-auto px-8 py-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-6">
+                    <button
+                      onClick={closeFullscreenView}
+                      className="w-10 h-10 rounded-full bg-[var(--card)] hover:bg-[var(--border)] flex items-center justify-center transition-all duration-300 hover:scale-105"
+                    >
+                      <ArrowLeft size={18} className="text-[var(--text-primary)]" />
+                    </button>
+                    <div className="flex items-center gap-4">
+                      <div
+                        className="px-3 py-1.5 rounded-full text-sm font-mono"
+                        style={{
+                          backgroundColor: `${projects[selectedProject].accentColor}15`,
+                          color: projects[selectedProject].accentColor
+                        }}
+                      >
+                        {projects[selectedProject].index}
+                      </div>
+                      <span className="text-[var(--text-primary)] font-medium text-lg">
+                        {projects[selectedProject].title}
+                      </span>
+                    </div>
+                  </div>
+                  {projects[selectedProject].details.fullWebsiteImage ? (
+                    <div className="w-1/2 flex justify-center">
+                      <div
+                        className="flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-medium text-white shadow-lg backdrop-blur-sm border"
+                        style={{
+                          backgroundColor: `${projects[selectedProject].accentColor}20`,
+                          borderColor: `${projects[selectedProject].accentColor}40`,
+                          boxShadow: `0 8px 32px ${projects[selectedProject].accentColor}20`
+                        }}
+                      >
+                        <div
+                          className="w-2 h-2 rounded-full animate-pulse"
+                          style={{ backgroundColor: projects[selectedProject].accentColor }}
+                        ></div>
+                        <span>Scroll to explore</span>
+                        <motion.div
+                          animate={{ y: [0, 4, 0] }}
+                          transition={{ duration: 1.5, repeat: -1, ease: "easeInOut" }}
+                          className="w-4 h-4 flex items-center justify-center"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M7 13l3 3 3-3M7 6l3 3 3-3" />
+                          </svg>
+                        </motion.div>
+                      </div>
+                    </div>
+                  ) : (
+                    <a
+                      href={projects[selectedProject].details.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--card)] hover:bg-[var(--border)] text-sm text-[var(--text-primary)] transition-all duration-300 hover:scale-105 group"
+                    >
+                      <span>View Live</span>
+                      <ExternalLink
+                        size={14}
+                        className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
 
-             {/* Mobile Layout */}
-             <div className="lg:hidden flex-1 overflow-y-auto">
-               <div className="p-4 sm:p-6 space-y-6 sm:space-y-8">
-                 {/* Mobile Project Header */}
-                 <div className="space-y-4">
-                   <div
-                     className="w-12 h-1 rounded-full"
-                     style={{ backgroundColor: projects[selectedProject].accentColor }}
-                   />
-                   <h1 className="text-3xl sm:text-4xl font-light text-[var(--text-primary)] leading-tight">
-                     {projects[selectedProject].title}
-                   </h1>
-                   <p className="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed">
-                     {projects[selectedProject].details.overview}
-                   </p>
-                 </div>
+            {/* Mobile Layout */}
+            <div className="lg:hidden flex-1 overflow-y-auto">
+              <div className="p-4 sm:p-6 space-y-6 sm:space-y-8">
+                {/* Mobile Project Header */}
+                <div className="space-y-4">
+                  <div
+                    className="w-12 h-1 rounded-full"
+                    style={{ backgroundColor: projects[selectedProject].accentColor }}
+                  />
+                  <h1 className="text-3xl sm:text-4xl font-light text-[var(--text-primary)] leading-tight">
+                    {projects[selectedProject].title}
+                  </h1>
+                  <p className="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed">
+                    {projects[selectedProject].details.overview}
+                  </p>
+                </div>
 
-                 {/* Mobile Tech Stack */}
-                 <div className="space-y-4">
-                   <h3 className="text-lg sm:text-xl font-light text-[var(--text-primary)]">Tech Stack</h3>
-                   <div className="flex flex-wrap gap-2">
-                     {projects[selectedProject].details.technologies.map((tech, index) => (
-                       <span
-                         key={index}
-                         className="px-3 py-2 rounded-full text-sm font-medium bg-[var(--card)] text-[var(--text-secondary)] border border-[var(--border)]"
-                       >
-                         {tech}
-                       </span>
-                     ))}
-                   </div>
-                 </div>
+                {/* Mobile Tech Stack */}
+                <div className="space-y-4">
+                  <h3 className="text-lg sm:text-xl font-light text-[var(--text-primary)]">Tech Stack</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {projects[selectedProject].details.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-2 rounded-full text-sm font-medium bg-[var(--card)] text-[var(--text-secondary)] border border-[var(--border)]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-                 {/* Mobile AI Tools */}
-                 <div className="space-y-4">
-                   <h3 className="text-lg sm:text-xl font-light text-[var(--text-primary)]">AI Tools Used</h3>
-                   <div className="flex flex-wrap gap-2">
-                     {projects[selectedProject].details.aiTools.map((tool, index) => {
-                       const getToolLogo = (toolName: string) => {
-                         const logos: { [key: string]: string } = {
-                           'Cursor': 'https://cursor.sh/favicon.ico',
-                           'v0': 'https://v0.dev/favicon.ico',
-                           'Claude 3.5 Sonnet': 'https://claude.ai/favicon.ico',
-                           'GPT-4': 'https://openai.com/favicon.ico',
-                           'GPT-4o': 'https://openai.com/favicon.ico',
-                           'Claude 3 Opus': 'https://claude.ai/favicon.ico',
-                           'Gemini': 'https://ai.google.dev/favicon.ico',
-                           'Lovable': 'https://lovable.dev/favicon.ico',
-                           'Bolt': 'https://bolt.new/favicon.ico',
-                           'Replit': 'https://replit.com/favicon.ico',
-                           'Grok': 'https://x.ai/favicon.ico',
-                           'Claude Sonnet': 'https://claude.ai/favicon.ico'
-                         }
-                         return logos[toolName] || null
-                       }
-                       
-                       const logoUrl = getToolLogo(tool)
-                       
-                       return (
-                         <span
-                           key={index}
-                           className="px-3 py-2 rounded-full text-sm font-medium flex items-center gap-2"
-                           style={{
-                             backgroundColor: `${projects[selectedProject].accentColor}15`,
-                             color: projects[selectedProject].accentColor,
-                             border: `1px solid ${projects[selectedProject].accentColor}30`
-                           }}
-                         >
-                           {logoUrl && (
-                             <img 
-                               src={logoUrl} 
-                               alt={`${tool} logo`}
-                               className="w-4 h-4 rounded-sm"
-                               onError={(e) => {
-                                 e.currentTarget.style.display = 'none'
-                               }}
-                             />
-                           )}
-                           {tool}
-                         </span>
-                       )
-                     })}
-                   </div>
-                 </div>
+                {/* Mobile AI Tools */}
+                <div className="space-y-4">
+                  <h3 className="text-lg sm:text-xl font-light text-[var(--text-primary)]">AI Tools Used</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {projects[selectedProject].details.aiTools.map((tool, index) => {
+                      const getToolLogo = (toolName: string) => {
+                        const logos: { [key: string]: string } = {
+                          'Cursor': 'https://cursor.sh/favicon.ico',
+                          'v0': 'https://v0.dev/favicon.ico',
+                          'Claude 3.5 Sonnet': 'https://claude.ai/favicon.ico',
+                          'GPT-4': 'https://openai.com/favicon.ico',
+                          'GPT-4o': 'https://openai.com/favicon.ico',
+                          'Claude 3 Opus': 'https://claude.ai/favicon.ico',
+                          'Gemini': 'https://ai.google.dev/favicon.ico',
+                          'Lovable': 'https://lovable.dev/favicon.ico',
+                          'Bolt': 'https://bolt.new/favicon.ico',
+                          'Replit': 'https://replit.com/favicon.ico',
+                          'Grok': 'https://x.ai/favicon.ico',
+                          'Claude Sonnet': 'https://claude.ai/favicon.ico'
+                        }
+                        return logos[toolName] || null
+                      }
 
-                 {/* Mobile Features */}
-                 <div className="space-y-4">
-                   <h3 className="text-lg sm:text-xl font-light text-[var(--text-primary)]">Key Features</h3>
-                   <div className="space-y-2">
-                     {projects[selectedProject].details.features.map((feature, index) => (
-                       <div key={index} className="flex items-center gap-3">
-                         <div 
-                           className="w-2 h-2 rounded-full flex-shrink-0"
-                           style={{ backgroundColor: projects[selectedProject].accentColor }}
-                         />
-                         <span className="text-[var(--text-secondary)] text-sm sm:text-base">{feature}</span>
-                       </div>
-                     ))}
-                   </div>
-                 </div>
+                      const logoUrl = getToolLogo(tool)
 
-                 {/* Mobile Visit Site Button */}
-                 <div className="pt-4">
-                   <a
-                     href={projects[selectedProject].details.liveUrl}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-4 rounded-full text-base font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                     style={{
-                       backgroundColor: projects[selectedProject].accentColor,
-                       boxShadow: `0 8px 25px ${projects[selectedProject].accentColor}40`
-                     }}
-                   >
-                     <span>Visit Website</span>
-                     <ArrowUpRight size={18} />
-                   </a>
-                 </div>
-               </div>
-             </div>
+                      return (
+                        <span
+                          key={index}
+                          className="px-3 py-2 rounded-full text-sm font-medium flex items-center gap-2"
+                          style={{
+                            backgroundColor: `${projects[selectedProject].accentColor}15`,
+                            color: projects[selectedProject].accentColor,
+                            border: `1px solid ${projects[selectedProject].accentColor}30`
+                          }}
+                        >
+                          {logoUrl && (
+                            <img
+                              src={logoUrl}
+                              alt={`${tool} logo`}
+                              className="w-4 h-4 rounded-sm"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none'
+                              }}
+                            />
+                          )}
+                          {tool}
+                        </span>
+                      )
+                    })}
+                  </div>
+                </div>
 
-             {/* Desktop Layout */}
-             <div className="hidden lg:flex flex-1 overflow-hidden">
-               {/* Left Side - Project Details with Style Guide */}
-               <div className="w-1/2 p-20 flex flex-col justify-center overflow-y-auto">
+                {/* Mobile Features */}
+                <div className="space-y-4">
+                  <h3 className="text-lg sm:text-xl font-light text-[var(--text-primary)]">Key Features</h3>
+                  <div className="space-y-2">
+                    {projects[selectedProject].details.features.map((feature, index) => (
+                      <div key={index} className="flex items-center gap-3">
+                        <div
+                          className="w-2 h-2 rounded-full flex-shrink-0"
+                          style={{ backgroundColor: projects[selectedProject].accentColor }}
+                        />
+                        <span className="text-[var(--text-secondary)] text-sm sm:text-base">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Mobile Visit Site Button */}
+                <div className="pt-4">
+                  <a
+                    href={projects[selectedProject].details.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-4 rounded-full text-base font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                    style={{
+                      backgroundColor: projects[selectedProject].accentColor,
+                      boxShadow: `0 8px 25px ${projects[selectedProject].accentColor}40`
+                    }}
+                  >
+                    <span>Visit Website</span>
+                    <ArrowUpRight size={18} />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Layout */}
+            <div className="hidden lg:flex flex-1 overflow-hidden">
+              {/* Left Side - Project Details with Style Guide */}
+              <div className="w-1/2 p-20 flex flex-col justify-center overflow-y-auto">
                 <div className="max-w-2xl space-y-20">
                   {/* Project Header */}
                   <div className="space-y-12">
@@ -1469,7 +1501,7 @@ export default function Portfolio() {
                         }
 
                         const logoUrl = getToolLogo(tool)
-                        
+
                         return (
                           <span
                             key={index}
@@ -1481,8 +1513,8 @@ export default function Portfolio() {
                             }}
                           >
                             {logoUrl && (
-                              <img 
-                                src={logoUrl} 
+                              <img
+                                src={logoUrl}
                                 alt={`${tool} logo`}
                                 className="w-5 h-5 rounded-sm"
                                 onError={(e) => {
@@ -1510,27 +1542,27 @@ export default function Portfolio() {
                       }}
                     >
                       {/* Animated background gradient */}
-                      <div 
+                      <div
                         className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                         style={{
                           background: `linear-gradient(135deg, ${projects[selectedProject].accentColor}80, ${projects[selectedProject].accentColor}60, ${projects[selectedProject].accentColor}40)`,
                           zIndex: -1
                         }}
                       />
-                      
+
                       {/* Shimmer effect */}
-                      <div 
+                      <div
                         className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 shimmer"
                         style={{
                           background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)`,
                           zIndex: 1
                         }}
                       />
-                      
+
                       <span className="relative z-10">Visit Live Site</span>
                       <motion.div
                         className="w-5 h-5 flex items-center justify-center relative z-10"
-                        animate={{ 
+                        animate={{
                           x: [0, 3, 0],
                           y: [0, -2, 0],
                           rotate: [0, 5, -5, 0]
@@ -1543,9 +1575,9 @@ export default function Portfolio() {
                       >
                         <ExternalLink size={16} />
                       </motion.div>
-                      
+
                       {/* Pulsing glow effect */}
-                      <div 
+                      <div
                         className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{
                           background: `radial-gradient(circle at center, ${projects[selectedProject].accentColor}50, transparent 70%)`,
@@ -1559,73 +1591,73 @@ export default function Portfolio() {
                 </div>
               </div>
 
-                             {/* Right Side - Visual Showcase */}
-               <div className="w-1/2 bg-[var(--card)] overflow-y-auto flex items-start justify-center">
-                 <div className="w-full max-w-none">
-                   {/* Full Website Screenshot - Single scrollable image */}
-                   {projects[selectedProject].details.fullWebsiteImage ? (
-                     <div className="w-full h-full">
-                       <img
-                         src={projects[selectedProject].details.fullWebsiteImage}
-                         alt={`${projects[selectedProject].title} - Complete Website`}
-                         className="w-full h-auto object-contain min-h-full"
-                         style={{ objectFit: 'contain' }}
-                       />
-                     </div>
-                   ) : (
-                     /* Regular project images for other projects */
-                     <div className="p-16 w-full max-w-2xl mx-auto space-y-8">
-                       <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-[var(--background)] shadow-2xl group">
-                         <img
-                           src={projects[selectedProject].details.image}
-                           alt={projects[selectedProject].title}
-                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                         />
-                         <div 
-                           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                           style={{
-                             background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
-                           }}
-                         />
-                       </div>
-                       
-                       <div className="grid grid-cols-2 gap-6">
-                         <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
-                           <img
-                             src={projects[selectedProject].details.image}
-                             alt={`${projects[selectedProject].title} detail 1`}
-                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                           />
-                           <div 
-                             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                             style={{
-                               background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
-                             }}
-                           />
-                         </div>
-                         <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
-                           <img
-                             src={projects[selectedProject].details.image}
-                             alt={`${projects[selectedProject].title} detail 2`}
-                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                           />
-                           <div 
-                             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                             style={{
-                               background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
-                             }}
-                           />
-                         </div>
-                       </div>
-                     </div>
-                   )}
-                 </div>
-               </div>
+              {/* Right Side - Visual Showcase */}
+              <div className="w-1/2 bg-[var(--card)] overflow-y-auto flex items-start justify-center">
+                <div className="w-full max-w-none">
+                  {/* Full Website Screenshot - Single scrollable image */}
+                  {projects[selectedProject].details.fullWebsiteImage ? (
+                    <div className="w-full h-full">
+                      <img
+                        src={projects[selectedProject].details.fullWebsiteImage}
+                        alt={`${projects[selectedProject].title} - Complete Website`}
+                        className="w-full h-auto object-contain min-h-full"
+                        style={{ objectFit: 'contain' }}
+                      />
+                    </div>
+                  ) : (
+                    /* Regular project images for other projects */
+                    <div className="p-16 w-full max-w-2xl mx-auto space-y-8">
+                      <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-[var(--background)] shadow-2xl group">
+                        <img
+                          src={projects[selectedProject].details.image}
+                          alt={projects[selectedProject].title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          style={{
+                            background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                          }}
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-6">
+                        <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
+                          <img
+                            src={projects[selectedProject].details.image}
+                            alt={`${projects[selectedProject].title} detail 1`}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          <div
+                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            style={{
+                              background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                            }}
+                          />
+                        </div>
+                        <div className="aspect-square rounded-2xl overflow-hidden bg-[var(--background)] shadow-xl group">
+                          <img
+                            src={projects[selectedProject].details.image}
+                            alt={`${projects[selectedProject].title} detail 2`}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          <div
+                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            style={{
+                              background: `linear-gradient(to bottom, transparent 50%, ${projects[selectedProject].accentColor}20)`
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
+    
   )
 }
