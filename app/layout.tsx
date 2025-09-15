@@ -51,13 +51,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${inter.className} ${outfit.variable} ${geistMono.variable} ${montserrat.variable} ${jetbrainsMono.variable} ${sora.variable} ${plusJakartaSans.variable} ${playfairDisplay.variable}`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange={false}
+          forcedTheme="dark"
         >
           {children}
         </ThemeProvider>

@@ -920,8 +920,8 @@ export default function Portfolio() {
                     <button
                       onClick={() => setDisplayMode('landings')}
                       className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-medium transition-all duration-300 ${displayMode === 'landings'
-                          ? 'bg-[var(--text-primary)] text-[var(--background)] shadow-lg'
-                          : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                        ? 'bg-[var(--text-primary)] text-[var(--background)] shadow-lg'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                         }`}
                     >
                       Landings
@@ -929,8 +929,8 @@ export default function Portfolio() {
                     <button
                       onClick={() => setDisplayMode('logos')}
                       className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-medium transition-all duration-300 ${displayMode === 'logos'
-                          ? 'bg-[var(--text-primary)] text-[var(--background)] shadow-lg'
-                          : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                        ? 'bg-[var(--text-primary)] text-[var(--background)] shadow-lg'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                         }`}
                     >
                       Logos
@@ -959,13 +959,13 @@ export default function Portfolio() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               className={`grid gap-4 sm:gap-6 mt-8 sm:mt-10 md:mt-12 ${displayMode === 'logos'
-                  ? 'grid-cols-2'
-                  : 'grid-cols-1 sm:grid-cols-2'
+                ? 'grid-cols-2'
+                : 'grid-cols-1 sm:grid-cols-2'
                 }`}
             >
-               {projects.filter((project, index) =>
-                 displayMode === 'landings' ? index < 7 : (project.index === "01" || project.index === "02" || project.index === "03" || project.index === "04" || project.index === "05" || project.index === "06")
-               ).map((project, index) => (
+              {projects.filter((project, index) =>
+                displayMode === 'landings' ? index < 7 : (project.index === "02" || project.index === "04" || project.index === "06")
+              ).map((project, index) => (
                 <motion.div
                   key={index}
                   className="w-full"
@@ -1002,23 +1002,23 @@ export default function Portfolio() {
                         }`}
                       style={{
                         borderColor: project.accentColor + '30',
-                         background: displayMode === 'landings'
-                           ? (project.title === "Work in Progress"
-                             ? `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
-                             : project.index === "01"
-                               ? `url('/landings/hero insightx AI.png') center/cover no-repeat`
-                               : project.index === "02"
-                                 ? `url('/landings/hero_eevolution.png') center/cover no-repeat`
-                                 : project.index === "03"
-                                   ? `url('/landings/hero_aimee.png') center/cover no-repeat`
-                                   : project.index === "04"
-                                     ? `url('/landings/hero_spotly.png') center/cover no-repeat`
-                                     : project.index === "05"
-                                       ? `url('/landings/hero_doze.png') center/cover no-repeat`
-                                       : project.index === "06"
-                                         ? `url('/landings/acme_hero.png') center/cover no-repeat`
-                                         : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`)
-                           : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
+                        background: displayMode === 'landings'
+                          ? (project.title === "Work in Progress"
+                            ? `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
+                            : project.index === "01"
+                              ? `url('/landings/hero insightx AI.png') center/cover no-repeat`
+                              : project.index === "02"
+                                ? `url('/landings/hero_eevolution.png') center/cover no-repeat`
+                                : project.index === "03"
+                                  ? `url('/landings/hero_aimee.png') center/cover no-repeat`
+                                  : project.index === "04"
+                                    ? `url('/landings/hero_spotly.png') center/cover no-repeat`
+                                    : project.index === "05"
+                                      ? `url('/landings/hero_doze.png') center/cover no-repeat`
+                                      : project.index === "06"
+                                        ? `url('/landings/acme_hero.png') center/cover no-repeat`
+                                        : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`)
+                          : `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)`
                       }}
                     >
                       {/* Subtle accent overlay */}
@@ -1047,21 +1047,7 @@ export default function Portfolio() {
                       {/* Logo Display Mode */}
                       {displayMode === 'logos' && (
                         <div className="w-full h-full flex items-center justify-center relative group">
-                          {project.index === "01" ? (
-                            <>
-                              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg">
-                                <span className="text-white font-bold text-2xl">AI</span>
-                              </div>
-                              {/* Cursor-style tooltip */}
-                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
-                                 style={{
-                                   background: project.accentColor,
-                                   border: `1px solid ${project.accentColor}80`,
-                                 }}>
-                                Insightix AI
-                              </div>
-                            </>
-                          ) : project.index === "02" ? (
+                          {project.index === "02" ? (
                             <>
                               <img
                                 src="/logos/Eevolution logo.png"
@@ -1070,25 +1056,11 @@ export default function Portfolio() {
                               />
                               {/* Cursor-style tooltip */}
                               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
-                                 style={{
-                                   background: project.accentColor,
-                                   border: `1px solid ${project.accentColor}80`,
-                                 }}>
+                                style={{
+                                  background: project.accentColor,
+                                  border: `1px solid ${project.accentColor}80`,
+                                }}>
                                 Eevolution
-                              </div>
-                            </>
-                          ) : project.index === "03" ? (
-                            <>
-                              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-500 to-green-600 rounded-lg">
-                                <span className="text-white font-bold text-2xl">A</span>
-                              </div>
-                              {/* Cursor-style tooltip */}
-                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
-                                 style={{
-                                   background: project.accentColor,
-                                   border: `1px solid ${project.accentColor}80`,
-                                 }}>
-                                Aimee
                               </div>
                             </>
                           ) : project.index === "04" ? (
@@ -1100,25 +1072,11 @@ export default function Portfolio() {
                               />
                               {/* Cursor-style tooltip */}
                               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
-                                 style={{
-                                   background: project.accentColor,
-                                   border: `1px solid ${project.accentColor}80`,
-                                 }}>
+                                style={{
+                                  background: project.accentColor,
+                                  border: `1px solid ${project.accentColor}80`,
+                                }}>
                                 Spotly
-                              </div>
-                            </>
-                          ) : project.index === "05" ? (
-                            <>
-                              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-red-500 to-red-600 rounded-lg">
-                                <span className="text-white font-bold text-2xl">D</span>
-                              </div>
-                              {/* Cursor-style tooltip */}
-                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
-                                 style={{
-                                   background: project.accentColor,
-                                   border: `1px solid ${project.accentColor}80`,
-                                 }}>
-                                Doze
                               </div>
                             </>
                           ) : project.index === "06" ? (
@@ -1130,10 +1088,10 @@ export default function Portfolio() {
                               />
                               {/* Cursor-style tooltip */}
                               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg backdrop-blur-sm"
-                                 style={{
-                                   background: project.accentColor,
-                                   border: `1px solid ${project.accentColor}80`,
-                                 }}>
+                                style={{
+                                  background: project.accentColor,
+                                  border: `1px solid ${project.accentColor}80`,
+                                }}>
                                 Acme Health
                               </div>
                             </>
@@ -1240,9 +1198,9 @@ export default function Portfolio() {
                       </span>
                     </div>
                   </div>
-                   <div className="w-1/2 flex justify-center">
-                     {/* Empty space - View Live button removed */}
-                   </div>
+                  <div className="w-1/2 flex justify-center">
+                    {/* Empty space - View Live button removed */}
+                  </div>
                 </div>
               </div>
             </div>
@@ -1252,10 +1210,13 @@ export default function Portfolio() {
               <div className="p-4 sm:p-6 space-y-6 sm:space-y-8">
                 {/* Mobile Project Header */}
                 <div className="space-y-4">
-                  <div
-                    className="w-12 h-1 rounded-full"
-                    style={{ backgroundColor: projects[selectedProject].accentColor }}
-                  />
+                  <div className="relative w-12 h-1 rounded-full overflow-hidden">
+                    <div
+                      className="w-full h-full rounded-full"
+                      style={{ backgroundColor: projects[selectedProject].accentColor }}
+                    />
+                    <div className="absolute inset-0 rounded-full glass-shine-separator"></div>
+                  </div>
                   <h1 className="text-3xl sm:text-4xl font-light text-[var(--text-primary)] leading-tight">
                     {projects[selectedProject].title}
                   </h1>
@@ -1344,32 +1305,32 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                 {/* Mobile Visit Site Button */}
-                 <div className="pt-4">
-                   <a
-                     href={projects[selectedProject].details.liveUrl}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-4 rounded-full text-base font-medium text-white transition-all duration-300 hover:scale-105 overflow-hidden"
-                     style={{
-                       backgroundColor: projects[selectedProject].accentColor,
-                       boxShadow: `0 8px 25px ${projects[selectedProject].accentColor}40`
-                     }}
-                   >
-                     {/* Shine animation on hover */}
-                     <div 
-                       className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
-                       style={{
-                         background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent)`,
-                         transform: 'translateX(-100%)',
-                         animation: 'shine 0.8s ease-out'
-                       }}
-                     />
-                     
-                     <span className="relative z-10">Visit Website</span>
-                     <ArrowUpRight size={18} />
-                   </a>
-                 </div>
+                {/* Mobile Visit Site Button */}
+                <div className="pt-4">
+                  <a
+                    href={projects[selectedProject].details.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-4 rounded-full text-base font-medium text-white transition-all duration-300 hover:scale-105 overflow-hidden"
+                    style={{
+                      backgroundColor: projects[selectedProject].accentColor,
+                      boxShadow: `0 8px 25px ${projects[selectedProject].accentColor}40`
+                    }}
+                  >
+                    {/* Shine animation on hover */}
+                    <div
+                      className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
+                      style={{
+                        background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent)`,
+                        transform: 'translateX(-100%)',
+                        animation: 'shine 0.8s ease-out'
+                      }}
+                    />
+
+                    <span className="relative z-10">Visit Website</span>
+                    <ArrowUpRight size={18} />
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -1381,10 +1342,13 @@ export default function Portfolio() {
                   <div className="max-w-4xl mx-auto text-center space-y-16">
                     {/* Project Header */}
                     <div className="space-y-8">
-                      <div
-                        className="w-24 h-1 rounded-full mx-auto"
-                        style={{ backgroundColor: projects[selectedProject].accentColor }}
-                      />
+                      <div className="relative w-24 h-1 rounded-full mx-auto overflow-hidden">
+                        <div
+                          className="w-full h-full rounded-full"
+                          style={{ backgroundColor: projects[selectedProject].accentColor }}
+                        />
+                        <div className="absolute inset-0 rounded-full glass-shine-separator"></div>
+                      </div>
                       <h1 className="text-8xl font-light text-[var(--text-primary)] leading-none">
                         {projects[selectedProject].title}
                       </h1>
@@ -1490,18 +1454,18 @@ export default function Portfolio() {
                         }}
                       >
                         {/* Enhanced shine animation on hover */}
-                        <div 
+                        <div
                           className="absolute inset-0 rounded-2xl shine-overlay"
                           style={{
                             background: `linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%)`,
                             transform: 'translateX(-100%)'
                           }}
                         />
-                        
+
                         <span className="relative z-10">Visit Live Site</span>
                         <motion.div
                           className="w-5 h-5 flex items-center justify-center relative z-10"
-                          animate={{ 
+                          animate={{
                             x: [0, 3, 0],
                             y: [0, -2, 0],
                             rotate: [0, 5, -5, 0]
@@ -1532,7 +1496,7 @@ export default function Portfolio() {
                             ease: "easeInOut"
                           }}
                         >
-                          <div 
+                          <div
                             className="w-12 h-12 rounded-full border-2 flex items-center justify-center"
                             style={{
                               borderColor: projects[selectedProject].accentColor,
@@ -1553,10 +1517,10 @@ export default function Portfolio() {
                             </svg>
                           </div>
                         </motion.div>
-                        
+
                         {/* Text */}
                         <div className="text-sm font-medium tracking-wide"
-                             style={{ color: projects[selectedProject].accentColor }}>
+                          style={{ color: projects[selectedProject].accentColor }}>
                           Scroll to view
                         </div>
                       </div>
@@ -1641,6 +1605,6 @@ export default function Portfolio() {
         )}
       </div>
     </div>
-    
+
   )
 }

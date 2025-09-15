@@ -4,16 +4,6 @@
 
 @layer base {
   :root {
-    --background: #fafafa;
-    --foreground: #111111;
-    --text-primary: #111111;
-    --text-secondary: #444444;
-    --text-tertiary: #666666;
-    --border: #e2e8f0;
-    --card: #ffffff;
-  }
-
-  .dark {
     --background: #0a0a0a;
     --foreground: #fafafa;
     --text-primary: #fafafa;
@@ -317,6 +307,33 @@ body {
     100% {
       background-position: 
         0% 0%, 100% 0%, 50% 50%, 0% 100%, 50% 50%, 0% 0%;
+    }
+  }
+
+  /* Rainbow gradient separator - like the image */
+  .glass-shine-separator {
+    background: linear-gradient(
+      90deg,
+      #ff0000 0%,
+      #ff8000 14.28%,
+      #ffff00 28.57%,
+      #00ff00 42.85%,
+      #0080ff 57.14%,
+      #8000ff 71.42%,
+      #ff0080 85.71%,
+      #ff0000 100%
+    );
+    background-size: 300% 100%;
+    animation: rainbowFlow 3s linear infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes rainbowFlow {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 300% 0%;
     }
   }
 
