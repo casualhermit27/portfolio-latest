@@ -295,26 +295,40 @@ function PortfolioContent() {
         }
       })
 
-      // Mobile-optimized animation sequence
+      // Simplified mobile animations
       const isMobile = window.innerWidth < 768
-      const duration = isMobile ? 0.2 : 0.3
-      const ease = isMobile ? "power1.out" : "power2.out"
-
-      tl.to(mainContentRef.current, {
-        y: isMobile ? "-2%" : "-5%",
-        scale: isMobile ? 0.995 : 0.99,
-        autoAlpha: 0,
-        duration: duration,
-        ease: ease,
-        force3D: true
-      })
-        .to(projectDetailsRef.current, {
-          y: "0%",
-          autoAlpha: 1,
-          duration: duration,
-          ease: ease,
+      
+      if (isMobile) {
+        // Simple mobile animations - no complex transforms
+        tl.to(mainContentRef.current, {
+          autoAlpha: 0,
+          duration: 0.2,
+          ease: "power2.out"
+        })
+          .to(projectDetailsRef.current, {
+            y: "0%",
+            autoAlpha: 1,
+            duration: 0.2,
+            ease: "power2.out"
+          }, "-=0.1")
+      } else {
+        // Desktop animations with full effects
+        tl.to(mainContentRef.current, {
+          y: "-5%",
+          scale: 0.99,
+          autoAlpha: 0,
+          duration: 0.3,
+          ease: "power2.out",
           force3D: true
-        }, "-=0.1") // Reduced overlap for mobile
+        })
+          .to(projectDetailsRef.current, {
+            y: "0%",
+            autoAlpha: 1,
+            duration: 0.3,
+            ease: "power2.out",
+            force3D: true
+          }, "-=0.2")
+      }
     }
   }
 
@@ -339,26 +353,39 @@ function PortfolioContent() {
         }
       })
 
-      // Mobile-optimized close animation
+      // Simplified mobile close animation
       const isMobile = window.innerWidth < 768
-      const duration = isMobile ? 0.2 : 0.3
-      const ease = isMobile ? "power1.in" : "power2.in"
-
-      tl.to(projectDetailsRef.current, {
-        y: "100%",
-        autoAlpha: 0,
-        duration: duration,
-        ease: ease,
-        force3D: true
-      })
-        .to(mainContentRef.current, {
-          y: "0%",
-          scale: 1,
-          autoAlpha: 1,
-          duration: duration,
-          ease: "power2.out",
+      
+      if (isMobile) {
+        // Simple mobile close - no complex transforms
+        tl.to(projectDetailsRef.current, {
+          autoAlpha: 0,
+          duration: 0.2,
+          ease: "power2.out"
+        })
+          .to(mainContentRef.current, {
+            autoAlpha: 1,
+            duration: 0.2,
+            ease: "power2.out"
+          }, "-=0.1")
+      } else {
+        // Desktop close with full effects
+        tl.to(projectDetailsRef.current, {
+          y: "100%",
+          autoAlpha: 0,
+          duration: 0.3,
+          ease: "power2.in",
           force3D: true
-        }, "-=0.1") // Reduced overlap for mobile
+        })
+          .to(mainContentRef.current, {
+            y: "0%",
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.3,
+            ease: "power2.out",
+            force3D: true
+          }, "-=0.2")
+      }
     }
   }
 
@@ -441,30 +468,50 @@ function PortfolioContent() {
       gsap.set(titleRef.current, { opacity: 1 })
       gsap.set(subtitleRef.current, { opacity: 0, y: 20 })
 
-      // Mobile-optimized but identical animations
+      // Simplified mobile animations
       const isMobile = window.innerWidth < 768
-      const titleDuration = isMobile ? 0.35 : 0.4
-      const subtitleDuration = isMobile ? 0.25 : 0.3
-
-      tl.to(titleLines, {
-        y: 0,
-        duration: titleDuration,
-        ease: "back.out(1.7)",
-        stagger: 0.05,
-        delay: 0.1,
-        force3D: true
-      })
-        .to(subtitleRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: subtitleDuration,
-            ease: "power2.out",
-            force3D: true
-          },
-          "-=0.2"
-        )
-        .call(() => {
+      
+      if (isMobile) {
+        // Simple mobile animations - no complex easing
+        tl.to(titleLines, {
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out",
+          stagger: 0.1,
+          delay: 0.1
+        })
+          .to(subtitleRef.current,
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.2,
+              ease: "power2.out"
+            },
+            "-=0.1"
+          )
+      } else {
+        // Desktop animations with full effects
+        tl.to(titleLines, {
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(1.7)",
+          stagger: 0.05,
+          delay: 0.1,
+          force3D: true
+        })
+          .to(subtitleRef.current,
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+              force3D: true
+            },
+            "-=0.2"
+          )
+      }
+      
+      tl.call(() => {
           // Smooth continuous animation - no vanishing/coming back
           const words = [engineerWord, frontendWord, aiWord, speedWord, uxWord]
           const colors = ["#2563EB", "#10B981", "#EF4444"]
@@ -484,79 +531,92 @@ function PortfolioContent() {
           // Smooth color transition animation with proper timing
           const colorTl = gsap.timeline({ repeat: -1 })
 
-          // Mobile-optimized durations but same visual effect
-          const colorDuration = isMobile ? 1.8 : 2.0
-          const gapDuration = isMobile ? 0.8 : 1.0
+          if (isMobile) {
+            // Simple mobile word animations - no complex effects
+            gsap.to(words, {
+              color: colors[0], // Blue
+              textShadow: `0 0 8px ${colors[0]}30`,
+              duration: 2.0,
+              ease: "power2.inOut",
+              repeat: -1,
+              yoyo: true,
+              stagger: 0.2
+            })
+          } else {
+            // Desktop word animations with full effects
+            const colorDuration = 2.0
+            const gapDuration = 1.0
 
-          // Blue - 2 seconds
-          colorTl.to(words, {
-            color: colors[0], // Blue
-            textShadow: `0 0 12px ${colors[0]}40`,
-            duration: colorDuration,
-            ease: "power2.inOut",
-            stagger: {
-              each: 0.1,
-              from: "start"
-            },
-            force3D: true
-          })
+            // Blue - 2 seconds
+            colorTl.to(words, {
+              color: colors[0], // Blue
+              textShadow: `0 0 12px ${colors[0]}40`,
+              duration: colorDuration,
+              ease: "power2.inOut",
+              stagger: {
+                each: 0.1,
+                from: "start"
+              },
+              force3D: true
+            })
 
-          // Green - 2 seconds  
-          colorTl.to(words, {
-            color: colors[1], // Green
-            textShadow: `0 0 12px ${colors[1]}40`,
-            duration: colorDuration,
-            ease: "power2.inOut",
-            stagger: {
-              each: 0.1,
-              from: "start"
-            },
-            force3D: true
-          })
+            // Green - 2 seconds  
+            colorTl.to(words, {
+              color: colors[1], // Green
+              textShadow: `0 0 12px ${colors[1]}40`,
+              duration: colorDuration,
+              ease: "power2.inOut",
+              stagger: {
+                each: 0.1,
+                from: "start"
+              },
+              force3D: true
+            })
 
-          // Red - 2 seconds
-          colorTl.to(words, {
-            color: colors[2], // Red
-            textShadow: `0 0 12px ${colors[2]}40`,
-            duration: colorDuration,
-            ease: "power2.inOut",
-            stagger: {
-              each: 0.1,
-              from: "start"
-            },
-            force3D: true
-          })
+            // Red - 2 seconds
+            colorTl.to(words, {
+              color: colors[2], // Red
+              textShadow: `0 0 12px ${colors[2]}40`,
+              duration: colorDuration,
+              ease: "power2.inOut",
+              stagger: {
+                each: 0.1,
+                from: "start"
+              },
+              force3D: true
+            })
 
-          // Gap - 1 second pause so red stays at full clarity
-          colorTl.to({}, { duration: gapDuration })
+            // Gap - 1 second pause so red stays at full clarity
+            colorTl.to({}, { duration: gapDuration })
 
-          // Subtle floating animation - continuous gentle movement
-          gsap.to(words, {
-            y: -2,
-            duration: isMobile ? 2.2 : 2.5,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-            stagger: {
-              each: 0.2,
-              from: "random"
-            },
-            force3D: true
-          })
+            // Subtle floating animation - continuous gentle movement
+            gsap.to(words, {
+              y: -2,
+              duration: 2.5,
+              ease: "sine.inOut",
+              repeat: -1,
+              yoyo: true,
+              stagger: {
+                each: 0.2,
+                from: "random"
+              },
+              force3D: true
+            })
 
-          // Gentle scale pulsing - very subtle
-          gsap.to(words, {
-            scale: 1.02,
-            duration: isMobile ? 2.8 : 3,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-            stagger: {
-              each: 0.3,
-              from: "random"
-            },
-            force3D: true
-          })
+            // Gentle scale pulsing - very subtle
+            gsap.to(words, {
+              scale: 1.02,
+              duration: 3,
+              ease: "sine.inOut",
+              repeat: -1,
+              yoyo: true,
+              stagger: {
+                each: 0.3,
+                from: "random"
+              },
+              force3D: true
+            })
+          }
 
           // Add hover interactions (desktop only)
           if (!isMobile) {
@@ -743,33 +803,31 @@ function PortfolioContent() {
                 >
                   <motion.span
                     className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
-                    animate={{
+                    animate={isMobile ? {} : {
                       y: [0, -1, 0],
                       scale: [1, 1.01, 1]
                     }}
-                    transition={{
+                    transition={isMobile ? {} : {
                       duration: 6,
                       repeat: -1,
                       ease: "easeInOut"
                     }}
-                    whileHover={{
+                    whileHover={isMobile ? {} : {
                       scale: 1.05,
                       y: -3,
                       rotate: 1,
                       color: "#2563EB",
                       textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
                       transition: {
-                        type: "spring",
-                        stiffness: isMobile ? 400 : 300,
-                        damping: isMobile ? 25 : 20
+                        duration: 0.1,
+                        ease: "easeOut"
                       }
                     }}
                     whileTap={{
                       scale: 0.98,
                       transition: {
-                        type: "spring",
-                        stiffness: isMobile ? 400 : 300,
-                        damping: isMobile ? 25 : 20
+                        duration: 0.1,
+                        ease: "easeOut"
                       }
                     }}
                   >
@@ -777,34 +835,32 @@ function PortfolioContent() {
                   </motion.span> focused on building sharp{' '}
                   <motion.span
                     className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
-                    animate={{
+                    animate={isMobile ? {} : {
                       y: [0, -1, 0],
                       scale: [1, 1.01, 1]
                     }}
-                    transition={{
+                    transition={isMobile ? {} : {
                       duration: 4,
                       repeat: -1,
                       ease: "easeInOut",
                       delay: 0.5
                     }}
-                    whileHover={{
+                    whileHover={isMobile ? {} : {
                       scale: 1.05,
                       y: -3,
                       rotate: 1,
                       color: "#10B981",
                       textShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
                       transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20
+                        duration: 0.1,
+                        ease: "easeOut"
                       }
                     }}
                     whileTap={{
                       scale: 0.98,
                       transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20
+                        duration: 0.1,
+                        ease: "easeOut"
                       }
                     }}
                   >
@@ -829,17 +885,15 @@ function PortfolioContent() {
                       color: "#EF4444",
                       textShadow: "0 0 12px rgba(239, 68, 68, 0.4)",
                       transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20
+                        duration: 0.1,
+                        ease: "easeOut"
                       }
                     }}
                     whileTap={{
                       scale: 0.98,
                       transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20
+                        duration: 0.1,
+                        ease: "easeOut"
                       }
                     }}
                   >
@@ -864,17 +918,15 @@ function PortfolioContent() {
                       color: "#2563EB",
                       textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
                       transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20
+                        duration: 0.1,
+                        ease: "easeOut"
                       }
                     }}
                     whileTap={{
                       scale: 0.98,
                       transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20
+                        duration: 0.1,
+                        ease: "easeOut"
                       }
                     }}
                   >
@@ -899,17 +951,15 @@ function PortfolioContent() {
                       color: "#10B981",
                       textShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
                       transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20
+                        duration: 0.1,
+                        ease: "easeOut"
                       }
                     }}
                     whileTap={{
                       scale: 0.98,
                       transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20
+                        duration: 0.1,
+                        ease: "easeOut"
                       }
                     }}
                   >
