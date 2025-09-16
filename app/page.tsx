@@ -56,8 +56,8 @@ const projects = [
     type: "AI Meeting Assistant",
     description: "AI-powered meeting notes and summaries",
     index: "03",
-    hoverColor: "bg-[#E8F5F0]", // Light green
-    accentColor: "#10B981", // Green
+    hoverColor: "bg-[#F3E8FF]", // Light purple
+    accentColor: "#8B5CF6", // Purple
     details: {
       overview:
         "An intelligent AI meeting assistant that automatically captures notes, generates summaries, and extracts action items from your conversations. Focus on the discussion while Aimee handles the documentation.",
@@ -611,38 +611,7 @@ function PortfolioContent() {
             })
           }
 
-          // Add hover interactions (desktop only)
-          if (!isMobile) {
-            words.forEach((word, index) => {
-              if (word) {
-                word.addEventListener('mouseenter', () => {
-                  gsap.to(word, {
-                    scale: 1.08,
-                    y: -4,
-                    rotation: 1,
-                    color: colors[index],
-                    textShadow: `0 0 20px ${colors[index]}60`,
-                    duration: 0.4,
-                    ease: "power2.out",
-                    force3D: true
-                  })
-                })
-
-                word.addEventListener('mouseleave', () => {
-                  gsap.to(word, {
-                    scale: 1,
-                    y: 0,
-                    rotation: 0,
-                    color: "var(--text-primary)",
-                    textShadow: "none",
-                    duration: 0.4,
-                    ease: "power2.out",
-                    force3D: true
-                  })
-                })
-              }
-            })
-          }
+          // Hover interactions removed - words only animate with color cycling
         })
     }
   }, [isLoading])
@@ -802,12 +771,12 @@ function PortfolioContent() {
                   className="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed font-normal transition-colors duration-300"
                 >
                   {isMobile ? (
-                    <span className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer mobile-simple">
+                    <span className="inline-block font-light italic text-[var(--text-primary)] relative mobile-simple">
                       Engineer + Designer
                     </span>
                   ) : (
                     <motion.span
-                      className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                      className="inline-block font-light italic text-[var(--text-primary)] relative"
                       animate={{
                         y: [0, -1, 0],
                         scale: [1, 1.01, 1]
@@ -817,35 +786,17 @@ function PortfolioContent() {
                         repeat: -1,
                         ease: "easeInOut"
                       }}
-                      whileHover={{
-                        scale: 1.05,
-                        y: -3,
-                        rotate: 1,
-                        color: "#2563EB",
-                        textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
-                        transition: {
-                          duration: 0.1,
-                          ease: "easeOut"
-                        }
-                      }}
-                      whileTap={{
-                        scale: 0.98,
-                        transition: {
-                          duration: 0.1,
-                          ease: "easeOut"
-                        }
-                      }}
                     >
                       Engineer + Designer
                     </motion.span>
                   )} focused on building sharp{' '}
                   {isMobile ? (
-                    <span className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer mobile-simple">
+                    <span className="inline-block font-light italic text-[var(--text-primary)] relative mobile-simple">
                       frontends
                     </span>
                   ) : (
                     <motion.span
-                      className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                      className="inline-block font-light italic text-[var(--text-primary)] relative"
                       animate={{
                         y: [0, -1, 0],
                         scale: [1, 1.01, 1]
@@ -856,35 +807,17 @@ function PortfolioContent() {
                         ease: "easeInOut",
                         delay: 0.5
                       }}
-                      whileHover={{
-                        scale: 1.05,
-                        y: -3,
-                        rotate: 1,
-                        color: "#10B981",
-                        textShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
-                        transition: {
-                          duration: 0.1,
-                          ease: "easeOut"
-                        }
-                      }}
-                      whileTap={{
-                        scale: 0.98,
-                        transition: {
-                          duration: 0.1,
-                          ease: "easeOut"
-                        }
-                      }}
                     >
                       frontends
                     </motion.span>
                   )} and{' '}
                   {isMobile ? (
-                    <span className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer mobile-simple">
+                    <span className="inline-block font-light italic text-[var(--text-primary)] relative mobile-simple">
                       AI-powered tools
                     </span>
                   ) : (
                     <motion.span
-                      className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                      className="inline-block font-light italic text-[var(--text-primary)] relative"
                       animate={{
                         y: [0, -1, 0],
                         scale: [1, 1.01, 1]
@@ -895,35 +828,17 @@ function PortfolioContent() {
                         ease: "easeInOut",
                         delay: 1
                       }}
-                      whileHover={{
-                        scale: 1.05,
-                        y: -3,
-                        rotate: 1,
-                        color: "#EF4444",
-                        textShadow: "0 0 12px rgba(239, 68, 68, 0.4)",
-                        transition: {
-                          duration: 0.1,
-                          ease: "easeOut"
-                        }
-                      }}
-                      whileTap={{
-                        scale: 0.98,
-                        transition: {
-                          duration: 0.1,
-                          ease: "easeOut"
-                        }
-                      }}
                     >
                       AI-powered tools
                     </motion.span>
                   )} with{' '}
                   {isMobile ? (
-                    <span className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer mobile-simple">
+                    <span className="inline-block font-light italic text-[var(--text-primary)] relative mobile-simple">
                       speed
                     </span>
                   ) : (
                     <motion.span
-                      className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                      className="inline-block font-light italic text-[var(--text-primary)] relative"
                       animate={{
                         y: [0, -1, 0],
                         scale: [1, 1.01, 1]
@@ -934,35 +849,17 @@ function PortfolioContent() {
                         ease: "easeInOut",
                         delay: 1.5
                       }}
-                      whileHover={{
-                        scale: 1.05,
-                        y: -3,
-                        rotate: 1,
-                        color: "#2563EB",
-                        textShadow: "0 0 12px rgba(37, 99, 235, 0.4)",
-                        transition: {
-                          duration: 0.1,
-                          ease: "easeOut"
-                        }
-                      }}
-                      whileTap={{
-                        scale: 0.98,
-                        transition: {
-                          duration: 0.1,
-                          ease: "easeOut"
-                        }
-                      }}
                     >
                       speed
                     </motion.span>
                   )},{' '}
                   {isMobile ? (
-                    <span className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer mobile-simple">
+                    <span className="inline-block font-light italic text-[var(--text-primary)] relative mobile-simple">
                       UX clarity
                     </span>
                   ) : (
                     <motion.span
-                      className="inline-block font-light italic text-[var(--text-primary)] relative cursor-pointer"
+                      className="inline-block font-light italic text-[var(--text-primary)] relative"
                       animate={{
                         y: [0, -1, 0],
                         scale: [1, 1.01, 1]
@@ -972,24 +869,6 @@ function PortfolioContent() {
                         repeat: -1,
                         ease: "easeInOut",
                         delay: 2
-                      }}
-                      whileHover={{
-                        scale: 1.05,
-                        y: -3,
-                        rotate: 1,
-                        color: "#10B981",
-                        textShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
-                        transition: {
-                          duration: 0.1,
-                          ease: "easeOut"
-                        }
-                      }}
-                      whileTap={{
-                        scale: 0.98,
-                        transition: {
-                          duration: 0.1,
-                          ease: "easeOut"
-                        }
                       }}
                     >
                       UX clarity
